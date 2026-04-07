@@ -1,0 +1,33 @@
+# Core orchestration and app framework
+langgraph>=0.2.50
+langchain>=0.3.20
+langchain-community>=0.3.20
+
+# ML/NLP stack
+torch>=2.3.0
+transformers>=4.46.0
+accelerate>=1.1.0
+bitsandbytes>=0.44.0
+sentence-transformers>=3.2.1
+datasets>=3.0.0
+faiss-cpu>=1.8.0.post1
+spacy>=3.8.0
+scikit-learn>=1.5.0
+numpy>=1.26.0
+pandas>=2.2.0
+
+# Utilities and CLI
+python-dotenv>=1.0.1
+pydantic>=2.9.0
+typer>=0.15.1
+rich>=13.9.0
+tqdm>=4.66.0
+pyyaml>=6.0.2
+orjson>=3.10.0
+
+# Optional local serving fallback
+ollama>=0.4.0
+
+# Metrics
+evaluate>=0.4.3
+rapidfuzz>=3.10.0
