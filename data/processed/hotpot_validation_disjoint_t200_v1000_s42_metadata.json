@@ -1,0 +1,14 @@
+{
+  "source_split": "validation",
+  "seed": 42,
+  "sizes": {
+    "train": 6205,
+    "validation": 1000,
+    "test": 200
+  },
+  "overlap": {
+    "train_val": 0,
+    "train_test": 0,
+    "val_test": 0
+  }
+}

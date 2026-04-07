@@ -38,13 +38,19 @@ class DynamicKnowledgeGraph:
         """Extract named entities using spaCy, with regex fallback."""
         if self._nlp is not None:
             doc = self._nlp(text)
-            entities = [ent.text.strip() for ent in doc.ents if len(ent.text.strip()) > 2]
+            blocked_labels = {"DATE", "TIME", "MONEY", "PERCENT", "CARDINAL", "ORDINAL", "QUANTITY"}
+            entities = [
+                ent.text.strip()
+                for ent in doc.ents
+                if len(ent.text.strip()) > 2 and ent.label_ not in blocked_labels
+            ]
             if entities:
                 return list(dict.fromkeys(entities))
 
         # Fallback: consecutive title-cased tokens.
         pattern = re.compile(r"\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\b")
         entities = [match.group(1).strip() for match in pattern.finditer(text)]
+        entities = [ent for ent in entities if not re.fullmatch(r"\d+", ent)]
         return list(dict.fromkeys(entities))
 
     def extract_relations(self, text: str, entities: list[str]) -> list[tuple[str, str, str]]:
@@ -53,18 +59,21 @@ class DynamicKnowledgeGraph:
         if len(entities) < 2:
             return triples
 
+        low = text.lower()
         for idx in range(len(entities) - 1):
             src = entities[idx]
             dst = entities[idx + 1]
             relation = "related_to"
-            sentence_window = text[:500]
-            low = sentence_window.lower()
-            if "born" in low:
+            if "born in" in low or "birthplace" in low:
                 relation = "born_in"
-            elif "located" in low or "in " in low:
-                relation = "located_in"
             elif "founded" in low:
                 relation = "founded"
+            elif "directed by" in low:
+                relation = "directed_by"
+            elif "starring" in low or "played by" in low:
+                relation = "played_by"
+            elif "located in" in low or "based in" in low:
+                relation = "located_in"
             triples.append((src, relation, dst))
         return triples
 

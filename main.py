@@ -10,6 +10,9 @@ from dotenv import load_dotenv
 from rich.console import Console
 from rich.table import Table
 
+# Load environment variables before importing modules that initialize SETTINGS.
+load_dotenv()
+
 from src.config import SETTINGS
 from src.pipeline import AgentEnhancedGraphRAG
 from src.utils.data_loader import HotpotExample, load_prepared_subset, prepare_hotpotqa_subset
@@ -27,7 +30,6 @@ def _example_to_dict(example: HotpotExample) -> dict:
 @app.command()
 def prepare_data(subset_size: int = typer.Option(200, help="Number of HotpotQA samples to prepare.")) -> None:
     """Download and preprocess HotpotQA subset."""
-    load_dotenv()
     examples = prepare_hotpotqa_subset(subset_size=subset_size)
     console.print(f"Prepared {len(examples)} samples in data/processed.")
 
@@ -38,7 +40,6 @@ def query(
     sample_index: int = typer.Option(0, help="Dataset sample index used for context passages."),
 ) -> None:
     """Run a single query through full agent pipeline."""
-    load_dotenv()
     examples = load_prepared_subset()
     sample = examples[sample_index]
 
@@ -62,7 +63,6 @@ def evaluate(
     limit: int = typer.Option(0, help="Optional limit for fast testing; 0 = full subset."),
 ) -> None:
     """Run B1, B2, and Agent-Enhanced GraphRAG on HotpotQA subset."""
-    load_dotenv()
     examples = load_prepared_subset(subset_size=subset_size)
     data = [_example_to_dict(item) for item in examples]
     if limit > 0:
@@ -105,7 +105,6 @@ def evaluate(
 @app.command()
 def smoke_test() -> None:
     """Run a short deterministic test on 10 samples (set LLM_BACKEND=mock for speed)."""
-    load_dotenv()
     examples = load_prepared_subset(subset_size=10)
     data = [_example_to_dict(item) for item in examples]
     pipeline = AgentEnhancedGraphRAG()

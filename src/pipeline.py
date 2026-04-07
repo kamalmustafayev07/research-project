@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict
+import re
 from typing import Any, TypedDict
 
 from langgraph.graph import END, START, StateGraph
@@ -85,7 +86,11 @@ class AgentEnhancedGraphRAG:
         }
 
     def _reason(self, state: GraphRAGState) -> GraphRAGState:
-        output = self.reasoner.run(state["question"], state.get("evidence_chain", []))
+        output = self.reasoner.run(
+            state["question"],
+            state.get("evidence_chain", []),
+            selected_passages=state.get("selected_passages", []),
+        )
         return {
             "thoughts": output.thoughts,
             "answer": output.answer,
@@ -123,8 +128,14 @@ class AgentEnhancedGraphRAG:
                 "max_retrieval_loops": SETTINGS.retrieval.max_retrieval_loops,
             }
         )
+        finalized_answer = self._finalize_answer(
+            question=question,
+            raw_answer=result.get("answer", ""),
+            evidence_chain=result.get("evidence_chain", []),
+            selected_passages=result.get("selected_passages", []),
+        )
         return {
-            "answer": result.get("answer", ""),
+            "answer": finalized_answer,
             "confidence": result.get("confidence", 0.0),
             "evidence_chain": result.get("evidence_chain", []),
             "thoughts": result.get("thoughts", []),
@@ -133,6 +144,95 @@ class AgentEnhancedGraphRAG:
             "retrieval_loops": result.get("retrieval_loops", 0),
         }
 
+    def _finalize_answer(
+        self,
+        question: str,
+        raw_answer: Any,
+        evidence_chain: list[dict[str, Any]],
+        selected_passages: list[dict[str, Any]],
+    ) -> str:
+        text = str(raw_answer or "").strip()
+        if not text:
+            return self._fallback_answer(question, evidence_chain, selected_passages)
+
+        parsed = self.llm.extract_json(text)
+        if isinstance(parsed, dict):
+            for key in ["answer", "final_answer", "response"]:
+                candidate = parsed.get(key)
+                if isinstance(candidate, str) and candidate.strip():
+                    text = candidate.strip()
+                    break
+
+        text = text.replace("```json", "").replace("```", "").strip()
+        first_line = next((line.strip() for line in text.splitlines() if line.strip()), "")
+        if first_line:
+            text = first_line
+
+        text = re.sub(r"^(answer\s*:\s*)", "", text, flags=re.IGNORECASE).strip()
+        text = re.sub(
+            r"^(the answer is|it is|based on the evidence[,\s]*)",
+            "",
+            text,
+            flags=re.IGNORECASE,
+        ).strip()
+        text = text.strip(" .\"'")
+
+        options = re.findall(r"\b([A-Z][A-Za-z0-9'\- ]{1,40}?)\s+or\s+([A-Z][A-Za-z0-9'\- ]{1,40}?)\?", question)
+        if options:
+            left, right = options[0]
+            low = text.lower()
+            if left.lower() in low:
+                return left.strip()
+            if right.lower() in low:
+                return right.strip()
+
+        if len(text.split()) > 12:
+            text = re.split(r"[\.;]", text, maxsplit=1)[0].strip()
+
+        if not text or text == "{}":
+            return self._fallback_answer(question, evidence_chain, selected_passages)
+        return text
+
+    def _fallback_answer(
+        self,
+        question: str,
+        evidence_chain: list[dict[str, Any]],
+        selected_passages: list[dict[str, Any]],
+    ) -> str:
+        question_low = question.lower()
+        best_text = ""
+
+        if selected_passages:
+            best_text = str(selected_passages[0].get("text", ""))
+        elif evidence_chain:
+            best_text = str(evidence_chain[0].get("text", ""))
+
+        if not best_text:
+            return ""
+
+        if question_low.startswith("when") or "what year" in question_low:
+            year_match = re.search(r"\b(1[5-9]\d{2}|20\d{2})\b", best_text)
+            if year_match:
+                return year_match.group(1)
+
+        name_match = re.search(r"\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,3})\b", best_text)
+        if name_match:
+            return name_match.group(1)
+
+        return ""
+
+    def _estimate_confidence(self, answer: str, scores: list[float], evidence_count: int) -> float:
+        """Estimate confidence from retrieval/evidence quality and answer completeness."""
+        normalized_scores = [max(0.0, min(1.0, (s + 1.0) / 2.0)) for s in scores]
+        score_signal = (sum(normalized_scores) / len(normalized_scores)) if normalized_scores else 0.0
+
+        token_count = len(answer.split()) if answer else 0
+        answer_signal = min(1.0, token_count / 12.0)
+        evidence_signal = min(1.0, evidence_count / 5.0)
+
+        combined = 0.55 * score_signal + 0.25 * answer_signal + 0.20 * evidence_signal
+        return round(max(0.0, min(1.0, combined)), 4)
+
     def dense_rag_baseline(self, question: str, context_passages: list[dict[str, Any]]) -> dict[str, Any]:
         """Baseline B1: dense retrieval + single-pass answer generation."""
         retrieved = self.retriever.retriever.retrieve(question, context_passages)
@@ -140,13 +240,26 @@ class AgentEnhancedGraphRAG:
             [f"{p['title']}: {p['text'][:400]}" for p in retrieved.selected_passages[:4]]
         )
         prompt = (
-            "Answer the question only using provided passages. Return concise answer.\n"
+            "Answer the question only using provided passages. Return only a short answer span (1-8 words). "
+            "No explanation.\n"
             f"Question: {question}\nPassages:\n{top_context}"
         )
         response = self.llm.generate(prompt)
+        finalized_answer = self._finalize_answer(
+            question=question,
+            raw_answer=response.text,
+            evidence_chain=[],
+            selected_passages=retrieved.selected_passages,
+        )
+        passage_scores = [float(p.get("score", 0.0)) for p in retrieved.selected_passages[:4]]
+        confidence = self._estimate_confidence(
+            answer=finalized_answer,
+            scores=passage_scores,
+            evidence_count=len(retrieved.selected_passages[:4]),
+        )
         return {
-            "answer": response.text.strip(),
-            "confidence": 0.55,
+            "answer": finalized_answer,
+            "confidence": confidence,
             "evidence_chain": [
                 {"source": p["title"], "text": p["text"], "score": p.get("score", 0.0)}
                 for p in retrieved.selected_passages[:4]
@@ -163,12 +276,25 @@ class AgentEnhancedGraphRAG:
             ]
         )
         prompt = (
-            "Answer the question from graph evidence. Return concise answer.\n"
+            "Answer the question from graph evidence. Return only a short answer span (1-8 words). "
+            "No explanation.\n"
             f"Question: {question}\nEvidence:\n{evidence}"
         )
         response = self.llm.generate(prompt)
+        finalized_answer = self._finalize_answer(
+            question=question,
+            raw_answer=response.text,
+            evidence_chain=retrieved.evidence_chain,
+            selected_passages=retrieved.selected_passages,
+        )
+        evidence_scores = [float(hop.get("score", 0.0)) for hop in retrieved.evidence_chain[:8]]
+        confidence = self._estimate_confidence(
+            answer=finalized_answer,
+            scores=evidence_scores,
+            evidence_count=len(retrieved.evidence_chain[:8]),
+        )
         return {
-            "answer": response.text.strip(),
-            "confidence": 0.62,
+            "answer": finalized_answer,
+            "confidence": confidence,
             "evidence_chain": retrieved.evidence_chain,
         }
