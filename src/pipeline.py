@@ -144,6 +144,21 @@ class AgentEnhancedGraphRAG:
             "retrieval_loops": result.get("retrieval_loops", 0),
         }
 
+    def train_retriever_reranker(
+        self,
+        train_examples: list[dict[str, Any]],
+        validation_examples: list[dict[str, Any]] | None = None,
+    ) -> dict[str, Any]:
+        """Train retrieval reranker on labeled supporting-fact examples."""
+        return self.retriever.fit_reranker(
+            train_examples=train_examples,
+            validation_examples=validation_examples,
+        )
+
+    def has_trained_reranker(self) -> bool:
+        """Return whether retriever has a trained reranker ready."""
+        return self.retriever.has_trained_reranker()
+
     def _finalize_answer(
         self,
         question: str,

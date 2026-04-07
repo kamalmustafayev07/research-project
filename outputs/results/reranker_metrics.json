@@ -1,0 +1,8 @@
+{
+  "enabled": true,
+  "trained": true,
+  "train_pairs": 5271,
+  "positive_rate": 0.2504268639726807,
+  "validation_accuracy": 0.8089973313000381,
+  "model_path": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\models\\passage_reranker.joblib"
+}

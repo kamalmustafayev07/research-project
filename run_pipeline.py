@@ -46,6 +46,11 @@ def parse_args() -> argparse.Namespace:
         default="validation",
         help="Hotpot source split used for deterministic disjoint partitioning.",
     )
+    parser.add_argument(
+        "--train-reranker",
+        action="store_true",
+        help="Force retraining of passage reranker when disjoint split mode is enabled.",
+    )
     return parser.parse_args()
 
 
@@ -90,6 +95,33 @@ def main() -> None:
 
     logger.info("Loaded %s examples", len(data))
     pipeline = AgentEnhancedGraphRAG()
+
+    if args.use_disjoint_splits and SETTINGS.retrieval.use_reranker:
+        should_train_reranker = args.train_reranker or not pipeline.has_trained_reranker()
+        if should_train_reranker:
+            logger.info("Training passage reranker on disjoint train/validation splits")
+            train_examples = load_prepared_disjoint_split(
+                "train",
+                test_size=args.test_size,
+                val_size=args.val_size,
+                train_size=(None if args.train_size <= 0 else args.train_size),
+                source_split=args.source_split,
+            )
+            validation_examples = load_prepared_disjoint_split(
+                "validation",
+                test_size=args.test_size,
+                val_size=args.val_size,
+                train_size=(None if args.train_size <= 0 else args.train_size),
+                source_split=args.source_split,
+            )
+            reranker_metrics = pipeline.train_retriever_reranker(
+                train_examples=[asdict(example) for example in train_examples],
+                validation_examples=[asdict(example) for example in validation_examples],
+            )
+            save_json(SETTINGS.paths.output_results / "reranker_metrics.json", reranker_metrics)
+            logger.info("Reranker training metrics: %s", reranker_metrics)
+        else:
+            logger.info("Using existing trained reranker from disk: %s", SETTINGS.paths.reranker_model)
 
     b1 = run_method_on_dataset(
         "B1_Standard_Dense_RAG",
