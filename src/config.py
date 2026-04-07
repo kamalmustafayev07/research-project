@@ -8,6 +8,10 @@ from pathlib import Path
 from typing import Literal
 
 import torch
+from dotenv import load_dotenv
+
+# Load .env values once before reading environment variables into settings.
+load_dotenv()
 
 
 def _to_bool(value: str | None, default: bool = False) -> bool:

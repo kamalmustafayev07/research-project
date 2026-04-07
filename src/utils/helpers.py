@@ -58,4 +58,15 @@ def safe_float(value: str | float | int, default: float = 0.0) -> float:
     try:
         return float(value)
     except (TypeError, ValueError):
+        if isinstance(value, str):
+            normalized = value.strip()
+            if not normalized:
+                return default
+            normalized = normalized.replace("%", "").replace(",", ".")
+            match = re.search(r"[-+]?\d*\.?\d+", normalized)
+            if match:
+                try:
+                    return float(match.group(0))
+                except ValueError:
+                    return default
         return default
