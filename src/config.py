@@ -59,6 +59,14 @@ class ProjectPaths:
     def local_logs(self) -> Path:
         return self.root / "logs"
 
+    @property
+    def output_models(self) -> Path:
+        return self.root / "outputs" / "models"
+
+    @property
+    def reranker_model(self) -> Path:
+        return self.output_models / "passage_reranker.joblib"
+
 
 @dataclass(slots=True)
 class ModelConfig:
@@ -82,6 +90,10 @@ class RetrievalConfig:
     max_hops: int = 3
     max_nodes: int = 400
     max_retrieval_loops: int = 2
+    use_reranker: bool = True
+    reranker_weight: float = 0.4
+    reranker_negatives_per_positive: int = 3
+    reranker_max_train_examples: int = 1200
 
 
 @dataclass(slots=True)
@@ -125,6 +137,10 @@ class Settings:
         )
         retrieval = RetrievalConfig(
             max_retrieval_loops=int(os.getenv("MAX_RETRIEVAL_LOOPS", "2")),
+            use_reranker=_to_bool(os.getenv("USE_RERANKER"), True),
+            reranker_weight=float(os.getenv("RERANKER_WEIGHT", "0.4")),
+            reranker_negatives_per_positive=int(os.getenv("RERANKER_NEGATIVES_PER_POSITIVE", "3")),
+            reranker_max_train_examples=int(os.getenv("RERANKER_MAX_TRAIN_EXAMPLES", "1200")),
         )
         data = DataConfig(
             hotpot_subset_size=int(os.getenv("HOTPOT_SUBSET_SIZE", "200")),
@@ -138,6 +154,7 @@ class Settings:
             settings.paths.output_results,
             settings.paths.output_evidence,
             settings.paths.output_logs,
+            settings.paths.output_models,
             settings.paths.local_logs,
         ]:
             path.mkdir(parents=True, exist_ok=True)

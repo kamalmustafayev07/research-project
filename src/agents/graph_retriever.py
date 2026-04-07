@@ -31,3 +31,15 @@ class GraphRetrieverAgent:
             selected_passages=output.selected_passages,
             graph_stats=output.graph_stats,
         )
+
+    def fit_reranker(
+        self,
+        train_examples: list[dict[str, Any]],
+        validation_examples: list[dict[str, Any]] | None = None,
+    ) -> dict[str, Any]:
+        """Train the optional passage reranker used by retrieval."""
+        return self.retriever.fit_reranker(train_examples=train_examples, validation_examples=validation_examples)
+
+    def has_trained_reranker(self) -> bool:
+        """Return whether a trained reranker is available."""
+        return self.retriever.has_trained_reranker()

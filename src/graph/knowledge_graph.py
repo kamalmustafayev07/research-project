@@ -59,23 +59,43 @@ class DynamicKnowledgeGraph:
         if len(entities) < 2:
             return triples
 
-        low = text.lower()
-        for idx in range(len(entities) - 1):
-            src = entities[idx]
-            dst = entities[idx + 1]
-            relation = "related_to"
-            if "born in" in low or "birthplace" in low:
-                relation = "born_in"
-            elif "founded" in low:
-                relation = "founded"
-            elif "directed by" in low:
-                relation = "directed_by"
-            elif "starring" in low or "played by" in low:
-                relation = "played_by"
-            elif "located in" in low or "based in" in low:
-                relation = "located_in"
-            triples.append((src, relation, dst))
+        sentence_units: list[str] = []
+        if self._nlp is not None:
+            doc = self._nlp(text)
+            sentence_units = [sent.text.strip() for sent in doc.sents if sent.text.strip()]
+        if not sentence_units:
+            sentence_units = [piece.strip() for piece in re.split(r"(?<=[.!?])\s+", text) if piece.strip()]
+
+        seen: set[tuple[str, str, str]] = set()
+        for sentence in sentence_units:
+            sentence_entities = [entity for entity in entities if entity in sentence]
+            if len(sentence_entities) < 2:
+                continue
+
+            relation = self._relation_from_sentence(sentence)
+            for idx in range(len(sentence_entities) - 1):
+                src = sentence_entities[idx]
+                dst = sentence_entities[idx + 1]
+                triple = (src, relation, dst)
+                if triple not in seen:
+                    seen.add(triple)
+                    triples.append(triple)
         return triples
+
+    @staticmethod
+    def _relation_from_sentence(sentence: str) -> str:
+        low = sentence.lower()
+        if "born in" in low or "birthplace" in low or "born at" in low:
+            return "born_in"
+        if "founded" in low or "established" in low:
+            return "founded"
+        if "directed by" in low or "director" in low:
+            return "directed_by"
+        if "starring" in low or "played by" in low or "stars" in low:
+            return "played_by"
+        if "located in" in low or "based in" in low or "lies in" in low:
+            return "located_in"
+        return "related_to"
 
     def build(self, passages: list[dict[str, Any]]) -> GraphBuildResult:
         """Build graph from a list of passages."""

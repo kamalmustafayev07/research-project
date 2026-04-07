@@ -1,17 +1,17 @@
 {
   "B1": {
-    "exact_match": 0.29,
-    "f1": 0.4118904625068418,
-    "explainability": 0.92815
+    "exact_match": 0.33,
+    "f1": 0.447969070961718,
+    "explainability": 0.9341815295815296
   },
   "B2": {
-    "exact_match": 0.2,
-    "f1": 0.3087056277056277,
-    "explainability": 0.6728142857142858
+    "exact_match": 0.245,
+    "f1": 0.3626239177489177,
+    "explainability": 0.869531746031746
   },
   "OURS": {
-    "exact_match": 0.36,
-    "f1": 0.45494998631636563,
-    "explainability": 0.7516666666666667
+    "exact_match": 0.39,
+    "f1": 0.495666986687148,
+    "explainability": 0.8744666666666667
   }
 }

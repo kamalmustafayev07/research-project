@@ -11,6 +11,7 @@ import numpy as np
 
 from src.config import SETTINGS
 from src.graph.knowledge_graph import DynamicKnowledgeGraph
+from src.graph.passage_reranker import PassageReranker
 from src.utils.embeddings import EmbeddingEncoder
 
 
@@ -29,6 +30,7 @@ class HybridGraphRetriever:
     def __init__(self, encoder: EmbeddingEncoder | None = None) -> None:
         self.encoder = encoder or EmbeddingEncoder()
         self.kg_builder = DynamicKnowledgeGraph()
+        self.reranker = PassageReranker(self.encoder) if SETTINGS.retrieval.use_reranker else None
 
     def _build_faiss(self, passages: list[dict[str, Any]]) -> tuple[faiss.IndexFlatIP, np.ndarray]:
         texts = [f"{p.get('title', '')}: {p.get('text', '')}" for p in passages]
@@ -51,7 +53,31 @@ class HybridGraphRetriever:
             item = dict(passages[int(idx)])
             item["score"] = float(scores[0][rank])
             selected.append(item)
+
+        if self.reranker is not None and self.reranker.is_trained:
+            selected = self.reranker.rerank(query=query, passages=selected)
         return selected
+
+    @staticmethod
+    def _fallback_evidence(query: str, passages: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        fallback: list[dict[str, Any]] = []
+        for idx, passage in enumerate(passages[: min(3, len(passages))]):
+            title = str(passage.get("title", "unknown"))
+            text = str(passage.get("text", ""))
+            fallback.append(
+                {
+                    "hop": 1,
+                    "source": title,
+                    "node_from": title,
+                    "node_to": "answer_candidate",
+                    "relation": "supports",
+                    "text": text,
+                    "score": float(passage.get("score", 0.0)),
+                    "query": query,
+                    "fallback": True,
+                }
+            )
+        return fallback
 
     def _bfs_evidence(
         self,
@@ -114,12 +140,42 @@ class HybridGraphRetriever:
         """Run full hybrid retrieval and return an evidence chain."""
         selected_passages = self._retrieve_passages(query, passages)
         evidence_chain = self._bfs_evidence(query, selected_passages)
+        if not evidence_chain:
+            evidence_chain = self._fallback_evidence(query, selected_passages)
+
         graph_stats = {
             "nodes": self.kg_builder.graph.number_of_nodes(),
             "edges": self.kg_builder.graph.number_of_edges(),
+            "fallback_evidence": 1 if evidence_chain and evidence_chain[0].get("fallback") else 0,
         }
         return RetrievalOutput(
             evidence_chain=evidence_chain,
             selected_passages=selected_passages,
             graph_stats=graph_stats,
         )
+
+    def fit_reranker(
+        self,
+        train_examples: list[dict[str, Any]],
+        validation_examples: list[dict[str, Any]] | None = None,
+    ) -> dict[str, Any]:
+        if self.reranker is None:
+            return {"enabled": False, "trained": False}
+
+        metrics = self.reranker.fit(
+            train_examples=train_examples,
+            validation_examples=validation_examples,
+            max_examples=SETTINGS.retrieval.reranker_max_train_examples,
+            negatives_per_positive=SETTINGS.retrieval.reranker_negatives_per_positive,
+        )
+        return {
+            "enabled": True,
+            "trained": metrics.trained,
+            "train_pairs": metrics.train_pairs,
+            "positive_rate": metrics.positive_rate,
+            "validation_accuracy": metrics.validation_accuracy,
+            "model_path": str(SETTINGS.paths.reranker_model),
+        }
+
+    def has_trained_reranker(self) -> bool:
+        return bool(self.reranker is not None and self.reranker.is_trained)
