@@ -1,0 +1,14 @@
+name: agent-enhanced-graphrag
+channels:
+  - conda-forge
+  - pytorch
+  - nvidia
+dependencies:
+  - python=3.11
+  - pip
+  - pytorch>=2.3
+  - torchvision
+  - torchaudio
+  - cudatoolkit
+  - pip:
+      - -r requirements.txt
