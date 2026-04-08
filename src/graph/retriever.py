@@ -174,6 +174,7 @@ class HybridGraphRetriever:
             "train_pairs": metrics.train_pairs,
             "positive_rate": metrics.positive_rate,
             "validation_accuracy": metrics.validation_accuracy,
+            "training_history": metrics.training_history,
             "model_path": str(SETTINGS.paths.reranker_model),
         }
 
