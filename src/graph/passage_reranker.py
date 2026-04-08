@@ -11,6 +11,7 @@ from typing import Any
 import joblib
 import numpy as np
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import log_loss
 
 from src.config import SETTINGS
 from src.utils.embeddings import EmbeddingEncoder
@@ -24,6 +25,7 @@ class RerankerTrainMetrics:
     positive_rate: float
     validation_accuracy: float
     trained: bool
+    training_history: list[dict[str, float | int]]
 
 
 class PassageReranker:
@@ -32,9 +34,25 @@ class PassageReranker:
     def __init__(self, encoder: EmbeddingEncoder, model_path: Path | None = None) -> None:
         self.encoder = encoder
         self.model_path = model_path or SETTINGS.paths.reranker_model
-        self.model = LogisticRegression(max_iter=400, class_weight="balanced", random_state=SETTINGS.data.random_seed)
+        self.model = self._new_model(max_iter=400)
         self.is_trained = False
         self._load_if_available()
+
+    @staticmethod
+    def _new_model(max_iter: int) -> LogisticRegression:
+        return LogisticRegression(
+            max_iter=max_iter,
+            class_weight="balanced",
+            random_state=SETTINGS.data.random_seed,
+            warm_start=True,
+        )
+
+    @staticmethod
+    def _iteration_schedule(max_iter: int) -> list[int]:
+        # Fixed checkpoints keep history lightweight while still showing learning dynamics.
+        checkpoints = [20, 40, 80, 120, 160, 220, 300, max_iter]
+        schedule = sorted({step for step in checkpoints if 0 < step <= max_iter})
+        return schedule or [max_iter]
 
     @staticmethod
     def _tokenize(text: str) -> set[str]:
@@ -136,6 +154,17 @@ class PassageReranker:
             negatives_per_positive=negatives_per_positive,
         )
 
+        x_val = np.zeros((0, 5), dtype=np.float32)
+        y_val = np.zeros((0,), dtype=np.int64)
+        has_val = False
+        if validation_examples:
+            x_val, y_val = self._sample_training_pairs(
+                examples=validation_examples,
+                max_examples=max(200, max_examples // 2),
+                negatives_per_positive=negatives_per_positive,
+            )
+            has_val = x_val.shape[0] > 0 and len(set(y_val.tolist())) >= 2
+
         if x_train.shape[0] == 0 or len(set(y_train.tolist())) < 2:
             self.is_trained = False
             return RerankerTrainMetrics(
@@ -143,28 +172,44 @@ class PassageReranker:
                 positive_rate=0.0,
                 validation_accuracy=0.0,
                 trained=False,
+                training_history=[],
             )
 
-        self.model.fit(x_train, y_train)
+        training_history: list[dict[str, float | int]] = []
+        schedule = self._iteration_schedule(max_iter=400)
+        self.model = self._new_model(max_iter=schedule[-1])
+
+        for iter_cap in schedule:
+            self.model.max_iter = iter_cap
+            self.model.fit(x_train, y_train)
+
+            train_proba = self.model.predict_proba(x_train)[:, 1]
+            train_loss = float(log_loss(y_train, train_proba, labels=[0, 1]))
+
+            val_accuracy = 0.0
+            if has_val:
+                val_preds = self.model.predict(x_val)
+                val_accuracy = float((val_preds == y_val).mean())
+
+            training_history.append(
+                {
+                    "iteration": int(iter_cap),
+                    "train_log_loss": train_loss,
+                    "validation_accuracy": val_accuracy,
+                }
+            )
+
         self.is_trained = True
         self._save()
 
-        val_accuracy = 0.0
-        if validation_examples:
-            x_val, y_val = self._sample_training_pairs(
-                examples=validation_examples,
-                max_examples=max(200, max_examples // 2),
-                negatives_per_positive=negatives_per_positive,
-            )
-            if x_val.shape[0] > 0 and len(set(y_val.tolist())) >= 2:
-                preds = self.model.predict(x_val)
-                val_accuracy = float((preds == y_val).mean())
+        val_accuracy = training_history[-1]["validation_accuracy"] if training_history else 0.0
 
         return RerankerTrainMetrics(
             train_pairs=int(x_train.shape[0]),
             positive_rate=float(y_train.mean()) if len(y_train) else 0.0,
-            validation_accuracy=val_accuracy,
+            validation_accuracy=float(val_accuracy),
             trained=True,
+            training_history=training_history,
         )
 
     def rerank(self, query: str, passages: list[dict[str, Any]]) -> list[dict[str, Any]]:
