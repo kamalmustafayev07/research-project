@@ -29,7 +29,7 @@ class HybridGraphRetriever:
 
     def __init__(self, encoder: EmbeddingEncoder | None = None) -> None:
         self.encoder = encoder or EmbeddingEncoder()
-        self.kg_builder = DynamicKnowledgeGraph()
+        self.kg_builder = DynamicKnowledgeGraph(encoder=self.encoder)
         self.reranker = PassageReranker(self.encoder) if SETTINGS.retrieval.use_reranker else None
 
     def _build_faiss(self, passages: list[dict[str, Any]]) -> tuple[faiss.IndexFlatIP, np.ndarray]:
@@ -126,6 +126,8 @@ class HybridGraphRetriever:
                         "node_from": node,
                         "node_to": nbr,
                         "relation": relation,
+                        "edge_semantic": edge_data.get("edge_semantic", "entity_linking"),
+                        "provenance": edge_data.get("provenance", []),
                         "text": edge_data.get("text", ""),
                         "score": score,
                     }
@@ -158,6 +160,7 @@ class HybridGraphRetriever:
         self,
         train_examples: list[dict[str, Any]],
         validation_examples: list[dict[str, Any]] | None = None,
+        test_examples: list[dict[str, Any]] | None = None,
     ) -> dict[str, Any]:
         if self.reranker is None:
             return {"enabled": False, "trained": False}
@@ -165,15 +168,28 @@ class HybridGraphRetriever:
         metrics = self.reranker.fit(
             train_examples=train_examples,
             validation_examples=validation_examples,
+            test_examples=test_examples,
             max_examples=SETTINGS.retrieval.reranker_max_train_examples,
             negatives_per_positive=SETTINGS.retrieval.reranker_negatives_per_positive,
+            epochs=SETTINGS.retrieval.reranker_epochs,
         )
         return {
             "enabled": True,
             "trained": metrics.trained,
             "train_pairs": metrics.train_pairs,
+            "validation_pairs": metrics.validation_pairs,
+            "test_pairs": metrics.test_pairs,
             "positive_rate": metrics.positive_rate,
+            "train_loss": metrics.train_loss,
+            "train_accuracy": metrics.train_accuracy,
+            "validation_loss": metrics.validation_loss,
             "validation_accuracy": metrics.validation_accuracy,
+            "test_loss": metrics.test_loss,
+            "test_accuracy": metrics.test_accuracy,
+            "test_confusion_matrix": metrics.test_confusion_matrix,
+            "confusion_matrix_labels": ["negative", "positive"],
+            "epochs": SETTINGS.retrieval.reranker_epochs,
+            "history": metrics.history,
             "model_path": str(SETTINGS.paths.reranker_model),
         }
 

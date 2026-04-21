@@ -6,7 +6,7 @@
 
 ## Overview
 
-This project builds an **Agent-Enhanced GraphRAG** system that combines knowledge graph traversal with a multi-agent pipeline to answer multi-hop questions — questions that require chaining evidence across multiple documents. The system is evaluated on HotpotQA and targets at least a 10–15% improvement in Exact Match and F1 scores over a standard RAG baseline.
+This project builds an **Agent-Enhanced GraphRAG** system that combines knowledge graph traversal with a multi-agent pipeline to answer multi-hop questions — questions that require chaining evidence across multiple documents. The system supports **HotpotQA, MuSiQue, and 2WikiMultiHopQA**, and benchmarks EM/F1 plus latency across baselines and the full agent workflow.
 
 ---
 
@@ -85,11 +85,11 @@ The KG is **not pre-built** — it is constructed dynamically at query time:
 
 | Dataset | Priority | Size | HuggingFace ID |
 |---------|----------|------|----------------|
-| **HotpotQA** | PRIMARY | 113K pairs | `hotpot_qa` |
-| MuSiQue | Secondary | 25K pairs | `dgslibisey/MuSiQue` |
-| 2WikiMultiHopQA | Secondary | 167K pairs | `Salesforce/2WikiMultiHopQA` |
+| **HotpotQA** | Supported | 113K pairs | `hotpot_qa` |
+| **MuSiQue** | Supported | 25K pairs | `dgslibisey/MuSiQue` |
+| **2WikiMultiHopQA** | Supported | 167K pairs | `voidful/2WikiMultihopQA` |
 
-Primary evaluation is conducted on a **200-sample subset of HotpotQA** to fit within free Colab runtime constraints (1–2 hrs).
+Evaluation can run on a subset per dataset (default `200`) for reproducible comparisons under limited compute.
 
 ---
 
@@ -107,7 +107,14 @@ Three system configurations are benchmarked against the same test set:
 | F1 Score | Token-level precision/recall | ≥10% improvement |
 | Explainability | LLM-judge (GPT-4o-mini rubric) | ≥0.7 / 1.0 average score |
 | Evidence Chain Quality | Manual spot-check (20 samples) | Traceable hops per answer |
-| Latency | Wall-clock time per query | <15s per query on Colab |
+| Latency | Wall-clock time per query + per-agent timings | <15s per query on Colab |
+
+Per-query latency logs include total latency and the breakdown for:
+
+- Query Decomposer
+- Graph Retriever
+- ReAct Reasoner
+- Critic
 
 ---
 

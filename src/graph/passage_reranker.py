@@ -10,7 +10,8 @@ from typing import Any
 
 import joblib
 import numpy as np
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import SGDClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, log_loss
 
 from src.config import SETTINGS
 from src.utils.embeddings import EmbeddingEncoder
@@ -21,8 +22,17 @@ class RerankerTrainMetrics:
     """Training and validation metrics for reranker quality."""
 
     train_pairs: int
+    validation_pairs: int
+    test_pairs: int
     positive_rate: float
-    validation_accuracy: float
+    train_loss: float
+    train_accuracy: float
+    validation_loss: float | None
+    validation_accuracy: float | None
+    test_loss: float | None
+    test_accuracy: float | None
+    test_confusion_matrix: list[list[int]] | None
+    history: list[dict[str, float | int | None]]
     trained: bool
 
 
@@ -32,9 +42,17 @@ class PassageReranker:
     def __init__(self, encoder: EmbeddingEncoder, model_path: Path | None = None) -> None:
         self.encoder = encoder
         self.model_path = model_path or SETTINGS.paths.reranker_model
-        self.model = LogisticRegression(max_iter=400, class_weight="balanced", random_state=SETTINGS.data.random_seed)
+        self.model = self._init_model()
         self.is_trained = False
         self._load_if_available()
+
+    @staticmethod
+    def _init_model() -> SGDClassifier:
+        return SGDClassifier(
+            loss="log_loss",
+            class_weight="balanced",
+            random_state=SETTINGS.data.random_seed,
+        )
 
     @staticmethod
     def _tokenize(text: str) -> set[str]:
@@ -84,7 +102,7 @@ class PassageReranker:
         labels: list[int] = []
 
         for example in sampled:
-            passages = list(example.get("context", []))
+            passages = list(example.get("contexts", []) or example.get("context", []))
             if not passages:
                 continue
 
@@ -124,11 +142,14 @@ class PassageReranker:
         self,
         train_examples: list[dict[str, Any]],
         validation_examples: list[dict[str, Any]] | None = None,
+        test_examples: list[dict[str, Any]] | None = None,
         max_examples: int | None = None,
         negatives_per_positive: int | None = None,
+        epochs: int | None = None,
     ) -> RerankerTrainMetrics:
         max_examples = max_examples or SETTINGS.retrieval.reranker_max_train_examples
         negatives_per_positive = negatives_per_positive or SETTINGS.retrieval.reranker_negatives_per_positive
+        epochs = epochs or SETTINGS.retrieval.reranker_epochs
 
         x_train, y_train = self._sample_training_pairs(
             examples=train_examples,
@@ -140,32 +161,106 @@ class PassageReranker:
             self.is_trained = False
             return RerankerTrainMetrics(
                 train_pairs=int(x_train.shape[0]),
+                validation_pairs=0,
+                test_pairs=0,
                 positive_rate=0.0,
-                validation_accuracy=0.0,
+                train_loss=0.0,
+                train_accuracy=0.0,
+                validation_loss=None,
+                validation_accuracy=None,
+                test_loss=None,
+                test_accuracy=None,
+                test_confusion_matrix=None,
+                history=[],
                 trained=False,
             )
 
-        self.model.fit(x_train, y_train)
-        self.is_trained = True
-        self._save()
-
-        val_accuracy = 0.0
+        x_val = np.zeros((0, x_train.shape[1]), dtype=np.float32)
+        y_val = np.zeros((0,), dtype=np.int64)
         if validation_examples:
             x_val, y_val = self._sample_training_pairs(
                 examples=validation_examples,
                 max_examples=max(200, max_examples // 2),
                 negatives_per_positive=negatives_per_positive,
             )
-            if x_val.shape[0] > 0 and len(set(y_val.tolist())) >= 2:
-                preds = self.model.predict(x_val)
-                val_accuracy = float((preds == y_val).mean())
+
+        x_test = np.zeros((0, x_train.shape[1]), dtype=np.float32)
+        y_test = np.zeros((0,), dtype=np.int64)
+        if test_examples:
+            x_test, y_test = self._sample_training_pairs(
+                examples=test_examples,
+                max_examples=max(200, max_examples // 2),
+                negatives_per_positive=negatives_per_positive,
+            )
+
+        # Reinitialize for deterministic and repeatable epoch-wise training.
+        self.model = self._init_model()
+        history: list[dict[str, float | int | None]] = []
+
+        rng = np.random.default_rng(SETTINGS.data.random_seed)
+        classes = np.asarray([0, 1], dtype=np.int64)
+
+        for epoch_idx in range(1, epochs + 1):
+            order = rng.permutation(x_train.shape[0])
+            x_epoch = x_train[order]
+            y_epoch = y_train[order]
+            self.model.partial_fit(x_epoch, y_epoch, classes=classes)
+
+            train_loss, train_accuracy = self._compute_metrics(x_train, y_train)
+            val_loss, val_accuracy = self._compute_metrics(x_val, y_val)
+
+            history.append(
+                {
+                    "epoch": epoch_idx,
+                    "train_loss": train_loss,
+                    "train_accuracy": train_accuracy,
+                    "validation_loss": val_loss,
+                    "validation_accuracy": val_accuracy,
+                }
+            )
+
+        self.is_trained = True
+        self._save()
+
+        train_loss, train_accuracy = self._compute_metrics(x_train, y_train)
+        val_loss, val_accuracy = self._compute_metrics(x_val, y_val)
+        test_loss, test_accuracy = self._compute_metrics(x_test, y_test)
+        test_cm = self._compute_confusion_matrix(x_test, y_test)
 
         return RerankerTrainMetrics(
             train_pairs=int(x_train.shape[0]),
+            validation_pairs=int(x_val.shape[0]),
+            test_pairs=int(x_test.shape[0]),
             positive_rate=float(y_train.mean()) if len(y_train) else 0.0,
+            train_loss=train_loss,
+            train_accuracy=train_accuracy,
+            validation_loss=val_loss,
             validation_accuracy=val_accuracy,
+            test_loss=test_loss,
+            test_accuracy=test_accuracy,
+            test_confusion_matrix=test_cm,
+            history=history,
             trained=True,
         )
+
+    def _compute_metrics(self, features: np.ndarray, labels: np.ndarray) -> tuple[float | None, float | None]:
+        if features.shape[0] == 0:
+            return None, None
+
+        probabilities = self.model.predict_proba(features)[:, 1]
+        predictions = (probabilities >= 0.5).astype(np.int64)
+        accuracy = float(accuracy_score(labels, predictions))
+        loss = float(log_loss(labels, probabilities, labels=[0, 1]))
+        return loss, accuracy
+
+    def _compute_confusion_matrix(self, features: np.ndarray, labels: np.ndarray) -> list[list[int]] | None:
+        if features.shape[0] == 0:
+            return None
+
+        probabilities = self.model.predict_proba(features)[:, 1]
+        predictions = (probabilities >= 0.5).astype(np.int64)
+        matrix = confusion_matrix(labels, predictions, labels=[0, 1])
+        return matrix.astype(int).tolist()
 
     def rerank(self, query: str, passages: list[dict[str, Any]]) -> list[dict[str, Any]]:
         if not passages or not self.is_trained:
@@ -202,7 +297,10 @@ class PassageReranker:
             return
         try:
             loaded = joblib.load(self.model_path)
-            self.model = loaded
-            self.is_trained = True
+            if hasattr(loaded, "predict_proba"):
+                self.model = loaded
+                self.is_trained = True
+            else:
+                self.is_trained = False
         except Exception:
             self.is_trained = False

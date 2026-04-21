@@ -44,6 +44,20 @@ Set one of these backends in `.env`:
 - `LLM_BACKEND=ollama` for local Ollama serving (`ollama pull llama3.2:3b`)
 - `LLM_BACKEND=mock` for deterministic smoke tests
 
+Set dataset-agnostic evaluation keys in `.env`:
+
+```env
+DATASET=hotpotqa
+DATASET_SUBSET_SIZE=200
+DATASET_SPLIT=validation
+```
+
+Supported dataset values:
+
+- `hotpotqa`
+- `musique`
+- `2wikimultihopqa`
+
 ### Run with real model outputs (Ollama + NVIDIA GPU)
 
 1. Install/update NVIDIA driver and verify GPU is visible:
@@ -84,7 +98,7 @@ then set `OLLAMA_MODEL=qwen2.5:7b` in `.env`.
 ## 3) Prepare data
 
 ```bash
-python main.py prepare-data --subset-size 200
+python main.py prepare-data --dataset hotpotqa --subset-size 200 --split validation
 ```
 
 ## 4) Run single query
@@ -96,7 +110,13 @@ python main.py query "Which country is the city where Tesla was founded located 
 ## 5) Evaluate B1/B2/Ours
 
 ```bash
-python main.py evaluate --subset-size 200
+python main.py evaluate --datasets hotpotqa --subset-size 200 --split validation
+```
+
+Run evaluation across all three datasets:
+
+```bash
+python main.py evaluate --datasets all --subset-size 200 --split validation
 ```
 
 Quick test run:
@@ -115,14 +135,35 @@ python main.py evaluate --subset-size 20 --limit 10
 ## 6) End-to-end script
 
 ```bash
-python run_pipeline.py --prepare-data --subset-size 200
+python run_pipeline.py --datasets all --prepare-data --subset-size 200 --split validation --run-name baseline_all
+```
+
+Single-dataset run example:
+
+```bash
+python run_pipeline.py --datasets musique --prepare-data --subset-size 200 --split validation --run-name musique_ablation
+```
+
+Compare latency/accuracy trade-offs across completed runs:
+
+```bash
+python compare_experiments.py
 ```
 
 Outputs are written to:
 
-- `outputs/results/`
-- `outputs/evidence_chains/`
-- `outputs/logs/`
+- `outputs/experiments/runs/<run_id>/` (run-level metadata, logs, cross-dataset summaries)
+- `outputs/experiments/datasets/<dataset>/<run_id>/` (dataset-scoped results, predictions, latency, evidence, plots)
+
+Key artifacts include (per run):
+
+- `runs/<run_id>/metadata/run_manifest.json`
+- `runs/<run_id>/summaries/benchmark_summary_all_datasets.json` and `.csv`
+- `runs/<run_id>/summaries/latency_comparison_all_datasets.json`
+- `datasets/<dataset>/<run_id>/results/benchmark_summary.json` and `.csv`
+- `datasets/<dataset>/<run_id>/predictions/*.json|*.csv`
+- `datasets/<dataset>/<run_id>/latency/*.json|*.csv`
+- `datasets/<dataset>/<run_id>/plots/*.png`
 
 ## 7) Google Colab
 

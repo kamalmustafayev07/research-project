@@ -48,6 +48,10 @@ class ProjectPaths:
         return self.root / "outputs" / "results"
 
     @property
+    def output_experiments(self) -> Path:
+        return self.root / "outputs" / "experiments"
+
+    @property
     def output_evidence(self) -> Path:
         return self.root / "outputs" / "evidence_chains"
 
@@ -94,14 +98,22 @@ class RetrievalConfig:
     reranker_weight: float = 0.4
     reranker_negatives_per_positive: int = 3
     reranker_max_train_examples: int = 1200
+    reranker_epochs: int = 12
 
 
 @dataclass(slots=True)
 class DataConfig:
     """Dataset selection and sampling settings."""
 
+    dataset: Literal["hotpotqa", "musique", "2wikimultihopqa"] = "hotpotqa"
+    dataset_split: str = "validation"
+    dataset_subset_size: int = 200
     hotpot_dataset_name: str = "hotpot_qa"
     hotpot_config_name: str = "fullwiki"
+    musique_dataset_name: str = "dgslibisey/MuSiQue"
+    musique_config_name: str | None = None
+    twowiki_dataset_name: str = "voidful/2WikiMultihopQA"
+    twowiki_config_name: str | None = None
     hotpot_split: str = "validation"
     hotpot_subset_size: int = 200
     random_seed: int = 42
@@ -126,6 +138,17 @@ class Settings:
     @classmethod
     def from_env(cls) -> "Settings":
         """Construct settings from environment variables."""
+        dataset_raw = os.getenv("DATASET", "hotpotqa").strip().lower()
+        dataset_aliases = {
+            "hotpot": "hotpotqa",
+            "hotpot_qa": "hotpotqa",
+            "musique": "musique",
+            "2wiki": "2wikimultihopqa",
+            "2wikimultihop": "2wikimultihopqa",
+            "2wikimultihopqa": "2wikimultihopqa",
+        }
+        dataset = dataset_aliases.get(dataset_raw, "hotpotqa")
+
         model = ModelConfig(
             llm_backend=os.getenv("LLM_BACKEND", "transformers"),
             hf_model_name=os.getenv("HF_MODEL_NAME", "meta-llama/Llama-3.2-3B-Instruct"),
@@ -141,8 +164,18 @@ class Settings:
             reranker_weight=float(os.getenv("RERANKER_WEIGHT", "0.4")),
             reranker_negatives_per_positive=int(os.getenv("RERANKER_NEGATIVES_PER_POSITIVE", "3")),
             reranker_max_train_examples=int(os.getenv("RERANKER_MAX_TRAIN_EXAMPLES", "1200")),
+            reranker_epochs=int(os.getenv("RERANKER_EPOCHS", "12")),
         )
         data = DataConfig(
+            dataset=dataset,
+            dataset_subset_size=int(os.getenv("DATASET_SUBSET_SIZE", os.getenv("HOTPOT_SUBSET_SIZE", "200"))),
+            dataset_split=os.getenv("DATASET_SPLIT", os.getenv("HOTPOT_SPLIT", "validation")),
+            hotpot_dataset_name=os.getenv("HOTPOT_DATASET_NAME", "hotpot_qa"),
+            hotpot_config_name=os.getenv("HOTPOT_CONFIG_NAME", "fullwiki"),
+            musique_dataset_name=os.getenv("MUSIQUE_DATASET_NAME", "dgslibisey/MuSiQue"),
+            musique_config_name=os.getenv("MUSIQUE_CONFIG_NAME") or None,
+            twowiki_dataset_name=os.getenv("TWOWIKI_DATASET_NAME", "voidful/2WikiMultihopQA"),
+            twowiki_config_name=os.getenv("TWOWIKI_CONFIG_NAME") or None,
             hotpot_subset_size=int(os.getenv("HOTPOT_SUBSET_SIZE", "200")),
             hotpot_split=os.getenv("HOTPOT_SPLIT", "validation"),
         )
@@ -152,6 +185,7 @@ class Settings:
             settings.paths.data_raw,
             settings.paths.data_processed,
             settings.paths.output_results,
+            settings.paths.output_experiments,
             settings.paths.output_evidence,
             settings.paths.output_logs,
             settings.paths.output_models,

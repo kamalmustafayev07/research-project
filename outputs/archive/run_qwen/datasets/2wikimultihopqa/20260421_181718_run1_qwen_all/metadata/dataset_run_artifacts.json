@@ -1,0 +1,33 @@
+{
+  "dataset": "2wikimultihopqa",
+  "run_id": "20260421_181718_run1_qwen_all",
+  "plots": {
+    "benchmark_metrics_plot": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260421_181718_run1_qwen_all\\plots\\benchmark_metrics_2wikimultihopqa.png",
+    "benchmark_latency_plot": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260421_181718_run1_qwen_all\\plots\\benchmark_latency_2wikimultihopqa.png",
+    "confidence_confusion_b1": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260421_181718_run1_qwen_all\\plots\\confidence_confusion_2wikimultihopqa_b1.png",
+    "confidence_confusion_b2": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260421_181718_run1_qwen_all\\plots\\confidence_confusion_2wikimultihopqa_b2.png",
+    "confidence_confusion_ours": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260421_181718_run1_qwen_all\\plots\\confidence_confusion_2wikimultihopqa_ours.png"
+  },
+  "result_files": {
+    "summary_json": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260421_181718_run1_qwen_all\\results\\benchmark_summary.json",
+    "summary_csv": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260421_181718_run1_qwen_all\\results\\benchmark_summary.csv",
+    "predictions": {
+      "b1_json": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260421_181718_run1_qwen_all\\predictions\\benchmark_b1_predictions.json",
+      "b2_json": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260421_181718_run1_qwen_all\\predictions\\benchmark_b2_predictions.json",
+      "ours_json": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260421_181718_run1_qwen_all\\predictions\\benchmark_ours_predictions.json",
+      "b1_csv": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260421_181718_run1_qwen_all\\predictions\\benchmark_predictions_b1.csv",
+      "b2_csv": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260421_181718_run1_qwen_all\\predictions\\benchmark_predictions_b2.csv",
+      "ours_csv": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260421_181718_run1_qwen_all\\predictions\\benchmark_predictions_ours.csv"
+    },
+    "latency": {
+      "b1_json": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260421_181718_run1_qwen_all\\latency\\latency_records_b1.json",
+      "b2_json": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260421_181718_run1_qwen_all\\latency\\latency_records_b2.json",
+      "ours_json": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260421_181718_run1_qwen_all\\latency\\latency_records_ours.json",
+      "b1_csv": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260421_181718_run1_qwen_all\\latency\\latency_records_b1.csv",
+      "b2_csv": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260421_181718_run1_qwen_all\\latency\\latency_records_b2.csv",
+      "ours_csv": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260421_181718_run1_qwen_all\\latency\\latency_records_ours.csv"
+    },
+    "evidence_analysis_json": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260421_181718_run1_qwen_all\\results\\evidence_chain_analysis.json",
+    "evidence_chains_json": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260421_181718_run1_qwen_all\\evidence\\benchmark_ours_evidence_chains.json"
+  }
+}

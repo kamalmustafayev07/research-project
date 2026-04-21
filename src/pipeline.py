@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import asdict
 import re
+from time import perf_counter
 from typing import Any, TypedDict
 
 from langgraph.graph import END, START, StateGraph
@@ -32,6 +33,7 @@ class GraphRAGState(TypedDict, total=False):
     approved: bool
     retrieval_loops: int
     max_retrieval_loops: int
+    latency_breakdown: dict[str, float]
 
 
 class AgentEnhancedGraphRAG:
@@ -66,11 +68,23 @@ class AgentEnhancedGraphRAG:
         )
         return builder.compile()
 
+    @staticmethod
+    def _updated_latency(state: GraphRAGState, key: str, elapsed: float) -> dict[str, float]:
+        totals = dict(state.get("latency_breakdown", {}))
+        totals[key] = float(totals.get(key, 0.0)) + float(elapsed)
+        return totals
+
     def _decompose(self, state: GraphRAGState) -> GraphRAGState:
+        start = perf_counter()
         result = self.decomposer.run(state["question"])
-        return {"decomposition": asdict(result)}
+        elapsed = perf_counter() - start
+        return {
+            "decomposition": asdict(result),
+            "latency_breakdown": self._updated_latency(state, "decomposer", elapsed),
+        }
 
     def _retrieve(self, state: GraphRAGState) -> GraphRAGState:
+        start = perf_counter()
         query = state["question"]
         decomposition = state.get("decomposition", {})
         sub_questions = decomposition.get("sub_questions", [])
@@ -78,36 +92,44 @@ class AgentEnhancedGraphRAG:
 
         output = self.retriever.run(retrieval_query, state["context_passages"])
         loops = state.get("retrieval_loops", 0) + 1
+        elapsed = perf_counter() - start
         return {
             "evidence_chain": output.evidence_chain,
             "selected_passages": output.selected_passages,
             "graph_stats": output.graph_stats,
             "retrieval_loops": loops,
+            "latency_breakdown": self._updated_latency(state, "retriever", elapsed),
         }
 
     def _reason(self, state: GraphRAGState) -> GraphRAGState:
+        start = perf_counter()
         output = self.reasoner.run(
             state["question"],
             state.get("evidence_chain", []),
             selected_passages=state.get("selected_passages", []),
         )
+        elapsed = perf_counter() - start
         return {
             "thoughts": output.thoughts,
             "answer": output.answer,
             "confidence": output.confidence,
+            "latency_breakdown": self._updated_latency(state, "reasoner", elapsed),
         }
 
     def _critic(self, state: GraphRAGState) -> GraphRAGState:
+        start = perf_counter()
         output = self.critic.run(
             query=state["question"],
             answer=state.get("answer", ""),
             confidence=state.get("confidence", 0.0),
             evidence_count=len(state.get("evidence_chain", [])),
         )
+        elapsed = perf_counter() - start
         return {
             "approved": output.approved,
             "critique": output.critique,
             "confidence": output.confidence,
+            "latency_breakdown": self._updated_latency(state, "critic", elapsed),
         }
 
     def _route_after_critic(self, state: GraphRAGState) -> str:
@@ -120,14 +142,29 @@ class AgentEnhancedGraphRAG:
 
     def invoke(self, question: str, context_passages: list[dict[str, Any]]) -> dict[str, Any]:
         """Run the full 4-agent workflow and return answer plus evidence."""
+        start_total = perf_counter()
         result = self.graph.invoke(
             {
                 "question": question,
                 "context_passages": context_passages,
                 "retrieval_loops": 0,
                 "max_retrieval_loops": SETTINGS.retrieval.max_retrieval_loops,
+                "latency_breakdown": {
+                    "decomposer": 0.0,
+                    "retriever": 0.0,
+                    "reasoner": 0.0,
+                    "critic": 0.0,
+                },
             }
         )
+        total_latency = perf_counter() - start_total
+        result_breakdown = dict(result.get("latency_breakdown", {}))
+        latency_breakdown = {
+            "decomposer": float(result_breakdown.get("decomposer", 0.0)),
+            "retriever": float(result_breakdown.get("retriever", 0.0)),
+            "reasoner": float(result_breakdown.get("reasoner", 0.0)),
+            "critic": float(result_breakdown.get("critic", 0.0)),
+        }
         finalized_answer = self._finalize_answer(
             question=question,
             raw_answer=result.get("answer", ""),
@@ -142,17 +179,21 @@ class AgentEnhancedGraphRAG:
             "graph_stats": result.get("graph_stats", {}),
             "critique": result.get("critique", ""),
             "retrieval_loops": result.get("retrieval_loops", 0),
+            "latency_total": total_latency,
+            "latency_breakdown": latency_breakdown,
         }
 
     def train_retriever_reranker(
         self,
         train_examples: list[dict[str, Any]],
         validation_examples: list[dict[str, Any]] | None = None,
+        test_examples: list[dict[str, Any]] | None = None,
     ) -> dict[str, Any]:
         """Train retrieval reranker on labeled supporting-fact examples."""
         return self.retriever.fit_reranker(
             train_examples=train_examples,
             validation_examples=validation_examples,
+            test_examples=test_examples,
         )
 
     def has_trained_reranker(self) -> bool:
