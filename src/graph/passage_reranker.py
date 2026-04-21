@@ -34,6 +34,7 @@ class RerankerTrainMetrics:
     test_confusion_matrix: list[list[int]] | None
     history: list[dict[str, float | int | None]]
     trained: bool
+    training_history: list[dict[str, float | int]]
 
 
 class PassageReranker:
@@ -156,6 +157,17 @@ class PassageReranker:
             max_examples=max_examples,
             negatives_per_positive=negatives_per_positive,
         )
+
+        x_val = np.zeros((0, 5), dtype=np.float32)
+        y_val = np.zeros((0,), dtype=np.int64)
+        has_val = False
+        if validation_examples:
+            x_val, y_val = self._sample_training_pairs(
+                examples=validation_examples,
+                max_examples=max(200, max_examples // 2),
+                negatives_per_positive=negatives_per_positive,
+            )
+            has_val = x_val.shape[0] > 0 and len(set(y_val.tolist())) >= 2
 
         if x_train.shape[0] == 0 or len(set(y_train.tolist())) < 2:
             self.is_trained = False
