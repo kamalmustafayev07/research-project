@@ -1,0 +1,102 @@
+{
+  "run_id": "20260422_091633_run2_llama_all",
+  "created_at_utc": "2026-04-22T09:16:33Z",
+  "datasets": [
+    "hotpotqa",
+    "musique",
+    "2wikimultihopqa"
+  ],
+  "args": {
+    "datasets": "all",
+    "subset_size": 200,
+    "split": "validation",
+    "limit": 0,
+    "prepare_data": false,
+    "use_disjoint_splits": false,
+    "test_size": 200,
+    "val_size": 1000,
+    "train_size": 0,
+    "source_split": "",
+    "train_reranker": false,
+    "run_name": "run2_llama_all"
+  },
+  "settings": {
+    "paths": {
+      "root": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project"
+    },
+    "model": {
+      "llm_backend": "ollama",
+      "hf_model_name": "meta-llama/Llama-3.2-3B-Instruct",
+      "ollama_model": "llama3.2:3b",
+      "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+      "use_4bit": true,
+      "temperature": 0.1,
+      "max_new_tokens": 384
+    },
+    "retrieval": {
+      "top_k_passages": 8,
+      "top_k_edges": 10,
+      "max_hops": 3,
+      "max_nodes": 400,
+      "max_retrieval_loops": 2,
+      "use_reranker": true,
+      "reranker_weight": 0.4,
+      "reranker_negatives_per_positive": 3,
+      "reranker_max_train_examples": 1200,
+      "reranker_epochs": 12
+    },
+    "data": {
+      "dataset": "hotpotqa",
+      "dataset_split": "validation",
+      "dataset_subset_size": 200,
+      "hotpot_dataset_name": "hotpot_qa",
+      "hotpot_config_name": "fullwiki",
+      "musique_dataset_name": "dgslibisey/MuSiQue",
+      "musique_config_name": null,
+      "twowiki_dataset_name": "voidful/2WikiMultihopQA",
+      "twowiki_config_name": null,
+      "hotpot_split": "validation",
+      "hotpot_subset_size": 200,
+      "random_seed": 42
+    },
+    "device": "cpu"
+  },
+  "output_layout": {
+    "run_root": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\runs\\20260422_091633_run2_llama_all",
+    "run_metadata": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\runs\\20260422_091633_run2_llama_all\\metadata",
+    "run_logs": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\runs\\20260422_091633_run2_llama_all\\logs",
+    "run_summaries": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\runs\\20260422_091633_run2_llama_all\\summaries",
+    "datasets": {
+      "hotpotqa": {
+        "root": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\hotpotqa\\20260422_091633_run2_llama_all",
+        "metadata": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\hotpotqa\\20260422_091633_run2_llama_all\\metadata",
+        "results": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\hotpotqa\\20260422_091633_run2_llama_all\\results",
+        "predictions": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\hotpotqa\\20260422_091633_run2_llama_all\\predictions",
+        "latency": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\hotpotqa\\20260422_091633_run2_llama_all\\latency",
+        "evidence": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\hotpotqa\\20260422_091633_run2_llama_all\\evidence",
+        "plots": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\hotpotqa\\20260422_091633_run2_llama_all\\plots",
+        "logs": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\hotpotqa\\20260422_091633_run2_llama_all\\logs"
+      },
+      "musique": {
+        "root": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\musique\\20260422_091633_run2_llama_all",
+        "metadata": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\musique\\20260422_091633_run2_llama_all\\metadata",
+        "results": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\musique\\20260422_091633_run2_llama_all\\results",
+        "predictions": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\musique\\20260422_091633_run2_llama_all\\predictions",
+        "latency": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\musique\\20260422_091633_run2_llama_all\\latency",
+        "evidence": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\musique\\20260422_091633_run2_llama_all\\evidence",
+        "plots": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\musique\\20260422_091633_run2_llama_all\\plots",
+        "logs": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\musique\\20260422_091633_run2_llama_all\\logs"
+      },
+      "2wikimultihopqa": {
+        "root": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260422_091633_run2_llama_all",
+        "metadata": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260422_091633_run2_llama_all\\metadata",
+        "results": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260422_091633_run2_llama_all\\results",
+        "predictions": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260422_091633_run2_llama_all\\predictions",
+        "latency": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260422_091633_run2_llama_all\\latency",
+        "evidence": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260422_091633_run2_llama_all\\evidence",
+        "plots": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260422_091633_run2_llama_all\\plots",
+        "logs": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260422_091633_run2_llama_all\\logs"
+      }
+    }
+  }
+}

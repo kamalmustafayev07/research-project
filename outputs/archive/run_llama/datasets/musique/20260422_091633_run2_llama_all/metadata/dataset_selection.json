@@ -1,0 +1,12 @@
+{
+  "dataset": "musique",
+  "num_examples": 200,
+  "split": "validation",
+  "source_split": "validation",
+  "subset_size": 200,
+  "limit": 0,
+  "use_disjoint_splits": false,
+  "test_size": 200,
+  "val_size": 1000,
+  "train_size": 0
+}

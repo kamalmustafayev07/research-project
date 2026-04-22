@@ -1,0 +1,43 @@
+{
+  "total_predictions": 200,
+  "empty_chain_rate": 0.0,
+  "avg_chain_length": 8.535,
+  "avg_hop_score": 0.5995885527629468,
+  "avg_source_diversity": 0.35350000000000004,
+  "malformed_hop_rate": 0.03866432337434095,
+  "numeric_node_rate": 0.0,
+  "top_relations": [
+    [
+      "co_occurs_with",
+      1195
+    ],
+    [
+      "related_to",
+      286
+    ],
+    [
+      "supports",
+      114
+    ],
+    [
+      "semantic_similar",
+      66
+    ],
+    [
+      "directed_by",
+      21
+    ],
+    [
+      "located_in",
+      15
+    ],
+    [
+      "founded",
+      4
+    ],
+    [
+      "born_in",
+      3
+    ]
+  ]
+}

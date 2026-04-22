@@ -1,0 +1,113 @@
+{
+  "hotpotqa": {
+    "B1": {
+      "exact_match": 0.115,
+      "f1": 0.3089517771530155,
+      "explainability": 0.9234515873015873,
+      "latency_mean": 3.050369964499296,
+      "latency_p95": 8.159607139994838,
+      "latency_min": 0.5423890999954892,
+      "latency_max": 13.01441679999698,
+      "agent_latency_mean": {}
+    },
+    "B2": {
+      "exact_match": 0.17,
+      "f1": 0.29545670995671,
+      "explainability": 0.85015,
+      "latency_mean": 2.971907924500083,
+      "latency_p95": 8.090409134998113,
+      "latency_min": 0.5808308999985456,
+      "latency_max": 12.958112599997548,
+      "agent_latency_mean": {}
+    },
+    "OURS": {
+      "exact_match": 0.175,
+      "f1": 0.26941305102943036,
+      "explainability": 0.8472333333333333,
+      "latency_mean": 10.67066482700011,
+      "latency_p95": 20.766292210001104,
+      "latency_min": 2.345178000003216,
+      "latency_max": 30.19555649999529,
+      "agent_latency_mean": {
+        "critic": 1.8385133760000463,
+        "decomposer": 1.1476584675002233,
+        "reasoner": 2.075926414000205,
+        "retriever": 5.605395164999863
+      }
+    }
+  },
+  "musique": {
+    "B1": {
+      "exact_match": 0.005,
+      "f1": 0.11521520146520146,
+      "explainability": 0.8919158145775793,
+      "latency_mean": 2.4468234579998533,
+      "latency_p95": 7.3877201100003695,
+      "latency_min": 0.697359999998298,
+      "latency_max": 14.135243799995806,
+      "agent_latency_mean": {}
+    },
+    "B2": {
+      "exact_match": 0.035,
+      "f1": 0.12527915505547085,
+      "explainability": 0.8401055555555555,
+      "latency_mean": 2.385452593000191,
+      "latency_p95": 7.325710980001165,
+      "latency_min": 0.6205721000005724,
+      "latency_max": 14.097816400004376,
+      "agent_latency_mean": {}
+    },
+    "OURS": {
+      "exact_match": 0.06,
+      "f1": 0.1321973026973027,
+      "explainability": 0.8690444444444445,
+      "latency_mean": 9.434477878999969,
+      "latency_p95": 20.569569654994833,
+      "latency_min": 4.432151199995133,
+      "latency_max": 35.4297899000012,
+      "agent_latency_mean": {
+        "critic": 1.9066776185008347,
+        "decomposer": 1.3281435720003356,
+        "reasoner": 1.9731087315002513,
+        "retriever": 4.223392643999687
+      }
+    }
+  },
+  "2wikimultihopqa": {
+    "B1": {
+      "exact_match": 0.09,
+      "f1": 0.1893733766233766,
+      "explainability": 0.8606210678210678,
+      "latency_mean": 1.91614035599996,
+      "latency_p95": 6.090382689999384,
+      "latency_min": 0.5525363999986439,
+      "latency_max": 21.22330789999978,
+      "agent_latency_mean": {}
+    },
+    "B2": {
+      "exact_match": 0.045,
+      "f1": 0.1241081696081696,
+      "explainability": 0.8353515873015873,
+      "latency_mean": 1.8557759984997029,
+      "latency_p95": 5.976017485003827,
+      "latency_min": 0.4760978999984218,
+      "latency_max": 20.92059639999934,
+      "agent_latency_mean": {}
+    },
+    "OURS": {
+      "exact_match": 0.105,
+      "f1": 0.1574448051948052,
+      "explainability": 0.8607492063492063,
+      "latency_mean": 8.751766876499605,
+      "latency_p95": 21.15572865500107,
+      "latency_min": 4.193607900000643,
+      "latency_max": 47.86899990000529,
+      "agent_latency_mean": {
+        "critic": 1.8370456924995962,
+        "decomposer": 1.1138307020001594,
+        "reasoner": 2.011873572499717,
+        "retriever": 3.7858896869997625
+      }
+    }
+  }
+}

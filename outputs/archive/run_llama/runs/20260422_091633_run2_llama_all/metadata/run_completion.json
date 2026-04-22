@@ -1,0 +1,18 @@
+{
+  "run_id": "20260422_091633_run2_llama_all",
+  "datasets": [
+    "hotpotqa",
+    "musique",
+    "2wikimultihopqa"
+  ],
+  "summary_files": {
+    "benchmark_summary_all_datasets_json": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\runs\\20260422_091633_run2_llama_all\\summaries\\benchmark_summary_all_datasets.json",
+    "benchmark_summary_all_datasets_csv": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\runs\\20260422_091633_run2_llama_all\\summaries\\benchmark_summary_all_datasets.csv",
+    "latency_comparison_all_datasets_json": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\runs\\20260422_091633_run2_llama_all\\summaries\\latency_comparison_all_datasets.json"
+  },
+  "dataset_roots": {
+    "hotpotqa": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\hotpotqa\\20260422_091633_run2_llama_all",
+    "musique": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\musique\\20260422_091633_run2_llama_all",
+    "2wikimultihopqa": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260422_091633_run2_llama_all"
+  }
+}
