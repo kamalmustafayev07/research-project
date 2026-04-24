@@ -1,0 +1,2202 @@
+[
+  {
+    "question_id": "2hop__44815_494136",
+    "dataset": "musique",
+    "latency_total": 85.94432550000056,
+    "latency_breakdown": {
+      "decomposer": 10.051482899998518,
+      "retriever": 3.758314500002598,
+      "reasoner": 46.80477000000246,
+      "critic": 25.326446800001577
+    }
+  },
+  {
+    "question_id": "2hop__640262_122868",
+    "dataset": "musique",
+    "latency_total": 39.960525999998936,
+    "latency_breakdown": {
+      "decomposer": 8.70790809999744,
+      "retriever": 0.6798345999995945,
+      "reasoner": 19.382641500000318,
+      "critic": 11.188413099996978
+    }
+  },
+  {
+    "question_id": "2hop__370564_71701",
+    "dataset": "musique",
+    "latency_total": 108.57257989999925,
+    "latency_breakdown": {
+      "decomposer": 13.383480000000418,
+      "retriever": 6.076345599998604,
+      "reasoner": 59.16391310000472,
+      "critic": 29.945943599999737
+    }
+  },
+  {
+    "question_id": "2hop__6827_79845",
+    "dataset": "musique",
+    "latency_total": 85.63532069999928,
+    "latency_breakdown": {
+      "decomposer": 8.130158299998584,
+      "retriever": 1.2910407000017585,
+      "reasoner": 51.653504499998235,
+      "critic": 24.557929200000217
+    }
+  },
+  {
+    "question_id": "3hop2__90098_156850_10557",
+    "dataset": "musique",
+    "latency_total": 51.270561099998304,
+    "latency_breakdown": {
+      "decomposer": 13.420560899998236,
+      "retriever": 2.1294550000020536,
+      "reasoner": 25.015114499998163,
+      "critic": 10.703735200000665
+    }
+  },
+  {
+    "question_id": "2hop__488811_30110",
+    "dataset": "musique",
+    "latency_total": 86.16050739999991,
+    "latency_breakdown": {
+      "decomposer": 13.038071499999205,
+      "retriever": 2.7475038999982644,
+      "reasoner": 48.4250592999997,
+      "critic": 21.94713210000191
+    }
+  },
+  {
+    "question_id": "2hop__17827_54024",
+    "dataset": "musique",
+    "latency_total": 49.08001670000158,
+    "latency_breakdown": {
+      "decomposer": 9.073974299997644,
+      "retriever": 5.247529600001144,
+      "reasoner": 25.10850389999905,
+      "critic": 9.648129000001063
+    }
+  },
+  {
+    "question_id": "2hop__752214_639679",
+    "dataset": "musique",
+    "latency_total": 121.3502662000028,
+    "latency_breakdown": {
+      "decomposer": 8.207793199999287,
+      "retriever": 1.6761230000010983,
+      "reasoner": 84.95036299999992,
+      "critic": 26.513068699998257
+    }
+  },
+  {
+    "question_id": "2hop__810884_22402",
+    "dataset": "musique",
+    "latency_total": 88.50441750000027,
+    "latency_breakdown": {
+      "decomposer": 10.058943299998646,
+      "retriever": 4.269821100002446,
+      "reasoner": 53.44827619999705,
+      "critic": 20.724518400002125
+    }
+  },
+  {
+    "question_id": "4hop1__341777_508773_85832_745702",
+    "dataset": "musique",
+    "latency_total": 100.13261580000108,
+    "latency_breakdown": {
+      "decomposer": 12.769974099999672,
+      "retriever": 11.150927999999112,
+      "reasoner": 48.153608800002985,
+      "critic": 28.05511850000039
+    }
+  },
+  {
+    "question_id": "3hop2__132957_222979_40768",
+    "dataset": "musique",
+    "latency_total": 93.46689809999953,
+    "latency_breakdown": {
+      "decomposer": 13.734544700000697,
+      "retriever": 4.3187484000009135,
+      "reasoner": 52.562096500001644,
+      "critic": 22.848672899996018
+    }
+  },
+  {
+    "question_id": "2hop__62311_62279",
+    "dataset": "musique",
+    "latency_total": 103.20451270000194,
+    "latency_breakdown": {
+      "decomposer": 8.850529399998777,
+      "retriever": 4.903175899999042,
+      "reasoner": 58.91785529999834,
+      "critic": 30.530088300001808
+    }
+  },
+  {
+    "question_id": "3hop1__365934_87694_124169",
+    "dataset": "musique",
+    "latency_total": 88.88468859999557,
+    "latency_breakdown": {
+      "decomposer": 16.887566500001412,
+      "retriever": 1.2287607000034768,
+      "reasoner": 43.35757889999877,
+      "critic": 27.407887699999264
+    }
+  },
+  {
+    "question_id": "2hop__409166_152023",
+    "dataset": "musique",
+    "latency_total": 37.30982039999799,
+    "latency_breakdown": {
+      "decomposer": 9.691801800006942,
+      "retriever": 0.3888202000016463,
+      "reasoner": 17.281772499998624,
+      "critic": 9.945698399998946
+    }
+  },
+  {
+    "question_id": "3hop1__857_846_7821",
+    "dataset": "musique",
+    "latency_total": 87.13367699999799,
+    "latency_breakdown": {
+      "decomposer": 9.361715199993341,
+      "retriever": 1.358572599994659,
+      "reasoner": 50.584669299998495,
+      "critic": 25.82597369999712
+    }
+  },
+  {
+    "question_id": "3hop1__19768_19788_10117",
+    "dataset": "musique",
+    "latency_total": 98.54346950000036,
+    "latency_breakdown": {
+      "decomposer": 15.333902999998827,
+      "retriever": 5.458562799998617,
+      "reasoner": 49.485885599999165,
+      "critic": 28.262215400005516
+    }
+  },
+  {
+    "question_id": "2hop__703767_37168",
+    "dataset": "musique",
+    "latency_total": 121.70870089999516,
+    "latency_breakdown": {
+      "decomposer": 14.42860010000004,
+      "retriever": 6.012551799998619,
+      "reasoner": 77.99715959999594,
+      "critic": 23.267519300003187
+    }
+  },
+  {
+    "question_id": "2hop__56851_343058",
+    "dataset": "musique",
+    "latency_total": 144.6167332000041,
+    "latency_breakdown": {
+      "decomposer": 11.039405100003933,
+      "retriever": 14.492912100002286,
+      "reasoner": 96.72952249999798,
+      "critic": 22.352022599996417
+    }
+  },
+  {
+    "question_id": "3hop2__30152_105395_20999",
+    "dataset": "musique",
+    "latency_total": 107.88096280000173,
+    "latency_breakdown": {
+      "decomposer": 11.473482599998533,
+      "retriever": 1.7409153999979026,
+      "reasoner": 63.26298990000214,
+      "critic": 31.400619100000768
+    }
+  },
+  {
+    "question_id": "2hop__42747_83837",
+    "dataset": "musique",
+    "latency_total": 90.25988679999864,
+    "latency_breakdown": {
+      "decomposer": 11.409463500000129,
+      "retriever": 2.527693799995177,
+      "reasoner": 49.623264899993956,
+      "critic": 26.696658799999568
+    }
+  },
+  {
+    "question_id": "2hop__511176_22458",
+    "dataset": "musique",
+    "latency_total": 97.84595780000382,
+    "latency_breakdown": {
+      "decomposer": 9.811983200001123,
+      "retriever": 0.9200999000022421,
+      "reasoner": 64.62504409999383,
+      "critic": 22.485966599997482
+    }
+  },
+  {
+    "question_id": "2hop__83800_747874",
+    "dataset": "musique",
+    "latency_total": 88.78500930000155,
+    "latency_breakdown": {
+      "decomposer": 11.627583800000139,
+      "retriever": 1.626793399991584,
+      "reasoner": 50.5910795000018,
+      "critic": 24.93669719999889
+    }
+  },
+  {
+    "question_id": "2hop__83257_19033",
+    "dataset": "musique",
+    "latency_total": 146.5438557000016,
+    "latency_breakdown": {
+      "decomposer": 17.54396590000397,
+      "retriever": 5.161012000004121,
+      "reasoner": 100.44544009999663,
+      "critic": 23.39043230000243
+    }
+  },
+  {
+    "question_id": "2hop__55966_162341",
+    "dataset": "musique",
+    "latency_total": 105.5600615000003,
+    "latency_breakdown": {
+      "decomposer": 8.064092400003574,
+      "retriever": 1.4809931999989203,
+      "reasoner": 75.37639960000524,
+      "critic": 20.635686400004488
+    }
+  },
+  {
+    "question_id": "2hop__754753_57816",
+    "dataset": "musique",
+    "latency_total": 75.64925480000238,
+    "latency_breakdown": {
+      "decomposer": 13.23064219999651,
+      "retriever": 1.2947916999983136,
+      "reasoner": 37.57640199999878,
+      "critic": 23.544587199998205
+    }
+  },
+  {
+    "question_id": "3hop1__127837_157828_239539",
+    "dataset": "musique",
+    "latency_total": 100.79016830000182,
+    "latency_breakdown": {
+      "decomposer": 11.848972100000537,
+      "retriever": 4.5154360000015,
+      "reasoner": 55.407434900000226,
+      "critic": 29.01544789999025
+    }
+  },
+  {
+    "question_id": "3hop1__102461_24918_24991",
+    "dataset": "musique",
+    "latency_total": 131.57475910000358,
+    "latency_breakdown": {
+      "decomposer": 18.84064809999836,
+      "retriever": 7.490645300000324,
+      "reasoner": 77.83335570000781,
+      "critic": 27.407225799994194
+    }
+  },
+  {
+    "question_id": "2hop__612719_6455",
+    "dataset": "musique",
+    "latency_total": 46.33677489999536,
+    "latency_breakdown": {
+      "decomposer": 8.030147400000715,
+      "retriever": 1.7125681999968947,
+      "reasoner": 25.040072700001474,
+      "critic": 11.552116099999694
+    }
+  },
+  {
+    "question_id": "2hop__30905_189318",
+    "dataset": "musique",
+    "latency_total": 85.94839330000104,
+    "latency_breakdown": {
+      "decomposer": 11.345142300000589,
+      "retriever": 6.128917100002582,
+      "reasoner": 46.702151099998446,
+      "critic": 21.769140099997458
+    }
+  },
+  {
+    "question_id": "2hop__776377_857193",
+    "dataset": "musique",
+    "latency_total": 50.12739110000257,
+    "latency_breakdown": {
+      "decomposer": 12.134432700004254,
+      "retriever": 1.8884137000059127,
+      "reasoner": 23.343149700005597,
+      "critic": 12.759664199998952
+    }
+  },
+  {
+    "question_id": "2hop__411091_625230",
+    "dataset": "musique",
+    "latency_total": 88.27218939999875,
+    "latency_breakdown": {
+      "decomposer": 11.139882900002704,
+      "retriever": 7.799435399996582,
+      "reasoner": 47.63433620000433,
+      "critic": 21.695634799994878
+    }
+  },
+  {
+    "question_id": "4hop2__160585_14670_8987_8529",
+    "dataset": "musique",
+    "latency_total": 95.6461374999999,
+    "latency_breakdown": {
+      "decomposer": 19.557464700003038,
+      "retriever": 1.4437535999968532,
+      "reasoner": 43.49690140000166,
+      "critic": 31.145212100003846
+    }
+  },
+  {
+    "question_id": "3hop1__28404_160713_77246",
+    "dataset": "musique",
+    "latency_total": 114.21466019999934,
+    "latency_breakdown": {
+      "decomposer": 13.465011899999809,
+      "retriever": 13.968466499994975,
+      "reasoner": 57.41372489999776,
+      "critic": 29.36453029999393
+    }
+  },
+  {
+    "question_id": "2hop__8496_21567",
+    "dataset": "musique",
+    "latency_total": 148.65523530000064,
+    "latency_breakdown": {
+      "decomposer": 14.991668700000446,
+      "retriever": 5.935614100002567,
+      "reasoner": 99.19846230000257,
+      "critic": 28.526567499997327
+    }
+  },
+  {
+    "question_id": "2hop__70338_36240",
+    "dataset": "musique",
+    "latency_total": 72.05245399999694,
+    "latency_breakdown": {
+      "decomposer": 12.212853700002597,
+      "retriever": 0.8389945999952033,
+      "reasoner": 47.302974600002926,
+      "critic": 11.695864799999981
+    }
+  },
+  {
+    "question_id": "2hop__275891_55984",
+    "dataset": "musique",
+    "latency_total": 47.814093500004674,
+    "latency_breakdown": {
+      "decomposer": 12.293692800005374,
+      "retriever": 1.3407922000042163,
+      "reasoner": 22.528267600006075,
+      "critic": 11.649485899994033
+    }
+  },
+  {
+    "question_id": "3hop1__136129_87694_124169",
+    "dataset": "musique",
+    "latency_total": 57.67449189999752,
+    "latency_breakdown": {
+      "decomposer": 13.18655199999921,
+      "retriever": 2.5638818999941577,
+      "reasoner": 29.6923997000049,
+      "critic": 12.2298479999954
+    }
+  },
+  {
+    "question_id": "4hop3__373866_5189_38229_86687",
+    "dataset": "musique",
+    "latency_total": 97.18135020000045,
+    "latency_breakdown": {
+      "decomposer": 14.863426600000821,
+      "retriever": 5.083147099991038,
+      "reasoner": 45.31854700000258,
+      "critic": 31.9131567000004
+    }
+  },
+  {
+    "question_id": "2hop__455158_247871",
+    "dataset": "musique",
+    "latency_total": 47.409222399997816,
+    "latency_breakdown": {
+      "decomposer": 8.525980399994296,
+      "retriever": 1.2809640999985277,
+      "reasoner": 22.309535300002608,
+      "critic": 15.290980600002513
+    }
+  },
+  {
+    "question_id": "3hop1__131783_131926_13165",
+    "dataset": "musique",
+    "latency_total": 108.34214499999507,
+    "latency_breakdown": {
+      "decomposer": 13.527035799997975,
+      "retriever": 6.438561399991158,
+      "reasoner": 57.07835580000392,
+      "critic": 31.295402599993395
+    }
+  },
+  {
+    "question_id": "2hop__123214_22402",
+    "dataset": "musique",
+    "latency_total": 91.00696659999812,
+    "latency_breakdown": {
+      "decomposer": 9.998732899999595,
+      "retriever": 2.676337600001716,
+      "reasoner": 53.34403530000418,
+      "critic": 24.984940800000913
+    }
+  },
+  {
+    "question_id": "3hop1__358853_339990_15538",
+    "dataset": "musique",
+    "latency_total": 99.85097930000484,
+    "latency_breakdown": {
+      "decomposer": 9.753740799998923,
+      "retriever": 2.2636449999990873,
+      "reasoner": 67.88227650000044,
+      "critic": 19.948410700009845
+    }
+  },
+  {
+    "question_id": "2hop__552546_70131",
+    "dataset": "musique",
+    "latency_total": 45.89253839999583,
+    "latency_breakdown": {
+      "decomposer": 9.527411299997766,
+      "retriever": 0.7265134999979637,
+      "reasoner": 23.727133499996853,
+      "critic": 11.909706500002358
+    }
+  },
+  {
+    "question_id": "2hop__67956_463572",
+    "dataset": "musique",
+    "latency_total": 80.78273440000339,
+    "latency_breakdown": {
+      "decomposer": 9.47657039999467,
+      "retriever": 1.2728800999975647,
+      "reasoner": 46.915518300003896,
+      "critic": 23.114987500004645
+    }
+  },
+  {
+    "question_id": "2hop__418360_67370",
+    "dataset": "musique",
+    "latency_total": 139.88276130000304,
+    "latency_breakdown": {
+      "decomposer": 10.694271899999876,
+      "retriever": 1.6539087000055588,
+      "reasoner": 102.76523299999826,
+      "critic": 24.766532400004508
+    }
+  },
+  {
+    "question_id": "2hop__73921_807969",
+    "dataset": "musique",
+    "latency_total": 102.03620120000414,
+    "latency_breakdown": {
+      "decomposer": 9.554895699999179,
+      "retriever": 1.1147080000009737,
+      "reasoner": 72.18239609999728,
+      "critic": 19.181353599997237
+    }
+  },
+  {
+    "question_id": "3hop1__139787_88110_77129",
+    "dataset": "musique",
+    "latency_total": 89.92115799999738,
+    "latency_breakdown": {
+      "decomposer": 14.353241900003923,
+      "retriever": 4.350651299995661,
+      "reasoner": 49.29606249999779,
+      "critic": 21.91840830000001
+    }
+  },
+  {
+    "question_id": "2hop__141456_6455",
+    "dataset": "musique",
+    "latency_total": 83.83730949999881,
+    "latency_breakdown": {
+      "decomposer": 7.727505900002143,
+      "retriever": 3.271415800001705,
+      "reasoner": 47.27297620000172,
+      "critic": 25.562507599992387
+    }
+  },
+  {
+    "question_id": "3hop2__326964_7855_7713",
+    "dataset": "musique",
+    "latency_total": 93.27359399999841,
+    "latency_breakdown": {
+      "decomposer": 14.2647244999971,
+      "retriever": 2.503571000001102,
+      "reasoner": 50.93040669999027,
+      "critic": 25.571943699993426
+    }
+  },
+  {
+    "question_id": "4hop1__436202_765799_282674_759393",
+    "dataset": "musique",
+    "latency_total": 85.7460329999958,
+    "latency_breakdown": {
+      "decomposer": 15.30521189999854,
+      "retriever": 1.1680953000031877,
+      "reasoner": 41.35039290000714,
+      "critic": 27.919125599990366
+    }
+  },
+  {
+    "question_id": "3hop1__389069_132457_47686",
+    "dataset": "musique",
+    "latency_total": 43.45748789999925,
+    "latency_breakdown": {
+      "decomposer": 11.750599799997872,
+      "retriever": 0.6417835000029299,
+      "reasoner": 20.85585429999628,
+      "critic": 10.207138799996756
+    }
+  },
+  {
+    "question_id": "2hop__90773_715759",
+    "dataset": "musique",
+    "latency_total": 84.94937419999769,
+    "latency_breakdown": {
+      "decomposer": 9.42866089999734,
+      "retriever": 1.4466609000010067,
+      "reasoner": 49.84056050000072,
+      "critic": 24.230518199998187
+    }
+  },
+  {
+    "question_id": "2hop__135652_669373",
+    "dataset": "musique",
+    "latency_total": 91.05072800000198,
+    "latency_breakdown": {
+      "decomposer": 11.163614100005361,
+      "retriever": 2.299942400000873,
+      "reasoner": 51.505634099994495,
+      "critic": 26.078580100002
+    }
+  },
+  {
+    "question_id": "2hop__6736_6733",
+    "dataset": "musique",
+    "latency_total": 61.44331619999866,
+    "latency_breakdown": {
+      "decomposer": 7.72424730000057,
+      "retriever": 0.6866771999993944,
+      "reasoner": 30.537972399994032,
+      "critic": 22.4916630000007
+    }
+  },
+  {
+    "question_id": "4hop1__58323_375563_161848_83118",
+    "dataset": "musique",
+    "latency_total": 84.53582330000063,
+    "latency_breakdown": {
+      "decomposer": 13.250173000000359,
+      "retriever": 1.4880644000004395,
+      "reasoner": 49.92854740000621,
+      "critic": 19.866133600000467
+    }
+  },
+  {
+    "question_id": "4hop3__524186_219173_862998_72134",
+    "dataset": "musique",
+    "latency_total": 96.06559829999605,
+    "latency_breakdown": {
+      "decomposer": 18.41566839999723,
+      "retriever": 2.5164690999954473,
+      "reasoner": 47.47522570000001,
+      "critic": 27.655200699999114
+    }
+  },
+  {
+    "question_id": "3hop1__354480_834494_34109",
+    "dataset": "musique",
+    "latency_total": 40.596413300001586,
+    "latency_breakdown": {
+      "decomposer": 9.911502599999949,
+      "retriever": 0.6733268000025419,
+      "reasoner": 19.526278099998308,
+      "critic": 10.483493800005817
+    }
+  },
+  {
+    "question_id": "2hop__354635_174222",
+    "dataset": "musique",
+    "latency_total": 123.46629899999971,
+    "latency_breakdown": {
+      "decomposer": 8.593041199994332,
+      "retriever": 8.194668700001785,
+      "reasoner": 82.4144191000014,
+      "critic": 24.261339800003043
+    }
+  },
+  {
+    "question_id": "4hop3__678814_466199_695123_72134",
+    "dataset": "musique",
+    "latency_total": 96.08860750000167,
+    "latency_breakdown": {
+      "decomposer": 13.132659199996851,
+      "retriever": 3.0349356000006082,
+      "reasoner": 54.849573099992995,
+      "critic": 25.068464800002403
+    }
+  },
+  {
+    "question_id": "2hop__83405_158262",
+    "dataset": "musique",
+    "latency_total": 127.67150419999962,
+    "latency_breakdown": {
+      "decomposer": 14.150847299999441,
+      "retriever": 9.884032499998284,
+      "reasoner": 81.92864210000698,
+      "critic": 21.70504169999913
+    }
+  },
+  {
+    "question_id": "2hop__60001_512508",
+    "dataset": "musique",
+    "latency_total": 87.19323540000187,
+    "latency_breakdown": {
+      "decomposer": 8.55964590000076,
+      "retriever": 1.558364900003653,
+      "reasoner": 44.605751600000076,
+      "critic": 32.46663540000736
+    }
+  },
+  {
+    "question_id": "2hop__403712_793210",
+    "dataset": "musique",
+    "latency_total": 101.2137509000022,
+    "latency_breakdown": {
+      "decomposer": 10.091463999997359,
+      "retriever": 5.4889059999986785,
+      "reasoner": 58.155121499992674,
+      "critic": 27.47525019999739
+    }
+  },
+  {
+    "question_id": "3hop1__409517_547811_80702",
+    "dataset": "musique",
+    "latency_total": 133.09791440000117,
+    "latency_breakdown": {
+      "decomposer": 11.586079999993672,
+      "retriever": 1.054236600000877,
+      "reasoner": 89.4423403000037,
+      "critic": 31.01240620000317
+    }
+  },
+  {
+    "question_id": "4hop1__433767_32392_823060_610794",
+    "dataset": "musique",
+    "latency_total": 107.17316520000168,
+    "latency_breakdown": {
+      "decomposer": 14.638763900002232,
+      "retriever": 2.402816300003906,
+      "reasoner": 65.17274710000493,
+      "critic": 24.95585800000117
+    }
+  },
+  {
+    "question_id": "4hop2__567956_39078_8987_8974",
+    "dataset": "musique",
+    "latency_total": 90.86361409999517,
+    "latency_breakdown": {
+      "decomposer": 16.005419600005553,
+      "retriever": 1.4968565000017406,
+      "reasoner": 43.08124689999386,
+      "critic": 30.277045899994846
+    }
+  },
+  {
+    "question_id": "2hop__689472_52835",
+    "dataset": "musique",
+    "latency_total": 58.90819590000319,
+    "latency_breakdown": {
+      "decomposer": 9.824543900002027,
+      "retriever": 2.236789000002318,
+      "reasoner": 33.64405930000066,
+      "critic": 13.201056199999584
+    }
+  },
+  {
+    "question_id": "2hop__820739_250752",
+    "dataset": "musique",
+    "latency_total": 87.29653049999615,
+    "latency_breakdown": {
+      "decomposer": 9.5085304000022,
+      "retriever": 0.9527601999943727,
+      "reasoner": 53.7733919000093,
+      "critic": 23.059052299999166
+    }
+  },
+  {
+    "question_id": "2hop__21104_16254",
+    "dataset": "musique",
+    "latency_total": 110.14437400000315,
+    "latency_breakdown": {
+      "decomposer": 14.79740640000091,
+      "retriever": 14.412790399997903,
+      "reasoner": 54.27515999999741,
+      "critic": 26.655971100000897
+    }
+  },
+  {
+    "question_id": "4hop1__726391_153080_33952_34053",
+    "dataset": "musique",
+    "latency_total": 92.23023889999604,
+    "latency_breakdown": {
+      "decomposer": 18.206131499995536,
+      "retriever": 1.4336056999964057,
+      "reasoner": 45.057981799996924,
+      "critic": 27.52970149999601
+    }
+  },
+  {
+    "question_id": "2hop__374767_152023",
+    "dataset": "musique",
+    "latency_total": 47.5999731999982,
+    "latency_breakdown": {
+      "decomposer": 9.394690000000992,
+      "retriever": 1.4532572000025539,
+      "reasoner": 25.07497919999878,
+      "critic": 11.675288200000068
+    }
+  },
+  {
+    "question_id": "4hop3__426860_88460_30152_20999",
+    "dataset": "musique",
+    "latency_total": 85.95009589999972,
+    "latency_breakdown": {
+      "decomposer": 15.233817000000272,
+      "retriever": 1.3660369000062929,
+      "reasoner": 41.90289249999478,
+      "critic": 27.444485899999563
+    }
+  },
+  {
+    "question_id": "3hop1__79462_91850_685675",
+    "dataset": "musique",
+    "latency_total": 93.50659509999969,
+    "latency_breakdown": {
+      "decomposer": 12.682787199999439,
+      "retriever": 1.266764100000728,
+      "reasoner": 51.78459020000446,
+      "critic": 27.7695664999992
+    }
+  },
+  {
+    "question_id": "2hop__289517_139339",
+    "dataset": "musique",
+    "latency_total": 99.20293579999998,
+    "latency_breakdown": {
+      "decomposer": 11.920172899997851,
+      "retriever": 1.722717399999965,
+      "reasoner": 63.622396400009166,
+      "critic": 21.934783299999253
+    }
+  },
+  {
+    "question_id": "4hop1__129721_32392_823060_610794",
+    "dataset": "musique",
+    "latency_total": 89.50048550000065,
+    "latency_breakdown": {
+      "decomposer": 13.78698710000026,
+      "retriever": 2.2751520999954664,
+      "reasoner": 48.62484509999922,
+      "critic": 24.81071740000334
+    }
+  },
+  {
+    "question_id": "2hop__142842_68489",
+    "dataset": "musique",
+    "latency_total": 38.598952599997574,
+    "latency_breakdown": {
+      "decomposer": 8.995927099997061,
+      "retriever": 0.4861328999977559,
+      "reasoner": 18.781008400001156,
+      "critic": 10.333987999998499
+    }
+  },
+  {
+    "question_id": "2hop__80546_75184",
+    "dataset": "musique",
+    "latency_total": 47.74743890000536,
+    "latency_breakdown": {
+      "decomposer": 10.219819499994628,
+      "retriever": 3.00845030000346,
+      "reasoner": 24.847317699997802,
+      "critic": 9.67000089999783
+    }
+  },
+  {
+    "question_id": "2hop__323534_810083",
+    "dataset": "musique",
+    "latency_total": 68.82507169999735,
+    "latency_breakdown": {
+      "decomposer": 7.96583549999923,
+      "retriever": 1.2234521999926073,
+      "reasoner": 39.37894970000343,
+      "critic": 20.25399749999633
+    }
+  },
+  {
+    "question_id": "2hop__829474_123956",
+    "dataset": "musique",
+    "latency_total": 100.48407579999912,
+    "latency_breakdown": {
+      "decomposer": 13.665651200004504,
+      "retriever": 10.431005400008871,
+      "reasoner": 50.29067089999444,
+      "critic": 26.093817200002377
+    }
+  },
+  {
+    "question_id": "4hop1__94201_642284_131926_90707",
+    "dataset": "musique",
+    "latency_total": 121.02331709999999,
+    "latency_breakdown": {
+      "decomposer": 11.79182249999576,
+      "retriever": 0.9654066000002786,
+      "reasoner": 81.25806000000011,
+      "critic": 27.00526479999826
+    }
+  },
+  {
+    "question_id": "4hop1__629520_49925_13759_736921",
+    "dataset": "musique",
+    "latency_total": 108.50940979999723,
+    "latency_breakdown": {
+      "decomposer": 13.126123100002587,
+      "retriever": 5.568740399998205,
+      "reasoner": 63.75339169999643,
+      "critic": 26.05820680000761
+    }
+  },
+  {
+    "question_id": "3hop1__540585_568433_47686",
+    "dataset": "musique",
+    "latency_total": 94.89349079999374,
+    "latency_breakdown": {
+      "decomposer": 10.224375400001009,
+      "retriever": 2.1691825999951106,
+      "reasoner": 57.24760609999066,
+      "critic": 25.249488000001293
+    }
+  },
+  {
+    "question_id": "2hop__56307_604644",
+    "dataset": "musique",
+    "latency_total": 99.10471630000393,
+    "latency_breakdown": {
+      "decomposer": 9.445657099997334,
+      "retriever": 1.2854256000064197,
+      "reasoner": 69.9811148000008,
+      "critic": 18.389670499993372
+    }
+  },
+  {
+    "question_id": "2hop__507528_139339",
+    "dataset": "musique",
+    "latency_total": 78.27068899999722,
+    "latency_breakdown": {
+      "decomposer": 8.307951499999035,
+      "retriever": 1.9201987000051304,
+      "reasoner": 46.49340849999862,
+      "critic": 21.546238700000686
+    }
+  },
+  {
+    "question_id": "2hop__44259_747874",
+    "dataset": "musique",
+    "latency_total": 105.11106329999893,
+    "latency_breakdown": {
+      "decomposer": 10.582553600004758,
+      "retriever": 1.3786055000018678,
+      "reasoner": 63.74525869999343,
+      "critic": 29.401673799999116
+    }
+  },
+  {
+    "question_id": "2hop__428940_135373",
+    "dataset": "musique",
+    "latency_total": 88.05991729999369,
+    "latency_breakdown": {
+      "decomposer": 8.531707200003439,
+      "retriever": 2.874467100002221,
+      "reasoner": 49.73076069999661,
+      "critic": 26.920000699996308
+    }
+  },
+  {
+    "question_id": "3hop1__147225_30587_83479",
+    "dataset": "musique",
+    "latency_total": 123.92237069999828,
+    "latency_breakdown": {
+      "decomposer": 12.237732200002938,
+      "retriever": 1.7574386000051163,
+      "reasoner": 84.95741600000474,
+      "critic": 24.966978700002073
+    }
+  },
+  {
+    "question_id": "2hop__642686_7292",
+    "dataset": "musique",
+    "latency_total": 43.759866400003375,
+    "latency_breakdown": {
+      "decomposer": 11.074876099999528,
+      "retriever": 0.8011164000054123,
+      "reasoner": 23.463785499996447,
+      "critic": 8.418342600001779
+    }
+  },
+  {
+    "question_id": "3hop1__107540_720914_27537",
+    "dataset": "musique",
+    "latency_total": 88.16335750000144,
+    "latency_breakdown": {
+      "decomposer": 14.726914899998519,
+      "retriever": 1.2729769000070519,
+      "reasoner": 46.00538400000369,
+      "critic": 26.15524010000081
+    }
+  },
+  {
+    "question_id": "3hop1__161433_33952_33939",
+    "dataset": "musique",
+    "latency_total": 113.23221439999907,
+    "latency_breakdown": {
+      "decomposer": 11.196975300001213,
+      "retriever": 1.5523979000063264,
+      "reasoner": 76.47654850000254,
+      "critic": 24.003346199991938
+    }
+  },
+  {
+    "question_id": "2hop__71871_494136",
+    "dataset": "musique",
+    "latency_total": 112.48379750000458,
+    "latency_breakdown": {
+      "decomposer": 13.831144000003405,
+      "retriever": 3.4915197000009357,
+      "reasoner": 75.80994320000173,
+      "critic": 19.348298899996735
+    }
+  },
+  {
+    "question_id": "4hop1__310029_153080_33897_81096",
+    "dataset": "musique",
+    "latency_total": 109.72187850000046,
+    "latency_breakdown": {
+      "decomposer": 14.394948499997554,
+      "retriever": 4.41181360000337,
+      "reasoner": 59.30014410000149,
+      "critic": 31.61196580000251
+    }
+  },
+  {
+    "question_id": "2hop__620853_22458",
+    "dataset": "musique",
+    "latency_total": 87.71511140000075,
+    "latency_breakdown": {
+      "decomposer": 9.76101689999632,
+      "retriever": 1.8995254000037676,
+      "reasoner": 50.181424999995215,
+      "critic": 25.870143699998152
+    }
+  },
+  {
+    "question_id": "2hop__865828_377862",
+    "dataset": "musique",
+    "latency_total": 73.18828190000204,
+    "latency_breakdown": {
+      "decomposer": 9.04050339999958,
+      "retriever": 1.186148900000262,
+      "reasoner": 41.269654399999126,
+      "critic": 21.68917400000646
+    }
+  },
+  {
+    "question_id": "4hop3__630723_88460_30152_20999",
+    "dataset": "musique",
+    "latency_total": 127.23649200000364,
+    "latency_breakdown": {
+      "decomposer": 15.557869199998095,
+      "retriever": 1.4920009999987087,
+      "reasoner": 84.67837429999781,
+      "critic": 25.50534090000292
+    }
+  },
+  {
+    "question_id": "4hop3__719125_132409_371500_35031",
+    "dataset": "musique",
+    "latency_total": 88.47331570000097,
+    "latency_breakdown": {
+      "decomposer": 17.945533199999772,
+      "retriever": 1.5788515999956871,
+      "reasoner": 41.57169299999805,
+      "critic": 27.374463100000867
+    }
+  },
+  {
+    "question_id": "4hop1__105688_17130_70784_79935",
+    "dataset": "musique",
+    "latency_total": 140.7078821000032,
+    "latency_breakdown": {
+      "decomposer": 15.494382599994424,
+      "retriever": 17.782151599996723,
+      "reasoner": 84.01045840000006,
+      "critic": 23.418005299994547
+    }
+  },
+  {
+    "question_id": "3hop1__376309_160713_77246",
+    "dataset": "musique",
+    "latency_total": 128.55354140000418,
+    "latency_breakdown": {
+      "decomposer": 14.899142100002791,
+      "retriever": 26.200031400003354,
+      "reasoner": 55.72175260000222,
+      "critic": 31.72959979999723
+    }
+  },
+  {
+    "question_id": "4hop1__525129_315334_131926_87157",
+    "dataset": "musique",
+    "latency_total": 113.12076469999738,
+    "latency_breakdown": {
+      "decomposer": 16.333725199998298,
+      "retriever": 1.5814526999965892,
+      "reasoner": 73.07929429999785,
+      "critic": 22.1235142000005
+    }
+  },
+  {
+    "question_id": "3hop1__140554_2053_52946",
+    "dataset": "musique",
+    "latency_total": 101.06352519999928,
+    "latency_breakdown": {
+      "decomposer": 15.934956999997667,
+      "retriever": 5.906912899998133,
+      "reasoner": 53.89988199999789,
+      "critic": 25.318879200000083
+    }
+  },
+  {
+    "question_id": "3hop1__347858_503371_21711",
+    "dataset": "musique",
+    "latency_total": 124.02848190000077,
+    "latency_breakdown": {
+      "decomposer": 15.008485300000757,
+      "retriever": 11.904147499997634,
+      "reasoner": 73.30257669999992,
+      "critic": 23.81034589999763
+    }
+  },
+  {
+    "question_id": "2hop__709357_136043",
+    "dataset": "musique",
+    "latency_total": 73.82179110000288,
+    "latency_breakdown": {
+      "decomposer": 8.74133989999973,
+      "retriever": 1.3944938000058755,
+      "reasoner": 42.48531240000011,
+      "critic": 21.197770600003423
+    }
+  },
+  {
+    "question_id": "3hop1__516535_834494_34109",
+    "dataset": "musique",
+    "latency_total": 87.47677629999816,
+    "latency_breakdown": {
+      "decomposer": 9.265206399999443,
+      "retriever": 4.513522599998396,
+      "reasoner": 47.66571079999994,
+      "critic": 26.0294916999992
+    }
+  },
+  {
+    "question_id": "3hop1__639955_834494_34109",
+    "dataset": "musique",
+    "latency_total": 77.71543879999808,
+    "latency_breakdown": {
+      "decomposer": 12.360755500005325,
+      "retriever": 1.338836100003391,
+      "reasoner": 38.345087599998806,
+      "critic": 25.667821600000025
+    }
+  },
+  {
+    "question_id": "3hop1__786067_228453_86925",
+    "dataset": "musique",
+    "latency_total": 106.86046359999455,
+    "latency_breakdown": {
+      "decomposer": 13.873696000002383,
+      "retriever": 2.7030030000023544,
+      "reasoner": 67.66197269999248,
+      "critic": 22.61889230000088
+    }
+  },
+  {
+    "question_id": "3hop1__506062_792411_51423",
+    "dataset": "musique",
+    "latency_total": 111.53890980000142,
+    "latency_breakdown": {
+      "decomposer": 13.116019200002484,
+      "retriever": 1.4833629999920959,
+      "reasoner": 75.8349920999899,
+      "critic": 21.101749800000107
+    }
+  },
+  {
+    "question_id": "4hop1__60000_59747_211319_557671",
+    "dataset": "musique",
+    "latency_total": 84.68072089999623,
+    "latency_breakdown": {
+      "decomposer": 11.820674700000382,
+      "retriever": 1.5481104999998934,
+      "reasoner": 45.68224010000267,
+      "critic": 25.626974599996174
+    }
+  },
+  {
+    "question_id": "3hop1__17192_78396_54865",
+    "dataset": "musique",
+    "latency_total": 94.26713709999603,
+    "latency_breakdown": {
+      "decomposer": 12.773457800001779,
+      "retriever": 3.6988715000043157,
+      "reasoner": 49.79476820000127,
+      "critic": 27.997315299995535
+    }
+  },
+  {
+    "question_id": "3hop2__36852_326964_7713",
+    "dataset": "musique",
+    "latency_total": 90.8753063999975,
+    "latency_breakdown": {
+      "decomposer": 14.788612999996985,
+      "retriever": 1.669461899997259,
+      "reasoner": 44.234975899991696,
+      "critic": 30.179475199998706
+    }
+  },
+  {
+    "question_id": "2hop__179149_396277",
+    "dataset": "musique",
+    "latency_total": 100.17709950000426,
+    "latency_breakdown": {
+      "decomposer": 8.14156969999749,
+      "retriever": 10.52988539999933,
+      "reasoner": 59.254394399999,
+      "critic": 22.24825929999497
+    }
+  },
+  {
+    "question_id": "2hop__145203_34088",
+    "dataset": "musique",
+    "latency_total": 89.67482729999756,
+    "latency_breakdown": {
+      "decomposer": 9.703058400002192,
+      "retriever": 5.417231299994455,
+      "reasoner": 49.938236800000595,
+      "critic": 24.61339570000564
+    }
+  },
+  {
+    "question_id": "3hop1__295815_40769_64047",
+    "dataset": "musique",
+    "latency_total": 124.4988130999991,
+    "latency_breakdown": {
+      "decomposer": 10.79160039999988,
+      "retriever": 5.56153930000437,
+      "reasoner": 89.47424359999422,
+      "critic": 18.66852900000231
+    }
+  },
+  {
+    "question_id": "3hop1__747772_514761_594810",
+    "dataset": "musique",
+    "latency_total": 95.37152349999815,
+    "latency_breakdown": {
+      "decomposer": 11.185963300005824,
+      "retriever": 2.989567199998419,
+      "reasoner": 54.62607059999573,
+      "critic": 26.567081599998346
+    }
+  },
+  {
+    "question_id": "4hop3__439878_88460_30152_20999",
+    "dataset": "musique",
+    "latency_total": 108.63343050000549,
+    "latency_breakdown": {
+      "decomposer": 19.03230579999945,
+      "retriever": 2.0900678999969386,
+      "reasoner": 63.712249899996095,
+      "critic": 23.795980300004885
+    }
+  },
+  {
+    "question_id": "2hop__35136_35117",
+    "dataset": "musique",
+    "latency_total": 107.56017649999558,
+    "latency_breakdown": {
+      "decomposer": 7.509810399998969,
+      "retriever": 1.603703200002201,
+      "reasoner": 70.9801204999967,
+      "critic": 27.46354299999075
+    }
+  },
+  {
+    "question_id": "3hop1__559908_42197_18397",
+    "dataset": "musique",
+    "latency_total": 136.2794625000024,
+    "latency_breakdown": {
+      "decomposer": 13.578618100000313,
+      "retriever": 10.720653799995489,
+      "reasoner": 86.6054471000025,
+      "critic": 25.371757099994284
+    }
+  },
+  {
+    "question_id": "4hop1__105401_17130_70784_61381",
+    "dataset": "musique",
+    "latency_total": 124.71291249999922,
+    "latency_breakdown": {
+      "decomposer": 12.044920100001036,
+      "retriever": 22.22996929999499,
+      "reasoner": 67.52364200000738,
+      "critic": 22.911391300003743
+    }
+  },
+  {
+    "question_id": "2hop__157376_643670",
+    "dataset": "musique",
+    "latency_total": 47.481688799998665,
+    "latency_breakdown": {
+      "decomposer": 10.554710799995519,
+      "retriever": 0.6465267000021413,
+      "reasoner": 25.618973099997675,
+      "critic": 10.659677899995586
+    }
+  },
+  {
+    "question_id": "3hop1__823336_228453_86925",
+    "dataset": "musique",
+    "latency_total": 83.91849090000323,
+    "latency_breakdown": {
+      "decomposer": 14.375109799999336,
+      "retriever": 1.462780700006988,
+      "reasoner": 44.84264479999547,
+      "critic": 23.235212599996885
+    }
+  },
+  {
+    "question_id": "2hop__59612_42352",
+    "dataset": "musique",
+    "latency_total": 85.76345020000008,
+    "latency_breakdown": {
+      "decomposer": 9.044417100005376,
+      "retriever": 13.291370200000529,
+      "reasoner": 42.34582909999881,
+      "critic": 21.078996799995366
+    }
+  },
+  {
+    "question_id": "3hop1__768500_730460_70315",
+    "dataset": "musique",
+    "latency_total": 46.88665469999978,
+    "latency_breakdown": {
+      "decomposer": 11.23804299999756,
+      "retriever": 1.0357264000049327,
+      "reasoner": 22.824822200003837,
+      "critic": 11.786273000005167
+    }
+  },
+  {
+    "question_id": "3hop1__127821_157828_162309",
+    "dataset": "musique",
+    "latency_total": 85.89458979999472,
+    "latency_breakdown": {
+      "decomposer": 14.208440599999449,
+      "retriever": 1.3434771000029286,
+      "reasoner": 43.78915540000162,
+      "critic": 26.550718799997412
+    }
+  },
+  {
+    "question_id": "4hop1__15567_59747_211319_557671",
+    "dataset": "musique",
+    "latency_total": 94.70323949999874,
+    "latency_breakdown": {
+      "decomposer": 13.39437259999977,
+      "retriever": 6.2774696000051335,
+      "reasoner": 49.61915489999956,
+      "critic": 25.409384900005534
+    }
+  },
+  {
+    "question_id": "2hop__96096_78606",
+    "dataset": "musique",
+    "latency_total": 87.46460430000297,
+    "latency_breakdown": {
+      "decomposer": 10.234309999999823,
+      "retriever": 3.5945834000012837,
+      "reasoner": 50.995618900007685,
+      "critic": 22.637108399998397
+    }
+  },
+  {
+    "question_id": "4hop1__58323_375563_161848_61344",
+    "dataset": "musique",
+    "latency_total": 82.56094959999609,
+    "latency_breakdown": {
+      "decomposer": 14.69320229999721,
+      "retriever": 1.139634400002251,
+      "reasoner": 40.589198599991505,
+      "critic": 26.136021200007235
+    }
+  },
+  {
+    "question_id": "2hop__776637_87295",
+    "dataset": "musique",
+    "latency_total": 51.86878240000078,
+    "latency_breakdown": {
+      "decomposer": 9.009910299995681,
+      "retriever": 2.134825599998294,
+      "reasoner": 30.41544409999915,
+      "critic": 10.306755700003123
+    }
+  },
+  {
+    "question_id": "4hop1__752321_153080_159767_81096",
+    "dataset": "musique",
+    "latency_total": 108.40450260000216,
+    "latency_breakdown": {
+      "decomposer": 15.601841000003333,
+      "retriever": 7.485450599997421,
+      "reasoner": 52.780168699995556,
+      "critic": 32.534123700002965
+    }
+  },
+  {
+    "question_id": "3hop1__161507_160713_77246",
+    "dataset": "musique",
+    "latency_total": 141.4699752000015,
+    "latency_breakdown": {
+      "decomposer": 18.202044199999364,
+      "retriever": 25.431631200000993,
+      "reasoner": 65.37375839999731,
+      "critic": 32.45956609999121
+    }
+  },
+  {
+    "question_id": "2hop__84937_21969",
+    "dataset": "musique",
+    "latency_total": 49.30087030000141,
+    "latency_breakdown": {
+      "decomposer": 14.609242799997446,
+      "retriever": 2.2726929999989807,
+      "reasoner": 22.357692899997346,
+      "critic": 10.05941609999718
+    }
+  },
+  {
+    "question_id": "4hop1__130623_32392_823060_610794",
+    "dataset": "musique",
+    "latency_total": 103.91819140000007,
+    "latency_breakdown": {
+      "decomposer": 14.947281699998712,
+      "retriever": 1.059764300007373,
+      "reasoner": 63.55309880000277,
+      "critic": 24.355187299996032
+    }
+  },
+  {
+    "question_id": "3hop2__132957_483843_40768",
+    "dataset": "musique",
+    "latency_total": 107.09804140000051,
+    "latency_breakdown": {
+      "decomposer": 18.3143629000042,
+      "retriever": 4.039693599996099,
+      "reasoner": 55.484804499996244,
+      "critic": 29.25625299999956
+    }
+  },
+  {
+    "question_id": "2hop__198650_84856",
+    "dataset": "musique",
+    "latency_total": 123.7347762999998,
+    "latency_breakdown": {
+      "decomposer": 11.857000099997094,
+      "retriever": 1.4705251999985194,
+      "reasoner": 83.20783419999498,
+      "critic": 27.19664300000295
+    }
+  },
+  {
+    "question_id": "2hop__631139_75487",
+    "dataset": "musique",
+    "latency_total": 88.58953449999535,
+    "latency_breakdown": {
+      "decomposer": 8.648649099995964,
+      "retriever": 1.2913300999935018,
+      "reasoner": 47.18130019999808,
+      "critic": 31.465275399998063
+    }
+  },
+  {
+    "question_id": "2hop__223823_29898",
+    "dataset": "musique",
+    "latency_total": 83.6168628000014,
+    "latency_breakdown": {
+      "decomposer": 10.993760900004418,
+      "retriever": 3.9258983000036096,
+      "reasoner": 44.80334919998859,
+      "critic": 23.890977600007318
+    }
+  },
+  {
+    "question_id": "3hop2__607269_223623_162182",
+    "dataset": "musique",
+    "latency_total": 84.69832840000163,
+    "latency_breakdown": {
+      "decomposer": 11.18127590000222,
+      "retriever": 3.989766199993028,
+      "reasoner": 48.77270029999636,
+      "critic": 20.751744399996824
+    }
+  },
+  {
+    "question_id": "2hop__189094_612080",
+    "dataset": "musique",
+    "latency_total": 98.59889590000239,
+    "latency_breakdown": {
+      "decomposer": 7.883792900000117,
+      "retriever": 1.0570116000017151,
+      "reasoner": 61.44817790000525,
+      "critic": 28.207040799992683
+    }
+  },
+  {
+    "question_id": "3hop1__84887_538202_84283",
+    "dataset": "musique",
+    "latency_total": 98.17782170000282,
+    "latency_breakdown": {
+      "decomposer": 12.645621700001357,
+      "retriever": 1.203238500005682,
+      "reasoner": 60.308206800000335,
+      "critic": 24.017925700005435
+    }
+  },
+  {
+    "question_id": "3hop1__305282_282081_10972",
+    "dataset": "musique",
+    "latency_total": 120.36512700000458,
+    "latency_breakdown": {
+      "decomposer": 13.236075499997241,
+      "retriever": 0.9558456000013393,
+      "reasoner": 85.57743430000119,
+      "critic": 20.591421200006153
+    }
+  },
+  {
+    "question_id": "2hop__199513_801817",
+    "dataset": "musique",
+    "latency_total": 112.41176280000218,
+    "latency_breakdown": {
+      "decomposer": 8.795123300005798,
+      "retriever": 2.9666732999976375,
+      "reasoner": 80.57798519999778,
+      "critic": 20.06903610000154
+    }
+  },
+  {
+    "question_id": "2hop__80637_19033",
+    "dataset": "musique",
+    "latency_total": 123.37314239999978,
+    "latency_breakdown": {
+      "decomposer": 14.726019200003066,
+      "retriever": 1.4387633000005735,
+      "reasoner": 83.6157727999962,
+      "critic": 23.589709199994104
+    }
+  },
+  {
+    "question_id": "3hop1__133292_40769_64047",
+    "dataset": "musique",
+    "latency_total": 127.52513739999995,
+    "latency_breakdown": {
+      "decomposer": 16.94508230000065,
+      "retriever": 1.1137429000009433,
+      "reasoner": 85.90031380000437,
+      "critic": 23.563111300005403
+    }
+  },
+  {
+    "question_id": "3hop1__857_846_7810",
+    "dataset": "musique",
+    "latency_total": 97.58695489999809,
+    "latency_breakdown": {
+      "decomposer": 14.141499400000612,
+      "retriever": 1.6253931999963243,
+      "reasoner": 54.777472400004626,
+      "critic": 27.03976660000626
+    }
+  },
+  {
+    "question_id": "4hop2__161602_426860_88460_126088",
+    "dataset": "musique",
+    "latency_total": 125.00138180000067,
+    "latency_breakdown": {
+      "decomposer": 14.729153699998278,
+      "retriever": 1.5933828000052017,
+      "reasoner": 84.94987779999792,
+      "critic": 23.72610469999927
+    }
+  },
+  {
+    "question_id": "2hop__669160_139339",
+    "dataset": "musique",
+    "latency_total": 97.08405570000468,
+    "latency_breakdown": {
+      "decomposer": 12.813717900004121,
+      "retriever": 5.1189841000013985,
+      "reasoner": 55.84240750000026,
+      "critic": 23.306155600002967
+    }
+  },
+  {
+    "question_id": "2hop__734582_74481",
+    "dataset": "musique",
+    "latency_total": 85.22518339999806,
+    "latency_breakdown": {
+      "decomposer": 7.91584739999962,
+      "retriever": 3.458645599996089,
+      "reasoner": 47.29226939999353,
+      "critic": 26.55551299999206
+    }
+  },
+  {
+    "question_id": "2hop__156085_436709",
+    "dataset": "musique",
+    "latency_total": 52.06060659999639,
+    "latency_breakdown": {
+      "decomposer": 8.421510299995134,
+      "retriever": 6.762859000002209,
+      "reasoner": 27.295232600001327,
+      "critic": 9.579246699999203
+    }
+  },
+  {
+    "question_id": "2hop__137061_45752",
+    "dataset": "musique",
+    "latency_total": 81.22076070000185,
+    "latency_breakdown": {
+      "decomposer": 14.952462199995352,
+      "retriever": 1.2353382000001147,
+      "reasoner": 39.85286169999017,
+      "critic": 25.17732360000082
+    }
+  },
+  {
+    "question_id": "2hop__67660_67223",
+    "dataset": "musique",
+    "latency_total": 69.46264050000173,
+    "latency_breakdown": {
+      "decomposer": 9.33662600000389,
+      "retriever": 1.382506200003263,
+      "reasoner": 36.454632600005425,
+      "critic": 22.28612140000041
+    }
+  },
+  {
+    "question_id": "2hop__252521_80650",
+    "dataset": "musique",
+    "latency_total": 53.55252520000067,
+    "latency_breakdown": {
+      "decomposer": 9.843094600000768,
+      "retriever": 4.130875100003323,
+      "reasoner": 26.780474899998808,
+      "critic": 12.796258200003649
+    }
+  },
+  {
+    "question_id": "2hop__58691_192417",
+    "dataset": "musique",
+    "latency_total": 71.51976219999779,
+    "latency_breakdown": {
+      "decomposer": 9.009124500000325,
+      "retriever": 1.2346150999946985,
+      "reasoner": 37.77677820000099,
+      "critic": 23.49642209999729
+    }
+  },
+  {
+    "question_id": "3hop2__304722_203717_63959",
+    "dataset": "musique",
+    "latency_total": 137.08868359999906,
+    "latency_breakdown": {
+      "decomposer": 17.12495140000101,
+      "retriever": 1.592998100008117,
+      "reasoner": 96.75765369999863,
+      "critic": 21.61022740000044
+    }
+  },
+  {
+    "question_id": "2hop__450600_158262",
+    "dataset": "musique",
+    "latency_total": 133.37694190000184,
+    "latency_breakdown": {
+      "decomposer": 9.67379219999566,
+      "retriever": 11.065997899997456,
+      "reasoner": 88.58077460000641,
+      "critic": 24.053523100003076
+    }
+  },
+  {
+    "question_id": "2hop__194532_57594",
+    "dataset": "musique",
+    "latency_total": 115.59680910000316,
+    "latency_breakdown": {
+      "decomposer": 13.493868300000031,
+      "retriever": 1.4817607999939355,
+      "reasoner": 75.83119910000823,
+      "critic": 24.787242599995807
+    }
+  },
+  {
+    "question_id": "4hop1__9002_698949_157828_239539",
+    "dataset": "musique",
+    "latency_total": 97.01010870000027,
+    "latency_breakdown": {
+      "decomposer": 14.13064139999915,
+      "retriever": 4.160883000004105,
+      "reasoner": 52.88816659999429,
+      "critic": 25.82757159999892
+    }
+  },
+  {
+    "question_id": "3hop1__374018_160713_77246",
+    "dataset": "musique",
+    "latency_total": 68.01361790000374,
+    "latency_breakdown": {
+      "decomposer": 15.879558200002066,
+      "retriever": 12.077136100000644,
+      "reasoner": 29.971922600001562,
+      "critic": 10.083248400005687
+    }
+  },
+  {
+    "question_id": "2hop__268084_78303",
+    "dataset": "musique",
+    "latency_total": 69.54785170000105,
+    "latency_breakdown": {
+      "decomposer": 13.135790999993333,
+      "retriever": 2.5134388000005856,
+      "reasoner": 44.05729219999921,
+      "critic": 9.839484999996785
+    }
+  },
+  {
+    "question_id": "4hop3__661103_698586_1926_54362",
+    "dataset": "musique",
+    "latency_total": 124.6456846000001,
+    "latency_breakdown": {
+      "decomposer": 15.626372200000333,
+      "retriever": 1.2747130999923684,
+      "reasoner": 84.28428099999292,
+      "critic": 23.457570099992154
+    }
+  },
+  {
+    "question_id": "4hop3__373573_132409_146285_35031",
+    "dataset": "musique",
+    "latency_total": 87.38100100000156,
+    "latency_breakdown": {
+      "decomposer": 12.836438800004544,
+      "retriever": 2.009626399994886,
+      "reasoner": 47.78763039999467,
+      "critic": 24.74441069999739
+    }
+  },
+  {
+    "question_id": "3hop1__104996_160713_77246",
+    "dataset": "musique",
+    "latency_total": 72.76163850000012,
+    "latency_breakdown": {
+      "decomposer": 16.645245200001227,
+      "retriever": 13.385809500003234,
+      "reasoner": 29.816741499998898,
+      "critic": 12.912032799998997
+    }
+  },
+  {
+    "question_id": "2hop__10017_18974",
+    "dataset": "musique",
+    "latency_total": 89.43605569999636,
+    "latency_breakdown": {
+      "decomposer": 9.073761999999988,
+      "retriever": 4.296216499998991,
+      "reasoner": 49.15233750000334,
+      "critic": 26.910876299996744
+    }
+  },
+  {
+    "question_id": "3hop1__120881_2053_52946",
+    "dataset": "musique",
+    "latency_total": 105.32116749999841,
+    "latency_breakdown": {
+      "decomposer": 12.09224460000405,
+      "retriever": 6.021837499996764,
+      "reasoner": 56.749017499998445,
+      "critic": 30.45513289999508
+    }
+  },
+  {
+    "question_id": "2hop__735014_83837",
+    "dataset": "musique",
+    "latency_total": 83.5432679000005,
+    "latency_breakdown": {
+      "decomposer": 9.727163399998972,
+      "retriever": 1.5488690999991377,
+      "reasoner": 45.31435159999819,
+      "critic": 26.950005700004112
+    }
+  },
+  {
+    "question_id": "2hop__596188_297986",
+    "dataset": "musique",
+    "latency_total": 74.48079430000507,
+    "latency_breakdown": {
+      "decomposer": 8.214921899998444,
+      "retriever": 1.90473159999965,
+      "reasoner": 45.19846700000198,
+      "critic": 19.159856799997215
+    }
+  },
+  {
+    "question_id": "4hop3__700962_88460_30152_20999",
+    "dataset": "musique",
+    "latency_total": 126.02750460000243,
+    "latency_breakdown": {
+      "decomposer": 18.0339021999971,
+      "retriever": 1.408035899999959,
+      "reasoner": 79.88601979999657,
+      "critic": 26.696785100000852
+    }
+  },
+  {
+    "question_id": "3hop1__145427_106426_157788",
+    "dataset": "musique",
+    "latency_total": 95.98017909999908,
+    "latency_breakdown": {
+      "decomposer": 18.02913709999848,
+      "retriever": 2.556068099998811,
+      "reasoner": 48.46968810000544,
+      "critic": 26.922461899994232
+    }
+  },
+  {
+    "question_id": "2hop__857493_17335",
+    "dataset": "musique",
+    "latency_total": 92.01181789999828,
+    "latency_breakdown": {
+      "decomposer": 8.582723699997587,
+      "retriever": 1.547123600001214,
+      "reasoner": 60.888711100000364,
+      "critic": 20.990489499999967
+    }
+  },
+  {
+    "question_id": "2hop__123104_77615",
+    "dataset": "musique",
+    "latency_total": 69.75353249999898,
+    "latency_breakdown": {
+      "decomposer": 11.550862500000221,
+      "retriever": 1.5041285999977845,
+      "reasoner": 36.977533099998254,
+      "critic": 19.71815250000509
+    }
+  },
+  {
+    "question_id": "4hop2__9988_685934_70784_61381",
+    "dataset": "musique",
+    "latency_total": 96.18926210000063,
+    "latency_breakdown": {
+      "decomposer": 12.090280199998233,
+      "retriever": 4.469713200000115,
+      "reasoner": 45.62895830000343,
+      "critic": 33.99739730000147
+    }
+  },
+  {
+    "question_id": "2hop__788087_150107",
+    "dataset": "musique",
+    "latency_total": 39.069433800003026,
+    "latency_breakdown": {
+      "decomposer": 8.249352700004238,
+      "retriever": 0.343886200003908,
+      "reasoner": 17.841521599999396,
+      "critic": 12.632926899997983
+    }
+  },
+  {
+    "question_id": "4hop1__73810_32392_823060_610794",
+    "dataset": "musique",
+    "latency_total": 122.13536079999903,
+    "latency_breakdown": {
+      "decomposer": 16.494273800002702,
+      "retriever": 1.5284190999955172,
+      "reasoner": 77.02915960000246,
+      "critic": 27.08073460000014
+    }
+  },
+  {
+    "question_id": "4hop1__749065_698949_157828_239539",
+    "dataset": "musique",
+    "latency_total": 109.25707729999704,
+    "latency_breakdown": {
+      "decomposer": 19.20431439999811,
+      "retriever": 1.4125562000044738,
+      "reasoner": 59.32154730000184,
+      "critic": 29.315844099997776
+    }
+  },
+  {
+    "question_id": "3hop1__222380_443779_52195",
+    "dataset": "musique",
+    "latency_total": 95.2941245999973,
+    "latency_breakdown": {
+      "decomposer": 14.66670530000556,
+      "retriever": 3.4784797000029357,
+      "reasoner": 55.40430809999816,
+      "critic": 21.741678899998078
+    }
+  },
+  {
+    "question_id": "2hop__530579_13529",
+    "dataset": "musique",
+    "latency_total": 87.49143509999703,
+    "latency_breakdown": {
+      "decomposer": 8.023707299995294,
+      "retriever": 5.6128113999948255,
+      "reasoner": 54.37305999999808,
+      "critic": 19.478980100000626
+    }
+  },
+  {
+    "question_id": "4hop2__161602_426860_88460_20988",
+    "dataset": "musique",
+    "latency_total": 52.095521900002495,
+    "latency_breakdown": {
+      "decomposer": 11.549025000000256,
+      "retriever": 0.6260264000011375,
+      "reasoner": 27.332659499996225,
+      "critic": 12.585940500001016
+    }
+  },
+  {
+    "question_id": "3hop1__622497_160088_49779",
+    "dataset": "musique",
+    "latency_total": 112.88033240000368,
+    "latency_breakdown": {
+      "decomposer": 17.29397460000473,
+      "retriever": 3.8717837000076543,
+      "reasoner": 62.60703680000006,
+      "critic": 29.104768199998944
+    }
+  },
+  {
+    "question_id": "2hop__14_59409",
+    "dataset": "musique",
+    "latency_total": 58.87204750000092,
+    "latency_breakdown": {
+      "decomposer": 13.13538900000276,
+      "retriever": 2.6141043999959948,
+      "reasoner": 31.77234260000114,
+      "critic": 11.3483411000052
+    }
+  },
+  {
+    "question_id": "4hop1__51465_53706_795904_580996",
+    "dataset": "musique",
+    "latency_total": 83.71371160000126,
+    "latency_breakdown": {
+      "decomposer": 14.14188240000658,
+      "retriever": 1.1356417999922996,
+      "reasoner": 45.608462999996846,
+      "critic": 22.824698500000522
+    }
+  },
+  {
+    "question_id": "2hop__5658_25002",
+    "dataset": "musique",
+    "latency_total": 123.36498459999711,
+    "latency_breakdown": {
+      "decomposer": 9.906639300003008,
+      "retriever": 7.325569799999357,
+      "reasoner": 83.5196866000042,
+      "critic": 22.610211200000776
+    }
+  },
+  {
+    "question_id": "2hop__66167_88526",
+    "dataset": "musique",
+    "latency_total": 111.04816510000092,
+    "latency_breakdown": {
+      "decomposer": 9.5843246000004,
+      "retriever": 5.841424599995662,
+      "reasoner": 74.67801190000318,
+      "critic": 20.941600600002857
+    }
+  },
+  {
+    "question_id": "2hop__485221_544917",
+    "dataset": "musique",
+    "latency_total": 85.4317183000021,
+    "latency_breakdown": {
+      "decomposer": 7.201849099998071,
+      "retriever": 1.79563230000349,
+      "reasoner": 48.22811739999452,
+      "critic": 28.203335599995626
+    }
+  },
+  {
+    "question_id": "3hop1__622497_160088_73916",
+    "dataset": "musique",
+    "latency_total": 94.98903910000081,
+    "latency_breakdown": {
+      "decomposer": 13.467378599998483,
+      "retriever": 3.5274215000026743,
+      "reasoner": 53.17511170000216,
+      "critic": 24.816251300006115
+    }
+  },
+  {
+    "question_id": "2hop__35566_17873",
+    "dataset": "musique",
+    "latency_total": 90.32042730000103,
+    "latency_breakdown": {
+      "decomposer": 12.925033200001053,
+      "retriever": 6.329280999998446,
+      "reasoner": 47.043079100003524,
+      "critic": 24.02030409999861
+    }
+  },
+  {
+    "question_id": "3hop2__326964_263934_7713",
+    "dataset": "musique",
+    "latency_total": 94.9325738999978,
+    "latency_breakdown": {
+      "decomposer": 13.965842499994324,
+      "retriever": 8.73724530000618,
+      "reasoner": 50.071307699996396,
+      "critic": 22.154974799996126
+    }
+  },
+  {
+    "question_id": "3hop1__145427_106426_77199",
+    "dataset": "musique",
+    "latency_total": 95.61905090000073,
+    "latency_breakdown": {
+      "decomposer": 17.188173599999573,
+      "retriever": 3.3862521999981254,
+      "reasoner": 49.90905490000296,
+      "critic": 25.13265169999795
+    }
+  },
+  {
+    "question_id": "4hop2__71753_729371_70784_61381",
+    "dataset": "musique",
+    "latency_total": 116.16409430000203,
+    "latency_breakdown": {
+      "decomposer": 8.800382000001264,
+      "retriever": 10.050435400000424,
+      "reasoner": 69.77958629999921,
+      "critic": 27.530707699996128
+    }
+  },
+  {
+    "question_id": "2hop__13539_13493",
+    "dataset": "musique",
+    "latency_total": 90.10740339999757,
+    "latency_breakdown": {
+      "decomposer": 11.936701300001005,
+      "retriever": 1.5206972000014503,
+      "reasoner": 45.49321169999894,
+      "critic": 31.153902899997775
+    }
+  },
+  {
+    "question_id": "3hop1__796649_720914_27537",
+    "dataset": "musique",
+    "latency_total": 113.98856640000304,
+    "latency_breakdown": {
+      "decomposer": 16.968532799997774,
+      "retriever": 8.00318249999691,
+      "reasoner": 66.72594160000153,
+      "critic": 22.288111000001663
+    }
+  },
+  {
+    "question_id": "2hop__9285_42311",
+    "dataset": "musique",
+    "latency_total": 82.51992389999941,
+    "latency_breakdown": {
+      "decomposer": 8.215275200003816,
+      "retriever": 1.2615805000023101,
+      "reasoner": 49.04542709999805,
+      "critic": 23.994910000001255
+    }
+  },
+  {
+    "question_id": "4hop1__9007_698949_157828_239539",
+    "dataset": "musique",
+    "latency_total": 98.65386130000115,
+    "latency_breakdown": {
+      "decomposer": 16.410164599998097,
+      "retriever": 4.7418760000000475,
+      "reasoner": 52.77467059999617,
+      "critic": 24.724368900002446
+    }
+  },
+  {
+    "question_id": "2hop__497191_129669",
+    "dataset": "musique",
+    "latency_total": 43.488275700001395,
+    "latency_breakdown": {
+      "decomposer": 8.180565700000443,
+      "retriever": 1.0282337999960873,
+      "reasoner": 25.055345199994917,
+      "critic": 9.222050099997432
+    }
+  },
+  {
+    "question_id": "3hop1__131110_39743_24526",
+    "dataset": "musique",
+    "latency_total": 89.76408000000083,
+    "latency_breakdown": {
+      "decomposer": 11.011287499997707,
+      "retriever": 2.739366900001187,
+      "reasoner": 51.092052899999544,
+      "critic": 24.91856479999842
+    }
+  },
+  {
+    "question_id": "3hop1__9285_5188_23307",
+    "dataset": "musique",
+    "latency_total": 102.60323500000231,
+    "latency_breakdown": {
+      "decomposer": 15.888809099997161,
+      "retriever": 6.200305799997295,
+      "reasoner": 52.08335829999123,
+      "critic": 28.427921399998013
+    }
+  },
+  {
+    "question_id": "2hop__16844_42173",
+    "dataset": "musique",
+    "latency_total": 115.838909099999,
+    "latency_breakdown": {
+      "decomposer": 12.992312099995615,
+      "retriever": 7.903962100004719,
+      "reasoner": 64.33875329999864,
+      "critic": 30.600867099994502
+    }
+  },
+  {
+    "question_id": "3hop1__671542_665330_47686",
+    "dataset": "musique",
+    "latency_total": 122.46503479999956,
+    "latency_breakdown": {
+      "decomposer": 11.172122399999353,
+      "retriever": 1.1781750999944052,
+      "reasoner": 86.04440600000089,
+      "critic": 24.06746810000186
+    }
+  },
+  {
+    "question_id": "3hop1__672543_503371_21711",
+    "dataset": "musique",
+    "latency_total": 139.70482760000596,
+    "latency_breakdown": {
+      "decomposer": 14.403067400002328,
+      "retriever": 2.3634540000057314,
+      "reasoner": 94.76714570000331,
+      "critic": 28.168247200010228
+    }
+  },
+  {
+    "question_id": "4hop2__161602_426860_88460_21062",
+    "dataset": "musique",
+    "latency_total": 100.02142779999849,
+    "latency_breakdown": {
+      "decomposer": 12.522513700001582,
+      "retriever": 1.3777956999983871,
+      "reasoner": 55.82975119999901,
+      "critic": 30.288523500006704
+    }
+  },
+  {
+    "question_id": "3hop1__404541_629431_124169",
+    "dataset": "musique",
+    "latency_total": 86.24642350000067,
+    "latency_breakdown": {
+      "decomposer": 12.713057199995092,
+      "retriever": 1.4748266999959014,
+      "reasoner": 43.613201199994364,
+      "critic": 28.442496100004064
+    }
+  },
+  {
+    "question_id": "2hop__648648_173389",
+    "dataset": "musique",
+    "latency_total": 77.0794612000027,
+    "latency_breakdown": {
+      "decomposer": 8.43773009999859,
+      "retriever": 2.305636700002651,
+      "reasoner": 44.64330229999905,
+      "critic": 21.689881900005275
+    }
+  },
+  {
+    "question_id": "2hop__32441_522949",
+    "dataset": "musique",
+    "latency_total": 102.89976469999965,
+    "latency_breakdown": {
+      "decomposer": 13.6646533000021,
+      "retriever": 1.6044726999971317,
+      "reasoner": 55.21745689999807,
+      "critic": 32.410326299999724
+    }
+  },
+  {
+    "question_id": "3hop1__662413_42197_18397",
+    "dataset": "musique",
+    "latency_total": 138.73297769999772,
+    "latency_breakdown": {
+      "decomposer": 16.795806399997673,
+      "retriever": 10.76470810000319,
+      "reasoner": 84.93387939999957,
+      "critic": 26.235733000001346
+    }
+  },
+  {
+    "question_id": "3hop1__140855_2053_52946",
+    "dataset": "musique",
+    "latency_total": 101.34097530000145,
+    "latency_breakdown": {
+      "decomposer": 14.705987699999241,
+      "retriever": 5.364252700004727,
+      "reasoner": 56.24335959999735,
+      "critic": 25.024340599993593
+    }
+  }
+]

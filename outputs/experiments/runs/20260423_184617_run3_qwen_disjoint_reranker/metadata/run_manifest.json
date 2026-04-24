@@ -1,0 +1,102 @@
+{
+  "run_id": "20260423_184617_run3_qwen_disjoint_reranker",
+  "created_at_utc": "2026-04-23T18:46:17Z",
+  "datasets": [
+    "hotpotqa",
+    "musique",
+    "2wikimultihopqa"
+  ],
+  "args": {
+    "datasets": "all",
+    "subset_size": 200,
+    "split": "validation",
+    "limit": 0,
+    "prepare_data": true,
+    "use_disjoint_splits": true,
+    "test_size": 200,
+    "val_size": 1000,
+    "train_size": 1200,
+    "source_split": "validation",
+    "train_reranker": true,
+    "run_name": "run3_qwen_disjoint_reranker"
+  },
+  "settings": {
+    "paths": {
+      "root": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project"
+    },
+    "model": {
+      "llm_backend": "ollama",
+      "hf_model_name": "meta-llama/Llama-3.2-3B-Instruct",
+      "ollama_model": "qwen2.5:7b",
+      "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+      "use_4bit": true,
+      "temperature": 0.1,
+      "max_new_tokens": 384
+    },
+    "retrieval": {
+      "top_k_passages": 8,
+      "top_k_edges": 10,
+      "max_hops": 3,
+      "max_nodes": 400,
+      "max_retrieval_loops": 2,
+      "use_reranker": true,
+      "reranker_weight": 0.4,
+      "reranker_negatives_per_positive": 3,
+      "reranker_max_train_examples": 1200,
+      "reranker_epochs": 12
+    },
+    "data": {
+      "dataset": "hotpotqa",
+      "dataset_split": "validation",
+      "dataset_subset_size": 200,
+      "hotpot_dataset_name": "hotpot_qa",
+      "hotpot_config_name": "fullwiki",
+      "musique_dataset_name": "dgslibisey/MuSiQue",
+      "musique_config_name": null,
+      "twowiki_dataset_name": "voidful/2WikiMultihopQA",
+      "twowiki_config_name": null,
+      "hotpot_split": "validation",
+      "hotpot_subset_size": 200,
+      "random_seed": 42
+    },
+    "device": "cpu"
+  },
+  "output_layout": {
+    "run_root": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\runs\\20260423_184617_run3_qwen_disjoint_reranker",
+    "run_metadata": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\runs\\20260423_184617_run3_qwen_disjoint_reranker\\metadata",
+    "run_logs": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\runs\\20260423_184617_run3_qwen_disjoint_reranker\\logs",
+    "run_summaries": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\runs\\20260423_184617_run3_qwen_disjoint_reranker\\summaries",
+    "datasets": {
+      "hotpotqa": {
+        "root": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\hotpotqa\\20260423_184617_run3_qwen_disjoint_reranker",
+        "metadata": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\hotpotqa\\20260423_184617_run3_qwen_disjoint_reranker\\metadata",
+        "results": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\hotpotqa\\20260423_184617_run3_qwen_disjoint_reranker\\results",
+        "predictions": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\hotpotqa\\20260423_184617_run3_qwen_disjoint_reranker\\predictions",
+        "latency": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\hotpotqa\\20260423_184617_run3_qwen_disjoint_reranker\\latency",
+        "evidence": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\hotpotqa\\20260423_184617_run3_qwen_disjoint_reranker\\evidence",
+        "plots": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\hotpotqa\\20260423_184617_run3_qwen_disjoint_reranker\\plots",
+        "logs": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\hotpotqa\\20260423_184617_run3_qwen_disjoint_reranker\\logs"
+      },
+      "musique": {
+        "root": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\musique\\20260423_184617_run3_qwen_disjoint_reranker",
+        "metadata": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\musique\\20260423_184617_run3_qwen_disjoint_reranker\\metadata",
+        "results": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\musique\\20260423_184617_run3_qwen_disjoint_reranker\\results",
+        "predictions": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\musique\\20260423_184617_run3_qwen_disjoint_reranker\\predictions",
+        "latency": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\musique\\20260423_184617_run3_qwen_disjoint_reranker\\latency",
+        "evidence": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\musique\\20260423_184617_run3_qwen_disjoint_reranker\\evidence",
+        "plots": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\musique\\20260423_184617_run3_qwen_disjoint_reranker\\plots",
+        "logs": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\musique\\20260423_184617_run3_qwen_disjoint_reranker\\logs"
+      },
+      "2wikimultihopqa": {
+        "root": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260423_184617_run3_qwen_disjoint_reranker",
+        "metadata": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260423_184617_run3_qwen_disjoint_reranker\\metadata",
+        "results": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260423_184617_run3_qwen_disjoint_reranker\\results",
+        "predictions": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260423_184617_run3_qwen_disjoint_reranker\\predictions",
+        "latency": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260423_184617_run3_qwen_disjoint_reranker\\latency",
+        "evidence": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260423_184617_run3_qwen_disjoint_reranker\\evidence",
+        "plots": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260423_184617_run3_qwen_disjoint_reranker\\plots",
+        "logs": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260423_184617_run3_qwen_disjoint_reranker\\logs"
+      }
+    }
+  }
+}

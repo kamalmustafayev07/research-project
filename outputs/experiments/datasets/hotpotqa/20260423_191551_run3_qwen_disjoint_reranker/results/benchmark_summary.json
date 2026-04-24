@@ -1,0 +1,37 @@
+{
+  "B1": {
+    "exact_match": 0.35,
+    "f1": 0.4595694444444445,
+    "explainability": 0.9349460317460317,
+    "latency_mean": 15.108433777500018,
+    "latency_p95": 22.327117495000742,
+    "latency_min": 4.030713000000105,
+    "latency_max": 26.740872999999738,
+    "agent_latency_mean": {}
+  },
+  "B2": {
+    "exact_match": 0.2,
+    "f1": 0.31369534632034635,
+    "explainability": 0.8661838383838384,
+    "latency_mean": 7.911863418500024,
+    "latency_p95": 13.622469344999853,
+    "latency_min": 2.3192334999994273,
+    "latency_max": 20.008713299999727,
+    "agent_latency_mean": {}
+  },
+  "OURS": {
+    "exact_match": 0.35,
+    "f1": 0.4549981555183168,
+    "explainability": 0.8701841269841271,
+    "latency_mean": 77.91657502549988,
+    "latency_p95": 129.45597893499962,
+    "latency_min": 37.33135679999941,
+    "latency_max": 152.5275924000016,
+    "agent_latency_mean": {
+      "critic": 18.288918373499932,
+      "decomposer": 10.845254359499922,
+      "reasoner": 44.163062244499976,
+      "retriever": 4.616929988499942
+    }
+  }
+}

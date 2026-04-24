@@ -1,0 +1,2202 @@
+[
+  {
+    "question_id": "695d5d160bdc11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 79.93265329999849,
+    "latency_breakdown": {
+      "decomposer": 12.304721700005757,
+      "retriever": 1.732927600001858,
+      "reasoner": 43.26487559999805,
+      "critic": 22.627097899996443
+    }
+  },
+  {
+    "question_id": "d8de3d3d088411ebbd6dac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 82.07834129999537,
+    "latency_breakdown": {
+      "decomposer": 8.50759680000192,
+      "retriever": 3.4685799999933806,
+      "reasoner": 49.50198299999465,
+      "critic": 20.5972952000011
+    }
+  },
+  {
+    "question_id": "dc53832a0bd911eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 46.02043820000108,
+    "latency_breakdown": {
+      "decomposer": 12.865789600000426,
+      "retriever": 0.40566450000187615,
+      "reasoner": 21.519447200000286,
+      "critic": 11.22779260000243
+    }
+  },
+  {
+    "question_id": "05a2dec4088811ebbd6eac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 80.56646069999988,
+    "latency_breakdown": {
+      "decomposer": 20.791347099999257,
+      "retriever": 0.6438970000017434,
+      "reasoner": 39.5290376999983,
+      "critic": 19.599364599998808
+    }
+  },
+  {
+    "question_id": "4ed23bf80bda11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 88.7122651000027,
+    "latency_breakdown": {
+      "decomposer": 10.86282019999635,
+      "retriever": 1.5828781000091112,
+      "reasoner": 52.90656470000249,
+      "critic": 23.35715860000346
+    }
+  },
+  {
+    "question_id": "d0a0a43c0bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 87.19199250000383,
+    "latency_breakdown": {
+      "decomposer": 8.918710099998862,
+      "retriever": 3.149474399993778,
+      "reasoner": 53.751529400004074,
+      "critic": 21.369403700002294
+    }
+  },
+  {
+    "question_id": "f8378b9e08ab11ebbd82ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 84.15838059999805,
+    "latency_breakdown": {
+      "decomposer": 20.924916299998586,
+      "retriever": 0.611283000005642,
+      "reasoner": 39.74889210001129,
+      "critic": 22.870423099993786
+    }
+  },
+  {
+    "question_id": "fc04494a0baf11ebab90acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 140.05509280000115,
+    "latency_breakdown": {
+      "decomposer": 10.61123840000073,
+      "retriever": 23.48049029998947,
+      "reasoner": 80.3818162000025,
+      "critic": 25.578553200000897
+    }
+  },
+  {
+    "question_id": "84b56dcc0bd911eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 80.05602689999796,
+    "latency_breakdown": {
+      "decomposer": 9.508800299998256,
+      "retriever": 1.0804216999968048,
+      "reasoner": 47.15381299999717,
+      "critic": 22.310144200004288
+    }
+  },
+  {
+    "question_id": "47bafeb40bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 83.63354299999628,
+    "latency_breakdown": {
+      "decomposer": 11.874262700002873,
+      "retriever": 0.711016400004155,
+      "reasoner": 47.84026929999527,
+      "critic": 23.20521970000118
+    }
+  },
+  {
+    "question_id": "c0007a7a0bd911eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 77.27797799999826,
+    "latency_breakdown": {
+      "decomposer": 10.612569400000211,
+      "retriever": 1.071176800003741,
+      "reasoner": 41.29591780000192,
+      "critic": 24.29557970001042
+    }
+  },
+  {
+    "question_id": "90934fd908dc11ebbd9cac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 48.553057800003444,
+    "latency_breakdown": {
+      "decomposer": 13.07152259999566,
+      "retriever": 1.9708652999979677,
+      "reasoner": 24.00274129999889,
+      "critic": 9.506051899996237
+    }
+  },
+  {
+    "question_id": "8d18786e086a11ebbd5fac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 119.3608017000006,
+    "latency_breakdown": {
+      "decomposer": 19.705524199998763,
+      "retriever": 13.204224900000554,
+      "reasoner": 66.60625310000614,
+      "critic": 19.841945700005454
+    }
+  },
+  {
+    "question_id": "e28d440408ca11ebbd92ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 101.06507479999709,
+    "latency_breakdown": {
+      "decomposer": 15.70225919999939,
+      "retriever": 2.2076541999922483,
+      "reasoner": 60.42148889999953,
+      "critic": 22.730692400000407
+    }
+  },
+  {
+    "question_id": "e1ae74be0bda11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 83.8959304999953,
+    "latency_breakdown": {
+      "decomposer": 11.821095400002378,
+      "retriever": 1.317471199996362,
+      "reasoner": 49.1762857000067,
+      "critic": 21.57834260000527
+    }
+  },
+  {
+    "question_id": "a5e94ab0086711ebbd5eac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 44.79455330000201,
+    "latency_breakdown": {
+      "decomposer": 9.571642899994913,
+      "retriever": 2.5944416000056663,
+      "reasoner": 21.81111879999662,
+      "critic": 10.815569499995036
+    }
+  },
+  {
+    "question_id": "9509d38c0bdb11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 109.15054090000194,
+    "latency_breakdown": {
+      "decomposer": 9.311452400004782,
+      "retriever": 2.6630942999909166,
+      "reasoner": 75.4092371999941,
+      "critic": 21.763919500001066
+    }
+  },
+  {
+    "question_id": "cecadcce0bdb11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 101.96543689999817,
+    "latency_breakdown": {
+      "decomposer": 9.166789700000663,
+      "retriever": 0.7516196000069613,
+      "reasoner": 70.22872180000559,
+      "critic": 21.815559899994696
+    }
+  },
+  {
+    "question_id": "d667e18f08d911ebbd9cac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 87.23507579999568,
+    "latency_breakdown": {
+      "decomposer": 12.836972299999616,
+      "retriever": 6.093743099998392,
+      "reasoner": 45.89469899999676,
+      "critic": 22.406786500003363
+    }
+  },
+  {
+    "question_id": "64efc0e908b211ebbd85ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 78.55891600000177,
+    "latency_breakdown": {
+      "decomposer": 13.329309900000226,
+      "retriever": 0.5425461000049836,
+      "reasoner": 40.54575809999369,
+      "critic": 24.138441900002363
+    }
+  },
+  {
+    "question_id": "4c6a905e088311ebbd6dac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 59.17516810000234,
+    "latency_breakdown": {
+      "decomposer": 18.662712900004408,
+      "retriever": 3.3909367000014754,
+      "reasoner": 26.74848280000151,
+      "critic": 10.371273999997356
+    }
+  },
+  {
+    "question_id": "96beb0b3086111ebbd5dac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 38.19265710000036,
+    "latency_breakdown": {
+      "decomposer": 10.099081000000297,
+      "retriever": 0.2368505999984336,
+      "reasoner": 17.533680400003504,
+      "critic": 10.321290200001386
+    }
+  },
+  {
+    "question_id": "098d51b20bdb11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 57.01238550000562,
+    "latency_breakdown": {
+      "decomposer": 9.733945500003756,
+      "retriever": 10.767524499999126,
+      "reasoner": 26.67926820000139,
+      "critic": 9.829660099996545
+    }
+  },
+  {
+    "question_id": "6b58975d08df11ebbda0ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 91.82700789999944,
+    "latency_breakdown": {
+      "decomposer": 10.468963599996641,
+      "retriever": 6.317624999996042,
+      "reasoner": 52.321733000004315,
+      "critic": 22.715751499999897
+    }
+  },
+  {
+    "question_id": "f34d188608cb11ebbd93ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 70.36560190000455,
+    "latency_breakdown": {
+      "decomposer": 12.715009300001839,
+      "retriever": 0.5191560000021127,
+      "reasoner": 30.976480800010904,
+      "critic": 26.152139999998326
+    }
+  },
+  {
+    "question_id": "0788eaa40bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 109.15196840000135,
+    "latency_breakdown": {
+      "decomposer": 9.49612740000157,
+      "retriever": 1.8454383999996935,
+      "reasoner": 73.66510959999141,
+      "critic": 24.14253610000742
+    }
+  },
+  {
+    "question_id": "3f4a39800bb011ebab90acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 49.7431338000024,
+    "latency_breakdown": {
+      "decomposer": 8.563045499999134,
+      "retriever": 6.925036499997077,
+      "reasoner": 23.906232300003467,
+      "critic": 10.346912699998938
+    }
+  },
+  {
+    "question_id": "27bdf22b08d111ebbd95ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 46.96533040000213,
+    "latency_breakdown": {
+      "decomposer": 14.944246499995643,
+      "retriever": 0.48906199999328237,
+      "reasoner": 21.218629599999986,
+      "critic": 10.311587300006067
+    }
+  },
+  {
+    "question_id": "7d8c2e1808dd11ebbd9dac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 80.11780089999957,
+    "latency_breakdown": {
+      "decomposer": 8.336244099999021,
+      "retriever": 2.1454689000020153,
+      "reasoner": 48.47737400000915,
+      "critic": 21.155820699998003
+    }
+  },
+  {
+    "question_id": "9d482cae0bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 64.06940729999769,
+    "latency_breakdown": {
+      "decomposer": 8.493143400002737,
+      "retriever": 0.7482537000032607,
+      "reasoner": 35.78324710000015,
+      "critic": 19.042018400003144
+    }
+  },
+  {
+    "question_id": "ab69635e089811ebbd77ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 120.76952020000317,
+    "latency_breakdown": {
+      "decomposer": 20.24338870000065,
+      "retriever": 1.6595509000035236,
+      "reasoner": 76.68267319999723,
+      "critic": 22.181101000001945
+    }
+  },
+  {
+    "question_id": "252632880bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 94.8351690999989,
+    "latency_breakdown": {
+      "decomposer": 8.798690399999032,
+      "retriever": 1.0686726000058115,
+      "reasoner": 62.66811880000023,
+      "critic": 22.296879000001354
+    }
+  },
+  {
+    "question_id": "f52b28400bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 62.986278400006995,
+    "latency_breakdown": {
+      "decomposer": 10.868961000000127,
+      "retriever": 0.6909785000025295,
+      "reasoner": 29.228957599996647,
+      "critic": 22.194633199993405
+    }
+  },
+  {
+    "question_id": "2eb7969109b111ebbdb0ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 52.43857040000148,
+    "latency_breakdown": {
+      "decomposer": 9.736802800005535,
+      "retriever": 4.737371800001711,
+      "reasoner": 28.117561300001398,
+      "critic": 9.844959499998367
+    }
+  },
+  {
+    "question_id": "656cfe0a0bdc11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 98.69015319999744,
+    "latency_breakdown": {
+      "decomposer": 13.66599419999693,
+      "retriever": 4.496272200005478,
+      "reasoner": 55.71105699999316,
+      "critic": 24.814072699999087
+    }
+  },
+  {
+    "question_id": "90c88e1a0bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 80.64620310000464,
+    "latency_breakdown": {
+      "decomposer": 9.316692799999146,
+      "retriever": 0.7322006000031251,
+      "reasoner": 49.504879599997366,
+      "critic": 21.089487400000507
+    }
+  },
+  {
+    "question_id": "e7393616094b11ebbdaeac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 43.114586599993345,
+    "latency_breakdown": {
+      "decomposer": 9.36217790000228,
+      "retriever": 0.2622789999950328,
+      "reasoner": 20.33290560000023,
+      "critic": 13.15544139999838
+    }
+  },
+  {
+    "question_id": "945447800bd911eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 109.80782519999775,
+    "latency_breakdown": {
+      "decomposer": 9.762910999997985,
+      "retriever": 17.059190999993007,
+      "reasoner": 61.4826080999992,
+      "critic": 21.5002150000073
+    }
+  },
+  {
+    "question_id": "327d00420bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 99.65292590000172,
+    "latency_breakdown": {
+      "decomposer": 9.353077300002042,
+      "retriever": 1.163501399998495,
+      "reasoner": 68.55497070000274,
+      "critic": 20.578516500005207
+    }
+  },
+  {
+    "question_id": "1eeb91060bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 89.00149480000255,
+    "latency_breakdown": {
+      "decomposer": 10.522104299998318,
+      "retriever": 4.9859919999944395,
+      "reasoner": 52.087269099996774,
+      "critic": 21.40319399999862
+    }
+  },
+  {
+    "question_id": "e5bc717c0bdb11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 96.4066015999997,
+    "latency_breakdown": {
+      "decomposer": 9.800584799995704,
+      "retriever": 1.1017995000001974,
+      "reasoner": 59.96362199999567,
+      "critic": 25.537854599999264
+    }
+  },
+  {
+    "question_id": "c26c16b5086611ebbd5eac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 43.05085699999472,
+    "latency_breakdown": {
+      "decomposer": 16.26627120000194,
+      "retriever": 0.3429517000040505,
+      "reasoner": 16.591835599996557,
+      "critic": 9.848050000000512
+    }
+  },
+  {
+    "question_id": "fc3eadb408cc11ebbd93ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 104.87834909999947,
+    "latency_breakdown": {
+      "decomposer": 20.96039980000205,
+      "retriever": 1.9893465000059223,
+      "reasoner": 55.47437609999906,
+      "critic": 26.451386200002162
+    }
+  },
+  {
+    "question_id": "d318fb3c089111ebbd73ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 95.83267960000376,
+    "latency_breakdown": {
+      "decomposer": 20.348883400001796,
+      "retriever": 4.148295200000575,
+      "reasoner": 47.5156219000055,
+      "critic": 23.816997199995967
+    }
+  },
+  {
+    "question_id": "333f458a0bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 88.78407040000457,
+    "latency_breakdown": {
+      "decomposer": 8.815642800000205,
+      "retriever": 1.1830992000031983,
+      "reasoner": 56.91214179999952,
+      "critic": 21.87039920000825
+    }
+  },
+  {
+    "question_id": "0fb43d6a0bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 99.69459959999949,
+    "latency_breakdown": {
+      "decomposer": 12.355392299999949,
+      "retriever": 5.254238099994836,
+      "reasoner": 54.09000310000556,
+      "critic": 27.992175700004736
+    }
+  },
+  {
+    "question_id": "688ac4d40bda11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 41.312216900005296,
+    "latency_breakdown": {
+      "decomposer": 9.14504719999968,
+      "retriever": 0.5062947000042186,
+      "reasoner": 21.4801662999962,
+      "critic": 10.178954999995767
+    }
+  },
+  {
+    "question_id": "b0a03b3208a111ebbd79ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 45.34954920000018,
+    "latency_breakdown": {
+      "decomposer": 8.48128970000107,
+      "retriever": 2.4133807999969576,
+      "reasoner": 24.614998200006085,
+      "critic": 9.838145800000348
+    }
+  },
+  {
+    "question_id": "8c273c580bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 90.78880919999938,
+    "latency_breakdown": {
+      "decomposer": 9.583174799998233,
+      "retriever": 5.460107999999309,
+      "reasoner": 53.123183299998345,
+      "critic": 22.619447899996885
+    }
+  },
+  {
+    "question_id": "ba68804e08fa11ebbdacac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 42.587091900000814,
+    "latency_breakdown": {
+      "decomposer": 9.01529070000106,
+      "retriever": 0.3356997000009869,
+      "reasoner": 22.99895309999556,
+      "critic": 10.235384000006889
+    }
+  },
+  {
+    "question_id": "350ec8b80bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 99.33143890000065,
+    "latency_breakdown": {
+      "decomposer": 11.69279010000173,
+      "retriever": 0.6562097999994876,
+      "reasoner": 64.03729939999903,
+      "critic": 22.942379699998128
+    }
+  },
+  {
+    "question_id": "ce5bfc90086c11ebbd61ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 114.2697404999999,
+    "latency_breakdown": {
+      "decomposer": 22.30763730000035,
+      "retriever": 5.744667100007064,
+      "reasoner": 61.61545610000758,
+      "critic": 24.599062699999195
+    }
+  },
+  {
+    "question_id": "a022d8580bdc11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 152.9572793999978,
+    "latency_breakdown": {
+      "decomposer": 13.469475500001863,
+      "retriever": 2.953184900004999,
+      "reasoner": 111.33107620000374,
+      "critic": 25.20075999999972
+    }
+  },
+  {
+    "question_id": "a982d4940bdb11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 94.10647430000245,
+    "latency_breakdown": {
+      "decomposer": 10.05591650000133,
+      "retriever": 4.023117500000808,
+      "reasoner": 54.41044530000363,
+      "critic": 25.614012799997
+    }
+  },
+  {
+    "question_id": "3e6de09c0bd911eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 73.97671570000239,
+    "latency_breakdown": {
+      "decomposer": 8.676309100002982,
+      "retriever": 1.4085262000007788,
+      "reasoner": 42.0822205000004,
+      "critic": 21.806729399999313
+    }
+  },
+  {
+    "question_id": "3def863e0bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 111.07681240000238,
+    "latency_breakdown": {
+      "decomposer": 9.642163399999845,
+      "retriever": 0.8672526000082144,
+      "reasoner": 78.1305055000048,
+      "critic": 22.434184399993683
+    }
+  },
+  {
+    "question_id": "bd6f350408d311ebbd96ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 45.99804210000002,
+    "latency_breakdown": {
+      "decomposer": 9.579935200003092,
+      "retriever": 1.135576000000583,
+      "reasoner": 25.519759300004807,
+      "critic": 9.760975500001223
+    }
+  },
+  {
+    "question_id": "534fbfd00bd911eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 75.72438400000101,
+    "latency_breakdown": {
+      "decomposer": 8.538951300004555,
+      "retriever": 1.0636404999968363,
+      "reasoner": 45.167977399993106,
+      "critic": 20.950918699993053
+    }
+  },
+  {
+    "question_id": "dbf41c00086911ebbd5fac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 47.560943399999815,
+    "latency_breakdown": {
+      "decomposer": 12.688401100000192,
+      "retriever": 0.3180812999999034,
+      "reasoner": 23.62867969999934,
+      "critic": 10.924012100003893
+    }
+  },
+  {
+    "question_id": "654dbe680bb011ebab90acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 101.21163140000135,
+    "latency_breakdown": {
+      "decomposer": 11.089829600001394,
+      "retriever": 5.749072600003274,
+      "reasoner": 58.308172099998046,
+      "critic": 26.061754800000926
+    }
+  },
+  {
+    "question_id": "f058bf080bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 107.90459569999803,
+    "latency_breakdown": {
+      "decomposer": 10.003411199999391,
+      "retriever": 7.0283490999936475,
+      "reasoner": 64.29478749999544,
+      "critic": 26.575228800000332
+    }
+  },
+  {
+    "question_id": "5aafa7d60bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 116.69109709999611,
+    "latency_breakdown": {
+      "decomposer": 10.21748959999968,
+      "retriever": 15.062702299997909,
+      "reasoner": 65.13099520000105,
+      "critic": 26.276998499997717
+    }
+  },
+  {
+    "question_id": "e4a24a6e0bdb11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 109.33858509999845,
+    "latency_breakdown": {
+      "decomposer": 9.67986430000019,
+      "retriever": 7.79507239999657,
+      "reasoner": 66.33780280000792,
+      "critic": 25.522967299999436
+    }
+  },
+  {
+    "question_id": "887aebd60bb011ebab90acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 58.444960799999535,
+    "latency_breakdown": {
+      "decomposer": 11.78195969999797,
+      "retriever": 2.689992400002666,
+      "reasoner": 33.30505830000038,
+      "critic": 10.666090599996096
+    }
+  },
+  {
+    "question_id": "4b72962a086e11ebbd62ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 42.21719280000252,
+    "latency_breakdown": {
+      "decomposer": 8.650025300004927,
+      "retriever": 0.3081693999993149,
+      "reasoner": 24.1035716999977,
+      "critic": 9.153602999998839
+    }
+  },
+  {
+    "question_id": "897586180bb011ebab90acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 50.45293749999837,
+    "latency_breakdown": {
+      "decomposer": 9.364362399996025,
+      "retriever": 4.332093299999542,
+      "reasoner": 28.65510489999724,
+      "critic": 8.099501799995778
+    }
+  },
+  {
+    "question_id": "71e186ce0bdc11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 66.0611618000039,
+    "latency_breakdown": {
+      "decomposer": 16.755992600003083,
+      "retriever": 0.3074750000014319,
+      "reasoner": 37.33773839999776,
+      "critic": 11.658086000003095
+    }
+  },
+  {
+    "question_id": "4d2a73fa08c511ebbd8eac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 67.40038110000023,
+    "latency_breakdown": {
+      "decomposer": 8.723774500002037,
+      "retriever": 0.924537999999302,
+      "reasoner": 36.66864269999496,
+      "critic": 21.08053619999555
+    }
+  },
+  {
+    "question_id": "a88c568a0bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 71.92043869999907,
+    "latency_breakdown": {
+      "decomposer": 8.826535599997442,
+      "retriever": 0.8230290999999852,
+      "reasoner": 35.627807299999404,
+      "critic": 26.640319199999794
+    }
+  },
+  {
+    "question_id": "ec4d02500bda11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 100.47672479999892,
+    "latency_breakdown": {
+      "decomposer": 9.836170800001128,
+      "retriever": 0.8831774999998743,
+      "reasoner": 67.28854669999419,
+      "critic": 22.46587290000025
+    }
+  },
+  {
+    "question_id": "f1ff478c089011ebbd72ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 52.33672559999832,
+    "latency_breakdown": {
+      "decomposer": 14.862864200003969,
+      "retriever": 1.3660829000000376,
+      "reasoner": 26.22703729999921,
+      "critic": 9.87887580000097
+    }
+  },
+  {
+    "question_id": "456aadbc0bd911eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 68.31547140000475,
+    "latency_breakdown": {
+      "decomposer": 13.134278800003813,
+      "retriever": 0.7246703999990132,
+      "reasoner": 34.12663300000713,
+      "critic": 20.327143800001068
+    }
+  },
+  {
+    "question_id": "bf71fcfd092411ebbdaeac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 50.972839800000656,
+    "latency_breakdown": {
+      "decomposer": 8.216513400002441,
+      "retriever": 2.100692500003788,
+      "reasoner": 30.616948000002594,
+      "critic": 10.036823099995672
+    }
+  },
+  {
+    "question_id": "83b24bc00bd911eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 81.05454420000024,
+    "latency_breakdown": {
+      "decomposer": 13.086391900003946,
+      "retriever": 0.6835717000067234,
+      "reasoner": 41.20117359999858,
+      "critic": 26.08047120000265
+    }
+  },
+  {
+    "question_id": "048fa24c089711ebbd76ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 112.29402750000008,
+    "latency_breakdown": {
+      "decomposer": 14.235957299999427,
+      "retriever": 9.307683500002895,
+      "reasoner": 66.53677259999677,
+      "critic": 22.21081330000743
+    }
+  },
+  {
+    "question_id": "14cab6da08f611ebbdaaac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 39.329294799994386,
+    "latency_breakdown": {
+      "decomposer": 8.630086700002721,
+      "retriever": 0.5452550999980303,
+      "reasoner": 21.881915400001162,
+      "critic": 8.27018539999699
+    }
+  },
+  {
+    "question_id": "d7004d5c0bdb11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 36.98531440000079,
+    "latency_breakdown": {
+      "decomposer": 10.232440200001292,
+      "retriever": 0.4942542000062531,
+      "reasoner": 15.767384799997672,
+      "critic": 10.489469399995869
+    }
+  },
+  {
+    "question_id": "f944a6ed086b11ebbd60ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 91.00130860000354,
+    "latency_breakdown": {
+      "decomposer": 18.046478399999614,
+      "retriever": 1.433668799996667,
+      "reasoner": 43.95089700000244,
+      "critic": 27.567378499996266
+    }
+  },
+  {
+    "question_id": "12d10eb408be11ebbd8aac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 142.62717820000398,
+    "latency_breakdown": {
+      "decomposer": 9.887455000003683,
+      "retriever": 29.40927809999266,
+      "reasoner": 76.95436470000277,
+      "critic": 26.373180800001137
+    }
+  },
+  {
+    "question_id": "7ff5ce48091b11ebbdaeac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 40.42349500000273,
+    "latency_breakdown": {
+      "decomposer": 8.430699700002151,
+      "retriever": 0.3056787000023178,
+      "reasoner": 21.60336819999793,
+      "critic": 10.081878900004085
+    }
+  },
+  {
+    "question_id": "87c2be8908ab11ebbd82ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 88.37793750000128,
+    "latency_breakdown": {
+      "decomposer": 11.318411800006288,
+      "retriever": 3.2131079000027967,
+      "reasoner": 52.40059900000051,
+      "critic": 21.442782199999783
+    }
+  },
+  {
+    "question_id": "1ebbc9b20bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 78.27114799999981,
+    "latency_breakdown": {
+      "decomposer": 10.041853600007016,
+      "retriever": 1.3228635000050417,
+      "reasoner": 49.218844900002296,
+      "critic": 17.68469819999882
+    }
+  },
+  {
+    "question_id": "c1bdec7a089c11ebbd78ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 36.5298388999945,
+    "latency_breakdown": {
+      "decomposer": 8.765830399999686,
+      "retriever": 0.4295023000013316,
+      "reasoner": 17.13253839999379,
+      "critic": 10.200197099999059
+    }
+  },
+  {
+    "question_id": "578a93720bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 88.9542050999953,
+    "latency_breakdown": {
+      "decomposer": 14.008931800002756,
+      "retriever": 1.2329649000021163,
+      "reasoner": 48.352834400000575,
+      "critic": 25.356705699996382
+    }
+  },
+  {
+    "question_id": "9d9306cc08c511ebbd8fac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 113.03261760000169,
+    "latency_breakdown": {
+      "decomposer": 21.71262939999724,
+      "retriever": 0.9945149999985006,
+      "reasoner": 68.91203250000399,
+      "critic": 21.410485200001858
+    }
+  },
+  {
+    "question_id": "ad8fdd6c08b511ebbd88ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 63.24957870000071,
+    "latency_breakdown": {
+      "decomposer": 12.540930399998615,
+      "retriever": 8.176152799998817,
+      "reasoner": 32.32256190000044,
+      "critic": 10.208037200005492
+    }
+  },
+  {
+    "question_id": "d77302ce08b711ebbd88ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 97.97196829999302,
+    "latency_breakdown": {
+      "decomposer": 14.224271099999896,
+      "retriever": 3.2361393999963184,
+      "reasoner": 59.846146700001555,
+      "critic": 20.66253609999694
+    }
+  },
+  {
+    "question_id": "4b827b1e093611ebbdaeac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 71.25209339999856,
+    "latency_breakdown": {
+      "decomposer": 9.675767300002917,
+      "retriever": 0.4558552999951644,
+      "reasoner": 37.3755594999966,
+      "critic": 23.74208759999601
+    }
+  },
+  {
+    "question_id": "90bfa26c0bda11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 37.23378070000035,
+    "latency_breakdown": {
+      "decomposer": 8.627051600000414,
+      "retriever": 0.4970515000022715,
+      "reasoner": 18.01726310000231,
+      "critic": 10.090585799996916
+    }
+  },
+  {
+    "question_id": "7f51c24a0bd911eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 64.6071671000027,
+    "latency_breakdown": {
+      "decomposer": 8.655513000005158,
+      "retriever": 0.9351490999979433,
+      "reasoner": 36.266716799997084,
+      "critic": 18.7470444999999
+    }
+  },
+  {
+    "question_id": "0c39da2e085811ebbd5aac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 77.1985480000003,
+    "latency_breakdown": {
+      "decomposer": 14.287573900001007,
+      "retriever": 0.7300575999979628,
+      "reasoner": 40.481384600003366,
+      "critic": 21.696680200002447
+    }
+  },
+  {
+    "question_id": "675bb53e0bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 90.20044990000315,
+    "latency_breakdown": {
+      "decomposer": 15.956567799999902,
+      "retriever": 3.4109688000025926,
+      "reasoner": 47.978622400005406,
+      "critic": 22.85146879999229
+    }
+  },
+  {
+    "question_id": "534cb9fe0baf11ebab90acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 112.00878279999597,
+    "latency_breakdown": {
+      "decomposer": 10.299521000000823,
+      "retriever": 7.251305900004809,
+      "reasoner": 69.04908629999409,
+      "critic": 25.405986699995992
+    }
+  },
+  {
+    "question_id": "6b6819ee089011ebbd72ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 39.180546899995534,
+    "latency_breakdown": {
+      "decomposer": 8.943779799999902,
+      "retriever": 0.49172510000062175,
+      "reasoner": 20.487452200002735,
+      "critic": 9.255838699995365
+    }
+  },
+  {
+    "question_id": "38da155f087511ebbd67ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 98.62152799999603,
+    "latency_breakdown": {
+      "decomposer": 14.784326499997405,
+      "retriever": 3.3952879999997094,
+      "reasoner": 58.809127100001206,
+      "critic": 21.629942599996866
+    }
+  },
+  {
+    "question_id": "fc06b4f00baf11ebab90acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 138.43764999999985,
+    "latency_breakdown": {
+      "decomposer": 14.181771099996695,
+      "retriever": 10.702134200000728,
+      "reasoner": 89.96504680000362,
+      "critic": 23.58563769999455
+    }
+  },
+  {
+    "question_id": "1bf30a41086611ebbd5eac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 83.02222859999893,
+    "latency_breakdown": {
+      "decomposer": 13.934509400001843,
+      "retriever": 1.4316498999978648,
+      "reasoner": 45.164490600000136,
+      "critic": 22.48875589999807
+    }
+  },
+  {
+    "question_id": "4b9580400bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 75.2869464999967,
+    "latency_breakdown": {
+      "decomposer": 8.935525699998834,
+      "retriever": 1.272098500005086,
+      "reasoner": 41.37389069999335,
+      "critic": 23.702460900000005
+    }
+  },
+  {
+    "question_id": "4cc4963c0bb011ebab90acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 88.57874720000109,
+    "latency_breakdown": {
+      "decomposer": 9.349866700002167,
+      "retriever": 1.44379150000168,
+      "reasoner": 54.763593700001366,
+      "critic": 23.018735199999355
+    }
+  },
+  {
+    "question_id": "0d836ca60baf11ebab90acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 113.04961100000219,
+    "latency_breakdown": {
+      "decomposer": 8.846448799995414,
+      "retriever": 0.9899934999921243,
+      "reasoner": 77.59390310000163,
+      "critic": 25.616396599994914
+    }
+  },
+  {
+    "question_id": "13e659380bdb11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 89.37832689999777,
+    "latency_breakdown": {
+      "decomposer": 12.552213499999198,
+      "retriever": 0.5899773000055575,
+      "reasoner": 54.831879400000616,
+      "critic": 21.401256099998136
+    }
+  },
+  {
+    "question_id": "b5f30a800bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 78.5297589000038,
+    "latency_breakdown": {
+      "decomposer": 11.763603499995952,
+      "retriever": 0.9961255000016536,
+      "reasoner": 40.62195540000539,
+      "critic": 25.145088999997824
+    }
+  },
+  {
+    "question_id": "7412a35808e211ebbda4ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 99.60582920000161,
+    "latency_breakdown": {
+      "decomposer": 10.320255800004816,
+      "retriever": 2.4632964999982505,
+      "reasoner": 60.733280199994624,
+      "critic": 26.086154200005694
+    }
+  },
+  {
+    "question_id": "43d7f2180baf11ebab90acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 80.01241579999623,
+    "latency_breakdown": {
+      "decomposer": 9.02967489999719,
+      "retriever": 0.5246482000002288,
+      "reasoner": 44.36866419999569,
+      "critic": 26.0865033999944
+    }
+  },
+  {
+    "question_id": "6c9b4c03086911ebbd5eac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 89.70133550000173,
+    "latency_breakdown": {
+      "decomposer": 11.17082730000402,
+      "retriever": 0.9633603999973275,
+      "reasoner": 55.49519080000755,
+      "critic": 22.069120900006965
+    }
+  },
+  {
+    "question_id": "4b00867a0bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 92.29508969999733,
+    "latency_breakdown": {
+      "decomposer": 8.946090299999923,
+      "retriever": 0.9750738000002457,
+      "reasoner": 63.95072390000132,
+      "critic": 18.420220799998788
+    }
+  },
+  {
+    "question_id": "cbf9a62c091e11ebbdaeac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 107.5692562999975,
+    "latency_breakdown": {
+      "decomposer": 9.600776200000837,
+      "retriever": 6.730378299995209,
+      "reasoner": 66.96848539999337,
+      "critic": 24.26682959999016
+    }
+  },
+  {
+    "question_id": "bac25d8308a311ebbd7cac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 84.93136669999512,
+    "latency_breakdown": {
+      "decomposer": 9.130259400000796,
+      "retriever": 6.828973000003316,
+      "reasoner": 48.27444779999496,
+      "critic": 20.694727800000692
+    }
+  },
+  {
+    "question_id": "8f3eb43e0bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 54.72082369999407,
+    "latency_breakdown": {
+      "decomposer": 10.157349799999793,
+      "retriever": 2.744201900000917,
+      "reasoner": 31.414124700000684,
+      "critic": 10.403354000001855
+    }
+  },
+  {
+    "question_id": "db0ea97a0bdb11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 87.39789400000154,
+    "latency_breakdown": {
+      "decomposer": 12.907209099998,
+      "retriever": 0.9089543999943999,
+      "reasoner": 53.490472299999965,
+      "critic": 20.088384299997415
+    }
+  },
+  {
+    "question_id": "20d3483c08c111ebbd8bac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 41.55173609999474,
+    "latency_breakdown": {
+      "decomposer": 11.032441700001073,
+      "retriever": 0.41129540000110865,
+      "reasoner": 20.86805469999672,
+      "critic": 9.238140200002817
+    }
+  },
+  {
+    "question_id": "a5e432ea0bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 75.11840369999845,
+    "latency_breakdown": {
+      "decomposer": 9.723409799997171,
+      "retriever": 1.0762961999935214,
+      "reasoner": 40.34487369999988,
+      "critic": 23.970986399996036
+    }
+  },
+  {
+    "question_id": "71fa574f086711ebbd5eac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 79.49906889999693,
+    "latency_breakdown": {
+      "decomposer": 8.849441899998055,
+      "retriever": 1.042965100001311,
+      "reasoner": 46.081085099998745,
+      "critic": 23.52268159999221
+    }
+  },
+  {
+    "question_id": "77ebb3b80bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 86.950691799997,
+    "latency_breakdown": {
+      "decomposer": 10.205127299996093,
+      "retriever": 0.7063380999970832,
+      "reasoner": 48.79669690000446,
+      "critic": 27.238400200003525
+    }
+  },
+  {
+    "question_id": "6cde7600085f11ebbd5cac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 62.51753940000344,
+    "latency_breakdown": {
+      "decomposer": 7.930545999995957,
+      "retriever": 0.8254586999973981,
+      "reasoner": 34.12247899999784,
+      "critic": 19.636007399996743
+    }
+  },
+  {
+    "question_id": "3803e25f08d411ebbd96ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 59.62921700000152,
+    "latency_breakdown": {
+      "decomposer": 7.515231900004437,
+      "retriever": 0.7945238999964204,
+      "reasoner": 32.85418840000784,
+      "critic": 18.46249220000027
+    }
+  },
+  {
+    "question_id": "b735f25e0bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 50.68656590000319,
+    "latency_breakdown": {
+      "decomposer": 15.064332699999795,
+      "retriever": 0.6541017999988981,
+      "reasoner": 24.576452000001154,
+      "critic": 10.38989009999932
+    }
+  },
+  {
+    "question_id": "5640f5f8097c11ebbdb0ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 35.70972909999546,
+    "latency_breakdown": {
+      "decomposer": 8.828113600000506,
+      "retriever": 0.25203240000701044,
+      "reasoner": 17.27773580000212,
+      "critic": 9.350062999998045
+    }
+  },
+  {
+    "question_id": "ab42b5c0085111ebbd58ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 86.38766860000032,
+    "latency_breakdown": {
+      "decomposer": 14.536901500003296,
+      "retriever": 1.6459730999922613,
+      "reasoner": 46.178180200004135,
+      "critic": 24.02369990000443
+    }
+  },
+  {
+    "question_id": "1b6d38ef08fb11ebbdacac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 48.49089549999917,
+    "latency_breakdown": {
+      "decomposer": 7.804345900003682,
+      "retriever": 5.95957620000263,
+      "reasoner": 23.65577640000265,
+      "critic": 11.069377599997097
+    }
+  },
+  {
+    "question_id": "a05fbe7e08c311ebbd8dac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 74.36744400000316,
+    "latency_breakdown": {
+      "decomposer": 9.12675930000114,
+      "retriever": 1.1906182000020635,
+      "reasoner": 44.19423569999344,
+      "critic": 19.852727300007246
+    }
+  },
+  {
+    "question_id": "d9c989f20bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 90.98686029999953,
+    "latency_breakdown": {
+      "decomposer": 8.723143799994432,
+      "retriever": 1.7271944000021904,
+      "reasoner": 59.151721099995484,
+      "critic": 21.38182229999802
+    }
+  },
+  {
+    "question_id": "a28699ae0bdc11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 78.09705209999811,
+    "latency_breakdown": {
+      "decomposer": 13.968682700004138,
+      "retriever": 0.5057689000022947,
+      "reasoner": 36.2490214999998,
+      "critic": 27.37077309999586
+    }
+  },
+  {
+    "question_id": "2237c12d085711ebbd59ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 79.85607000000164,
+    "latency_breakdown": {
+      "decomposer": 9.211224899998342,
+      "retriever": 2.9739818000089144,
+      "reasoner": 48.35441850000643,
+      "critic": 19.31357449999632
+    }
+  },
+  {
+    "question_id": "48137be00baf11ebab90acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 111.15603579999879,
+    "latency_breakdown": {
+      "decomposer": 9.764980600004492,
+      "retriever": 1.1846319000032963,
+      "reasoner": 75.02601019999565,
+      "critic": 25.177496399999654
+    }
+  },
+  {
+    "question_id": "2dc2b2fe0bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 129.59763190000376,
+    "latency_breakdown": {
+      "decomposer": 10.38650790000247,
+      "retriever": 41.423386700000265,
+      "reasoner": 58.350421000002825,
+      "critic": 19.434351599993533
+    }
+  },
+  {
+    "question_id": "bb8e4d040bda11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 116.05526510000345,
+    "latency_breakdown": {
+      "decomposer": 9.654695700002776,
+      "retriever": 1.3177754000062123,
+      "reasoner": 80.48123780000606,
+      "critic": 24.59870519999822
+    }
+  },
+  {
+    "question_id": "f742206e0bda11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 117.00734450000164,
+    "latency_breakdown": {
+      "decomposer": 11.652103100001113,
+      "retriever": 0.914774299999408,
+      "reasoner": 77.51485040000262,
+      "critic": 26.92272470000171
+    }
+  },
+  {
+    "question_id": "4e0814b20bdb11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 59.848723100003554,
+    "latency_breakdown": {
+      "decomposer": 9.17126200000348,
+      "retriever": 0.6666466000024229,
+      "reasoner": 31.233902599997236,
+      "critic": 18.774054300003627
+    }
+  },
+  {
+    "question_id": "44268f9c0bda11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 65.95645090000471,
+    "latency_breakdown": {
+      "decomposer": 10.032264199995552,
+      "retriever": 0.5080865999989328,
+      "reasoner": 31.01520249999885,
+      "critic": 24.398144500002672
+    }
+  },
+  {
+    "question_id": "0290cd840baf11ebab90acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 156.03559849999874,
+    "latency_breakdown": {
+      "decomposer": 11.172319700002845,
+      "retriever": 14.171750399997109,
+      "reasoner": 103.72917340000276,
+      "critic": 26.95951060000516
+    }
+  },
+  {
+    "question_id": "d23341a60bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 112.72284500000387,
+    "latency_breakdown": {
+      "decomposer": 9.741625900001964,
+      "retriever": 1.5597110999951838,
+      "reasoner": 77.73937020000449,
+      "critic": 23.679372900005546
+    }
+  },
+  {
+    "question_id": "8beb115a0bd911eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 80.90014300000621,
+    "latency_breakdown": {
+      "decomposer": 11.059706799998821,
+      "retriever": 0.7090385000046808,
+      "reasoner": 44.26143669999874,
+      "critic": 24.867183299989847
+    }
+  },
+  {
+    "question_id": "171c55960bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 88.48578400000406,
+    "latency_breakdown": {
+      "decomposer": 9.500763600000937,
+      "retriever": 1.4155109000057564,
+      "reasoner": 54.79136319999816,
+      "critic": 22.775307600000815
+    }
+  },
+  {
+    "question_id": "ef2bc7a60bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 120.7651818000013,
+    "latency_breakdown": {
+      "decomposer": 13.100739299996349,
+      "retriever": 0.5867868999994243,
+      "reasoner": 84.52781899998809,
+      "critic": 22.547059600015928
+    }
+  },
+  {
+    "question_id": "5d0e755c0bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 87.56801930000074,
+    "latency_breakdown": {
+      "decomposer": 11.71617949999927,
+      "retriever": 1.0599908999865875,
+      "reasoner": 49.331348800013075,
+      "critic": 25.45771690001129
+    }
+  },
+  {
+    "question_id": "58efdbc20bda11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 42.517529500008095,
+    "latency_breakdown": {
+      "decomposer": 12.821605799996178,
+      "retriever": 0.42907040000136476,
+      "reasoner": 17.62905309999769,
+      "critic": 11.635953100005281
+    }
+  },
+  {
+    "question_id": "1460b7ac0bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 127.04873570000927,
+    "latency_breakdown": {
+      "decomposer": 18.178325600005337,
+      "retriever": 5.084749900008319,
+      "reasoner": 81.56313139999111,
+      "critic": 22.21962309999799
+    }
+  },
+  {
+    "question_id": "482773fc0baf11ebab90acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 85.81229750000057,
+    "latency_breakdown": {
+      "decomposer": 9.204138000000967,
+      "retriever": 1.3151329999964219,
+      "reasoner": 53.090771399991354,
+      "critic": 22.199441400007345
+    }
+  },
+  {
+    "question_id": "3b217d08088d11ebbd70ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 68.77207610000914,
+    "latency_breakdown": {
+      "decomposer": 8.134578699988197,
+      "retriever": 1.6498872999945888,
+      "reasoner": 42.04985229999875,
+      "critic": 16.93477900000289
+    }
+  },
+  {
+    "question_id": "d277d83e0bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 116.91107249999186,
+    "latency_breakdown": {
+      "decomposer": 11.592653300001984,
+      "retriever": 4.321902900002897,
+      "reasoner": 79.18830780001008,
+      "critic": 21.80528359998425
+    }
+  },
+  {
+    "question_id": "90fdcd120bda11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 39.98567579999508,
+    "latency_breakdown": {
+      "decomposer": 10.750176800007466,
+      "retriever": 0.2760894999955781,
+      "reasoner": 19.874090199999046,
+      "critic": 9.083576300006825
+    }
+  },
+  {
+    "question_id": "e6bc400208d911ebbd9cac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 98.76008069999807,
+    "latency_breakdown": {
+      "decomposer": 12.440998000005493,
+      "retriever": 1.75487490001251,
+      "reasoner": 62.22461969999131,
+      "critic": 22.336601400005748
+    }
+  },
+  {
+    "question_id": "3c3a9ebe0bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 99.96380219999992,
+    "latency_breakdown": {
+      "decomposer": 10.208992600004422,
+      "retriever": 0.8886364000063622,
+      "reasoner": 65.56453889998375,
+      "critic": 23.298666800008505
+    }
+  },
+  {
+    "question_id": "6590ada60bdb11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 44.97290170000633,
+    "latency_breakdown": {
+      "decomposer": 11.715303699995275,
+      "retriever": 0.41557450000254903,
+      "reasoner": 22.36528399999952,
+      "critic": 10.474986700006411
+    }
+  },
+  {
+    "question_id": "b66d42be0bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 98.50629309999931,
+    "latency_breakdown": {
+      "decomposer": 10.117237500002375,
+      "retriever": 1.313953799995943,
+      "reasoner": 62.99038109999674,
+      "critic": 24.08183559999452
+    }
+  },
+  {
+    "question_id": "7fcdac2e0bda11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 58.807988599990495,
+    "latency_breakdown": {
+      "decomposer": 10.484779200007324,
+      "retriever": 0.5234150000032969,
+      "reasoner": 28.26627649999864,
+      "critic": 19.530720499999006
+    }
+  },
+  {
+    "question_id": "01eb3b100bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 87.11210879999271,
+    "latency_breakdown": {
+      "decomposer": 7.865457799998694,
+      "retriever": 7.126287199993385,
+      "reasoner": 47.293849699999555,
+      "critic": 24.82364430000598
+    }
+  },
+  {
+    "question_id": "c1f50af208b711ebbd88ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 48.59366499999305,
+    "latency_breakdown": {
+      "decomposer": 10.139605300006224,
+      "retriever": 1.1479306000110228,
+      "reasoner": 28.391960499997367,
+      "critic": 8.912300200012396
+    }
+  },
+  {
+    "question_id": "f6721c9208fc11ebbdadac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 83.14334950000921,
+    "latency_breakdown": {
+      "decomposer": 10.84840049999184,
+      "retriever": 1.150691700007883,
+      "reasoner": 48.67151789998752,
+      "critic": 22.469912400003523
+    }
+  },
+  {
+    "question_id": "6399a1260bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 145.54536859999644,
+    "latency_breakdown": {
+      "decomposer": 9.822840299995732,
+      "retriever": 5.67519780001021,
+      "reasoner": 99.1515231999947,
+      "critic": 30.89292949999799
+    }
+  },
+  {
+    "question_id": "e64bd34a0bda11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 81.01569739999832,
+    "latency_breakdown": {
+      "decomposer": 8.48907209999743,
+      "retriever": 1.2006941999861738,
+      "reasoner": 36.70159070000227,
+      "critic": 34.62154530000407
+    }
+  },
+  {
+    "question_id": "80ae4ab1089011ebbd72ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 80.58326269999088,
+    "latency_breakdown": {
+      "decomposer": 11.272320200005197,
+      "retriever": 1.1832391000061762,
+      "reasoner": 47.6164240000071,
+      "critic": 20.508458600001177
+    }
+  },
+  {
+    "question_id": "ef87d9180bda11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 83.80733060000057,
+    "latency_breakdown": {
+      "decomposer": 12.253578200004995,
+      "retriever": 1.0155431999883149,
+      "reasoner": 48.78560240000661,
+      "critic": 21.74973629998567
+    }
+  },
+  {
+    "question_id": "4ebd4dc608c711ebbd91ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 106.75860290000855,
+    "latency_breakdown": {
+      "decomposer": 20.75094490000629,
+      "retriever": 5.826947299996391,
+      "reasoner": 56.766797200005385,
+      "critic": 23.411040100007085
+    }
+  },
+  {
+    "question_id": "17a489a40bdc11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 82.26082139999198,
+    "latency_breakdown": {
+      "decomposer": 7.828633099998115,
+      "retriever": 1.183876600000076,
+      "reasoner": 53.2645857000025,
+      "critic": 19.980835000009392
+    }
+  },
+  {
+    "question_id": "6bccf2a1088c11ebbd6fac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 53.146458000002895,
+    "latency_breakdown": {
+      "decomposer": 7.9562845999898855,
+      "retriever": 4.626170600007754,
+      "reasoner": 29.822075600008247,
+      "critic": 10.740184199996293
+    }
+  },
+  {
+    "question_id": "397b2ab60bdb11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 69.18014009999752,
+    "latency_breakdown": {
+      "decomposer": 9.609126499999547,
+      "retriever": 0.5142577000078745,
+      "reasoner": 34.02952640000149,
+      "critic": 25.024391900005867
+    }
+  },
+  {
+    "question_id": "5eb334660bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 100.308970699989,
+    "latency_breakdown": {
+      "decomposer": 13.570559799991315,
+      "retriever": 0.5411155000037979,
+      "reasoner": 66.94900900000357,
+      "critic": 19.245546200007084
+    }
+  },
+  {
+    "question_id": "6450154e08e311ebbda4ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 98.8778733000072,
+    "latency_breakdown": {
+      "decomposer": 9.550031499995384,
+      "retriever": 10.644271900004242,
+      "reasoner": 55.17033919999085,
+      "critic": 23.510235200010356
+    }
+  },
+  {
+    "question_id": "bc29cc49085611ebbd59ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 47.508599300010246,
+    "latency_breakdown": {
+      "decomposer": 7.8995505000057165,
+      "retriever": 0.508965699991677,
+      "reasoner": 29.160943099996075,
+      "critic": 9.937359699993976
+    }
+  },
+  {
+    "question_id": "d80a4fe408ad11ebbd83ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 35.971656800000346,
+    "latency_breakdown": {
+      "decomposer": 7.918094199994812,
+      "retriever": 0.4331377999915276,
+      "reasoner": 18.192152400006307,
+      "critic": 9.426423699987936
+    }
+  },
+  {
+    "question_id": "e5c51aa80bda11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 96.82304689999728,
+    "latency_breakdown": {
+      "decomposer": 8.094817799996235,
+      "retriever": 0.9368398000078741,
+      "reasoner": 64.84538710000925,
+      "critic": 22.94310819999373
+    }
+  },
+  {
+    "question_id": "615f783008e411ebbda4ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 45.69678559999738,
+    "latency_breakdown": {
+      "decomposer": 9.401674199994886,
+      "retriever": 0.5461552000051597,
+      "reasoner": 24.719899000003352,
+      "critic": 11.027344999994966
+    }
+  },
+  {
+    "question_id": "f9c02a8c085d11ebbd5cac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 81.49073170000338,
+    "latency_breakdown": {
+      "decomposer": 9.992564500003937,
+      "retriever": 0.8035474000062095,
+      "reasoner": 45.50102289998904,
+      "critic": 25.19071409999742
+    }
+  },
+  {
+    "question_id": "3c0ed8640bda11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 52.563572099999874,
+    "latency_breakdown": {
+      "decomposer": 12.311004700008198,
+      "retriever": 1.1662893000029726,
+      "reasoner": 26.548224199999822,
+      "critic": 12.536298999999417
+    }
+  },
+  {
+    "question_id": "d879b26208ad11ebbd83ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 95.72880840000289,
+    "latency_breakdown": {
+      "decomposer": 14.494544700006372,
+      "retriever": 10.573058399997535,
+      "reasoner": 48.127768499995,
+      "critic": 22.530444599993643
+    }
+  },
+  {
+    "question_id": "895740ae0bb011ebab90acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 66.62580359999265,
+    "latency_breakdown": {
+      "decomposer": 14.62564920001023,
+      "retriever": 2.6118304999981774,
+      "reasoner": 39.65233329999319,
+      "critic": 9.734209199988982
+    }
+  },
+  {
+    "question_id": "c9249d980bd911eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 89.48227120000229,
+    "latency_breakdown": {
+      "decomposer": 10.735708000007435,
+      "retriever": 1.4687688999983948,
+      "reasoner": 49.07288989999506,
+      "critic": 28.20209910000267
+    }
+  },
+  {
+    "question_id": "70d73f1a0bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 77.49801589999697,
+    "latency_breakdown": {
+      "decomposer": 8.154336399995373,
+      "retriever": 0.9520198000100208,
+      "reasoner": 45.269647299995995,
+      "critic": 23.119171300000744
+    }
+  },
+  {
+    "question_id": "b43d2c2e093a11ebbdaeac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 48.50708250000025,
+    "latency_breakdown": {
+      "decomposer": 8.394330800001626,
+      "retriever": 1.14936020001187,
+      "reasoner": 27.1579206000024,
+      "critic": 11.803611399998772
+    }
+  },
+  {
+    "question_id": "aff6ed400bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 60.316373200010275,
+    "latency_breakdown": {
+      "decomposer": 9.12687169999117,
+      "retriever": 3.4324569999880623,
+      "reasoner": 33.39880979999725,
+      "critic": 14.356420900003286
+    }
+  },
+  {
+    "question_id": "6062845a0bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 98.48791569999594,
+    "latency_breakdown": {
+      "decomposer": 13.309047399990959,
+      "retriever": 1.3281125000066822,
+      "reasoner": 59.12258229999861,
+      "critic": 24.725064799989923
+    }
+  },
+  {
+    "question_id": "038d34e608d211ebbd95ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 108.46619209999335,
+    "latency_breakdown": {
+      "decomposer": 13.961721500003478,
+      "retriever": 6.155596199983847,
+      "reasoner": 63.41304959998524,
+      "critic": 24.932981999998447
+    }
+  },
+  {
+    "question_id": "1187c9080bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 82.1817960999906,
+    "latency_breakdown": {
+      "decomposer": 7.366554799998994,
+      "retriever": 2.460275699995691,
+      "reasoner": 47.98922699998366,
+      "critic": 24.362931700001354
+    }
+  },
+  {
+    "question_id": "a29726b40bd911eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 42.19188140000915,
+    "latency_breakdown": {
+      "decomposer": 9.38905870000599,
+      "retriever": 0.6155357000097865,
+      "reasoner": 21.016009500002838,
+      "critic": 11.169542199990246
+    }
+  },
+  {
+    "question_id": "2751a4720bdc11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 83.5654518000083,
+    "latency_breakdown": {
+      "decomposer": 8.10061960000894,
+      "retriever": 1.3997265999933006,
+      "reasoner": 50.53721540000697,
+      "critic": 23.5251253000024
+    }
+  },
+  {
+    "question_id": "7b61849208f311ebbdaaac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 68.80874510000285,
+    "latency_breakdown": {
+      "decomposer": 8.498960100012482,
+      "retriever": 0.6924791000055848,
+      "reasoner": 38.78649920001044,
+      "critic": 20.8278959000163
+    }
+  },
+  {
+    "question_id": "a79d3abe0bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 80.05399729999772,
+    "latency_breakdown": {
+      "decomposer": 8.82843929999217,
+      "retriever": 1.4146944000094663,
+      "reasoner": 48.13635989998875,
+      "critic": 21.671637499995995
+    }
+  },
+  {
+    "question_id": "3e5580c00bb011ebab90acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 43.62711570000101,
+    "latency_breakdown": {
+      "decomposer": 9.623055300005944,
+      "retriever": 0.6118480000004638,
+      "reasoner": 22.42178679999779,
+      "critic": 10.968661400009296
+    }
+  },
+  {
+    "question_id": "a902a9b8089311ebbd75ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 102.96657120001328,
+    "latency_breakdown": {
+      "decomposer": 17.54505510001036,
+      "retriever": 3.0365441999892937,
+      "reasoner": 59.88684239999566,
+      "critic": 22.49520410000696
+    }
+  },
+  {
+    "question_id": "d81d542a08be11ebbd8aac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 95.6503151999932,
+    "latency_breakdown": {
+      "decomposer": 13.503362600007677,
+      "retriever": 4.0903374000045005,
+      "reasoner": 57.79996580000443,
+      "critic": 20.253870799992
+    }
+  },
+  {
+    "question_id": "00efceca0bb011ebab90acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 87.62476449999667,
+    "latency_breakdown": {
+      "decomposer": 9.775050299998838,
+      "retriever": 2.3308801999955904,
+      "reasoner": 55.23959199999808,
+      "critic": 20.27627719998418
+    }
+  },
+  {
+    "question_id": "71cf03c20bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 45.70190770000045,
+    "latency_breakdown": {
+      "decomposer": 9.266146699999808,
+      "retriever": 0.2862561999936588,
+      "reasoner": 26.162861299992073,
+      "critic": 9.984896200010553
+    }
+  },
+  {
+    "question_id": "d83437560bdb11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 39.70512289999169,
+    "latency_breakdown": {
+      "decomposer": 9.443914900009986,
+      "retriever": 0.6321618000074523,
+      "reasoner": 19.374546199993347,
+      "critic": 10.252767999991192
+    }
+  },
+  {
+    "question_id": "f1aecdec085f11ebbd5dac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 82.16129750000255,
+    "latency_breakdown": {
+      "decomposer": 13.360367900007986,
+      "retriever": 2.673351499994169,
+      "reasoner": 43.01517490000697,
+      "critic": 23.109600900002988
+    }
+  },
+  {
+    "question_id": "2b7e05f20bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 107.53755180000735,
+    "latency_breakdown": {
+      "decomposer": 12.299229399999604,
+      "retriever": 1.2546700000093551,
+      "reasoner": 69.39843889999611,
+      "critic": 24.582359000007273
+    }
+  },
+  {
+    "question_id": "7bc6824408de11ebbd9eac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 41.30943190000835,
+    "latency_breakdown": {
+      "decomposer": 7.835982899996452,
+      "retriever": 0.35619690000021365,
+      "reasoner": 23.632196799997473,
+      "critic": 9.483227900011116
+    }
+  },
+  {
+    "question_id": "4175aadc0bdd11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 96.56518360000337,
+    "latency_breakdown": {
+      "decomposer": 11.157566499998211,
+      "retriever": 0.7200535000010859,
+      "reasoner": 58.692653399994015,
+      "critic": 25.992132900006254
+    }
+  },
+  {
+    "question_id": "160ad4e80bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 43.0755793999997,
+    "latency_breakdown": {
+      "decomposer": 8.01945560000604,
+      "retriever": 1.334432999996352,
+      "reasoner": 24.487564299997757,
+      "critic": 9.232325200006017
+    }
+  },
+  {
+    "question_id": "6ebe05740bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 127.81869510000979,
+    "latency_breakdown": {
+      "decomposer": 9.30415830000129,
+      "retriever": 13.679962399997748,
+      "reasoner": 86.64272100001108,
+      "critic": 18.18897940001625
+    }
+  },
+  {
+    "question_id": "5ff291a80bda11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 87.97179190001043,
+    "latency_breakdown": {
+      "decomposer": 9.298376800012193,
+      "retriever": 6.622868300008122,
+      "reasoner": 47.652421100006904,
+      "critic": 24.395323899996583
+    }
+  },
+  {
+    "question_id": "247c4c6c08d911ebbd9cac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 80.65340100000321,
+    "latency_breakdown": {
+      "decomposer": 19.66125989999273,
+      "retriever": 1.1807207999954699,
+      "reasoner": 36.26588910000282,
+      "critic": 23.54254769999534
+    }
+  },
+  {
+    "question_id": "35f99ea60bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 38.34119289999944,
+    "latency_breakdown": {
+      "decomposer": 10.038897499995073,
+      "retriever": 0.40863469999749213,
+      "reasoner": 17.6478444999957,
+      "critic": 10.243960199994035
+    }
+  },
+  {
+    "question_id": "bd4bd0fc0bdb11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 42.151522899992415,
+    "latency_breakdown": {
+      "decomposer": 9.215866900005494,
+      "retriever": 0.6267176999972435,
+      "reasoner": 20.36554780000006,
+      "critic": 11.941548000002513
+    }
+  },
+  {
+    "question_id": "400c2be80bde11eba7f7acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 51.69936900000903,
+    "latency_breakdown": {
+      "decomposer": 8.347276499989675,
+      "retriever": 5.644865800000844,
+      "reasoner": 28.403621400007978,
+      "critic": 9.301854099991033
+    }
+  },
+  {
+    "question_id": "636a86b808d511ebbd98ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 108.79167560000496,
+    "latency_breakdown": {
+      "decomposer": 19.58570100000361,
+      "retriever": 5.417799100003322,
+      "reasoner": 61.1430793999898,
+      "critic": 22.642151500011096
+    }
+  },
+  {
+    "question_id": "45cd2d1c08c211ebbd8bac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 47.51544710001326,
+    "latency_breakdown": {
+      "decomposer": 8.704349100007676,
+      "retriever": 2.71860540000489,
+      "reasoner": 26.59038240001246,
+      "critic": 9.500366099993698
+    }
+  },
+  {
+    "question_id": "c4dfdd5608aa11ebbd80ac1f6bf848b6",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 90.61025199999858,
+    "latency_breakdown": {
+      "decomposer": 13.480804299993906,
+      "retriever": 8.764528299987433,
+      "reasoner": 45.86218659998849,
+      "critic": 22.49992360000033
+    }
+  },
+  {
+    "question_id": "77e6a4c20bb011ebab90acde48001122",
+    "dataset": "2wikimultihopqa",
+    "latency_total": 67.8156605999975,
+    "latency_breakdown": {
+      "decomposer": 9.588609800004633,
+      "retriever": 19.01840899999661,
+      "reasoner": 29.114786200007075,
+      "critic": 10.091983800011803
+    }
+  }
+]

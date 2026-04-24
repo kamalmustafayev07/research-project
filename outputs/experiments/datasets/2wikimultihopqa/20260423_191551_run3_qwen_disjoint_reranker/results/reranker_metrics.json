@@ -1,0 +1,120 @@
+{
+  "enabled": true,
+  "trained": true,
+  "train_pairs": 10088,
+  "validation_pairs": 5096,
+  "test_pairs": 1688,
+  "positive_rate": 0.28628072957969863,
+  "train_loss": 0.5021684093790963,
+  "train_accuracy": 0.7823156225218081,
+  "validation_loss": 0.46706669512350557,
+  "validation_accuracy": 0.792386185243328,
+  "test_loss": 0.5006661447124595,
+  "test_accuracy": 0.7766587677725119,
+  "test_confusion_matrix": [
+    [
+      937,
+      263
+    ],
+    [
+      114,
+      374
+    ]
+  ],
+  "confusion_matrix_labels": [
+    "negative",
+    "positive"
+  ],
+  "epochs": 12,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.8537231391274414,
+      "train_accuracy": 0.6620737509912767,
+      "validation_loss": 0.765525618475076,
+      "validation_accuracy": 0.6889717425431711
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.7522862276094077,
+      "train_accuracy": 0.6773394131641555,
+      "validation_loss": 0.6811447324600527,
+      "validation_accuracy": 0.7040816326530612
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.4982096289178179,
+      "train_accuracy": 0.7860824742268041,
+      "validation_loss": 0.462133358461439,
+      "validation_accuracy": 0.7963108320251178
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.5402413708242457,
+      "train_accuracy": 0.7717089611419509,
+      "validation_loss": 0.4949758071882542,
+      "validation_accuracy": 0.7843406593406593
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.5296354466696246,
+      "train_accuracy": 0.7717089611419509,
+      "validation_loss": 0.49074774255957015,
+      "validation_accuracy": 0.7864992150706437
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.5592422196740983,
+      "train_accuracy": 0.7606066613798572,
+      "validation_loss": 0.5136165070508694,
+      "validation_accuracy": 0.7753139717425431
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.44636636218664366,
+      "train_accuracy": 0.7921292624900872,
+      "validation_loss": 0.42739853934524735,
+      "validation_accuracy": 0.7965070643642073
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.5232782889865006,
+      "train_accuracy": 0.7744845360824743,
+      "validation_loss": 0.4834919726075461,
+      "validation_accuracy": 0.7870879120879121
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.5194677326757047,
+      "train_accuracy": 0.7773592386994449,
+      "validation_loss": 0.4811567086684245,
+      "validation_accuracy": 0.7898351648351648
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.5027329803673636,
+      "train_accuracy": 0.7824147501982553,
+      "validation_loss": 0.4676546618118018,
+      "validation_accuracy": 0.792778649921507
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.5773095138139538,
+      "train_accuracy": 0.7471252973830294,
+      "validation_loss": 0.5320155412507146,
+      "validation_accuracy": 0.7637362637362637
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.5021684093790963,
+      "train_accuracy": 0.7823156225218081,
+      "validation_loss": 0.46706669512350557,
+      "validation_accuracy": 0.792386185243328
+    }
+  ],
+  "model_path": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\models\\passage_reranker.joblib",
+  "plots": {
+    "training_history_plot": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260423_191551_run3_qwen_disjoint_reranker\\plots\\reranker\\reranker_training_history.png",
+    "test_confusion_matrix_plot": "C:\\Users\\Kamal Mustafayev\\Desktop\\research\\research-project\\outputs\\experiments\\datasets\\2wikimultihopqa\\20260423_191551_run3_qwen_disjoint_reranker\\plots\\reranker\\reranker_test_confusion_matrix.png"
+  }
+}

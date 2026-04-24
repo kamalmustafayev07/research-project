@@ -1,0 +1,43 @@
+{
+  "total_predictions": 200,
+  "empty_chain_rate": 0.0,
+  "avg_chain_length": 7.265,
+  "avg_hop_score": 0.5931488112012477,
+  "avg_source_diversity": 0.46266666666666667,
+  "malformed_hop_rate": 0.03234686854783207,
+  "numeric_node_rate": 0.00034411562284927734,
+  "top_relations": [
+    [
+      "co_occurs_with",
+      919
+    ],
+    [
+      "supports",
+      225
+    ],
+    [
+      "related_to",
+      212
+    ],
+    [
+      "semantic_similar",
+      47
+    ],
+    [
+      "located_in",
+      15
+    ],
+    [
+      "directed_by",
+      15
+    ],
+    [
+      "played_by",
+      12
+    ],
+    [
+      "founded",
+      6
+    ]
+  ]
+}

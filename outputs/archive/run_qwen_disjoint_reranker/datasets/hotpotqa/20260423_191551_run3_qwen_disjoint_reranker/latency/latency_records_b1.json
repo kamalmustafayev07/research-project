@@ -1,0 +1,1202 @@
+[
+  {
+    "question_id": "5add1d575542992c1e3a2540",
+    "dataset": "hotpotqa",
+    "latency_total": 23.553070200000093,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ac55ea55542993e66e82377",
+    "dataset": "hotpotqa",
+    "latency_total": 21.398891299999832,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ac3a76e554299741d48a2be",
+    "dataset": "hotpotqa",
+    "latency_total": 14.71849020000036,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7133565542994082a3e65c",
+    "dataset": "hotpotqa",
+    "latency_total": 17.64516440000034,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ac1a4745542991316484b82",
+    "dataset": "hotpotqa",
+    "latency_total": 15.85269849999986,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5adc597d55429947ff17392f",
+    "dataset": "hotpotqa",
+    "latency_total": 16.76566959999991,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ac55e835542993e66e82375",
+    "dataset": "hotpotqa",
+    "latency_total": 20.607799200000045,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8d9e0f554299441c6ba015",
+    "dataset": "hotpotqa",
+    "latency_total": 19.56521930000008,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae70ed7554299572ea546a1",
+    "dataset": "hotpotqa",
+    "latency_total": 17.512305899999774,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a74a8fa55429929fddd8497",
+    "dataset": "hotpotqa",
+    "latency_total": 18.40098110000008,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7cb94f554299683c1c6353",
+    "dataset": "hotpotqa",
+    "latency_total": 12.69528820000005,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab874ba5542990e739ec904",
+    "dataset": "hotpotqa",
+    "latency_total": 19.404035199999726,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae3a8985542992f92d82329",
+    "dataset": "hotpotqa",
+    "latency_total": 14.967572500000188,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ac39f7b554299218029dbe7",
+    "dataset": "hotpotqa",
+    "latency_total": 15.973017300000265,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae27b535542996483e649b6",
+    "dataset": "hotpotqa",
+    "latency_total": 15.080680900000061,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7331de5542994cef4bc4a8",
+    "dataset": "hotpotqa",
+    "latency_total": 14.077388100000007,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ac15de55542991316484afb",
+    "dataset": "hotpotqa",
+    "latency_total": 13.317769300000236,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7c6c9d554299683c1c6302",
+    "dataset": "hotpotqa",
+    "latency_total": 10.786763999999948,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae6363b55429929b0807af0",
+    "dataset": "hotpotqa",
+    "latency_total": 12.693672800000058,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8cea40554299441c6b9f76",
+    "dataset": "hotpotqa",
+    "latency_total": 18.303372299999864,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab5ecd75542992aa134a3e6",
+    "dataset": "hotpotqa",
+    "latency_total": 14.641310900000008,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a84c5545542991dd0999dee",
+    "dataset": "hotpotqa",
+    "latency_total": 13.091045799999847,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5adeacf955429975fa854f66",
+    "dataset": "hotpotqa",
+    "latency_total": 11.507422700000006,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8ce15d554299653c1aa12f",
+    "dataset": "hotpotqa",
+    "latency_total": 15.617260899999565,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ade4da055429939a52fe878",
+    "dataset": "hotpotqa",
+    "latency_total": 17.97282099999984,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab2a186554299295394677b",
+    "dataset": "hotpotqa",
+    "latency_total": 13.466218600000047,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ade66e1554299728e26c713",
+    "dataset": "hotpotqa",
+    "latency_total": 23.33960109999998,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7c634c55429907fabeef79",
+    "dataset": "hotpotqa",
+    "latency_total": 16.855088099999648,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae13f3c5542997b2ef7d168",
+    "dataset": "hotpotqa",
+    "latency_total": 14.52528110000003,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae17cd055429901ffe4aea3",
+    "dataset": "hotpotqa",
+    "latency_total": 10.036562199999935,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae7940c55429952e35ea984",
+    "dataset": "hotpotqa",
+    "latency_total": 14.310538400000041,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7296815542991f9a20c515",
+    "dataset": "hotpotqa",
+    "latency_total": 13.000821799999812,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab2e8ad554299340b525562",
+    "dataset": "hotpotqa",
+    "latency_total": 12.62685829999964,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a89b1de5542992e4fca8378",
+    "dataset": "hotpotqa",
+    "latency_total": 12.149721799999952,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab78edc5542995dae37e95c",
+    "dataset": "hotpotqa",
+    "latency_total": 13.797736800000166,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae73acb5542991e8301cc07",
+    "dataset": "hotpotqa",
+    "latency_total": 12.732274400000279,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8257fa55429940e5e1a866",
+    "dataset": "hotpotqa",
+    "latency_total": 18.34217290000015,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8d8e4f5542994ba4e3dca7",
+    "dataset": "hotpotqa",
+    "latency_total": 19.363991799999894,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8a07725542992d82986e5b",
+    "dataset": "hotpotqa",
+    "latency_total": 17.91476620000003,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a79fac85542996c55b2dcc1",
+    "dataset": "hotpotqa",
+    "latency_total": 21.371763999999985,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a81537355429926c1cdad20",
+    "dataset": "hotpotqa",
+    "latency_total": 21.745696299999963,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a721d5a55429971e9dc9283",
+    "dataset": "hotpotqa",
+    "latency_total": 13.618770199999744,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7aa2a255429941d65f270e",
+    "dataset": "hotpotqa",
+    "latency_total": 14.685399899999993,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5abe6f8455429965af743f03",
+    "dataset": "hotpotqa",
+    "latency_total": 11.328620299999784,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae7257a554299572ea54731",
+    "dataset": "hotpotqa",
+    "latency_total": 10.396298299999671,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ac0e0e25542997d64295a6f",
+    "dataset": "hotpotqa",
+    "latency_total": 13.178511800000251,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a72688c5542997f827839b2",
+    "dataset": "hotpotqa",
+    "latency_total": 7.399409000000105,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5adea0c5554299728e26c776",
+    "dataset": "hotpotqa",
+    "latency_total": 8.863850100000036,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab8372255429919ba4e226b",
+    "dataset": "hotpotqa",
+    "latency_total": 16.77086290000034,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ac0e064554299012d1db64e",
+    "dataset": "hotpotqa",
+    "latency_total": 14.081364799999847,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8574945542997b5ce3fffb",
+    "dataset": "hotpotqa",
+    "latency_total": 13.469987599999968,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8704f8554299211dda2ba4",
+    "dataset": "hotpotqa",
+    "latency_total": 17.18219679999993,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a81d1f0554299676cceb0ee",
+    "dataset": "hotpotqa",
+    "latency_total": 16.951762200000303,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7bf84b5542996dd594b875",
+    "dataset": "hotpotqa",
+    "latency_total": 15.708341799999744,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab69e4f554299710c8d1eee",
+    "dataset": "hotpotqa",
+    "latency_total": 14.27703130000009,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae64ad25542995703ce8b4f",
+    "dataset": "hotpotqa",
+    "latency_total": 17.916342099999838,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7571135542992d0ec05f98",
+    "dataset": "hotpotqa",
+    "latency_total": 10.989248599999883,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8f2fed55429918e830d1c7",
+    "dataset": "hotpotqa",
+    "latency_total": 14.844230400000015,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab596d95542992aa134a371",
+    "dataset": "hotpotqa",
+    "latency_total": 15.176166199999898,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a71214d5542994082a3e5b9",
+    "dataset": "hotpotqa",
+    "latency_total": 25.720985100000235,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ac298f9554299657fa28fc9",
+    "dataset": "hotpotqa",
+    "latency_total": 13.497484299999996,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae35e8c5542990afbd1e120",
+    "dataset": "hotpotqa",
+    "latency_total": 11.058719999999994,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae616ce5542992663a4f259",
+    "dataset": "hotpotqa",
+    "latency_total": 11.340554599999905,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5abbc3a955429931dba144f9",
+    "dataset": "hotpotqa",
+    "latency_total": 14.112396699999863,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5adfe6c455429906c02daa85",
+    "dataset": "hotpotqa",
+    "latency_total": 11.60003289999986,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7f924c55429969796c1aba",
+    "dataset": "hotpotqa",
+    "latency_total": 16.081700300000193,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab938fb554299131ca422ce",
+    "dataset": "hotpotqa",
+    "latency_total": 4.030713000000105,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae1e80b5542997f29b3c197",
+    "dataset": "hotpotqa",
+    "latency_total": 12.800480000000334,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a89e3995542992e4fca844d",
+    "dataset": "hotpotqa",
+    "latency_total": 15.65814470000032,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab8919655429934fafe6e13",
+    "dataset": "hotpotqa",
+    "latency_total": 15.347551300000305,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5add18345542994ed6169c7e",
+    "dataset": "hotpotqa",
+    "latency_total": 12.29583169999978,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a825b0e55429954d2e2eb0c",
+    "dataset": "hotpotqa",
+    "latency_total": 14.593125999999756,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab54056554299488d4d9923",
+    "dataset": "hotpotqa",
+    "latency_total": 11.97848729999987,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8a416955429930ff3c0d2b",
+    "dataset": "hotpotqa",
+    "latency_total": 22.35250330000008,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a729fe55542991f9a20c53b",
+    "dataset": "hotpotqa",
+    "latency_total": 12.57368389999965,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5abee41a5542993fe9a41d79",
+    "dataset": "hotpotqa",
+    "latency_total": 11.723155000000133,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8327fd5542990548d0b1a3",
+    "dataset": "hotpotqa",
+    "latency_total": 14.961643699999968,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7264ed5542990c210a411a",
+    "dataset": "hotpotqa",
+    "latency_total": 17.13500830000021,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a74cfc75542996c70cfadfe",
+    "dataset": "hotpotqa",
+    "latency_total": 15.723345699999754,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5abe3c7555429965af743ea5",
+    "dataset": "hotpotqa",
+    "latency_total": 14.853677999999945,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a88a5645542997e5c09a679",
+    "dataset": "hotpotqa",
+    "latency_total": 12.39230469999984,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8756aa5542994846c1cd69",
+    "dataset": "hotpotqa",
+    "latency_total": 12.828008800000134,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a83ab355542990548d0b218",
+    "dataset": "hotpotqa",
+    "latency_total": 16.559732800000347,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5abe407155429976d4830ab4",
+    "dataset": "hotpotqa",
+    "latency_total": 16.587137299999995,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a769b115542993569682c51",
+    "dataset": "hotpotqa",
+    "latency_total": 12.623736100000315,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5abb8a9b5542996cc5e4a016",
+    "dataset": "hotpotqa",
+    "latency_total": 14.37761670000009,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5adf4b335542993a75d264a5",
+    "dataset": "hotpotqa",
+    "latency_total": 15.148641199999929,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8a19c45542992e4fca8501",
+    "dataset": "hotpotqa",
+    "latency_total": 12.871710299999904,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ac2f34455429921a00ab0b6",
+    "dataset": "hotpotqa",
+    "latency_total": 12.380810699999984,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7e040f5542990b8f503b13",
+    "dataset": "hotpotqa",
+    "latency_total": 7.5116007999999965,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8f186055429918e830d186",
+    "dataset": "hotpotqa",
+    "latency_total": 11.439822399999684,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ac4fbe255429924173fb53b",
+    "dataset": "hotpotqa",
+    "latency_total": 11.380413899999894,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8591715542994c784ddb27",
+    "dataset": "hotpotqa",
+    "latency_total": 16.583062600000176,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8ee3a755429917b4a5be02",
+    "dataset": "hotpotqa",
+    "latency_total": 11.643398299999717,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab985eb554299131ca42360",
+    "dataset": "hotpotqa",
+    "latency_total": 15.356876800000009,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab431d855429942dd415ed2",
+    "dataset": "hotpotqa",
+    "latency_total": 15.14537509999991,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a771ead55429966f1a36c7c",
+    "dataset": "hotpotqa",
+    "latency_total": 20.129391999999825,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ac46a8b5542991943173980",
+    "dataset": "hotpotqa",
+    "latency_total": 12.331815500000175,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5abda2b755429933744ab80f",
+    "dataset": "hotpotqa",
+    "latency_total": 16.163174400000116,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5adc02445542994650320c4e",
+    "dataset": "hotpotqa",
+    "latency_total": 10.215459600000031,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8b128455429971feec463b",
+    "dataset": "hotpotqa",
+    "latency_total": 15.520446999999876,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a803ed45542996402f6a496",
+    "dataset": "hotpotqa",
+    "latency_total": 15.234878299999764,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a74c85055429916b0164218",
+    "dataset": "hotpotqa",
+    "latency_total": 5.730690500000037,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ac288a95542990b17b153e5",
+    "dataset": "hotpotqa",
+    "latency_total": 13.426538900000196,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab2123155429970612095b9",
+    "dataset": "hotpotqa",
+    "latency_total": 12.877481799999714,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a82edae55429966c78a6a9f",
+    "dataset": "hotpotqa",
+    "latency_total": 14.27641259999973,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae22b8d554299234fd0440f",
+    "dataset": "hotpotqa",
+    "latency_total": 13.317047699999875,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5adbda2755429944faac2385",
+    "dataset": "hotpotqa",
+    "latency_total": 16.209844100000282,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae1d1a55542997f29b3c138",
+    "dataset": "hotpotqa",
+    "latency_total": 23.568053500000133,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ac3a2f35542993915413856",
+    "dataset": "hotpotqa",
+    "latency_total": 14.627800900000238,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7647b85542992d0ec0608a",
+    "dataset": "hotpotqa",
+    "latency_total": 11.747092600000087,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ac49a1c5542996feb3fe905",
+    "dataset": "hotpotqa",
+    "latency_total": 14.169068499999867,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae60484554299546bf8301a",
+    "dataset": "hotpotqa",
+    "latency_total": 12.617337399999997,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a84cf175542992a431d1aa2",
+    "dataset": "hotpotqa",
+    "latency_total": 15.462915000000066,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a81b2505542995ce29dcc32",
+    "dataset": "hotpotqa",
+    "latency_total": 18.42159810000021,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab568af554299494045efaf",
+    "dataset": "hotpotqa",
+    "latency_total": 18.395675700000083,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8f7a135542992414482adc",
+    "dataset": "hotpotqa",
+    "latency_total": 17.128026899999895,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab2be71554299166977408c",
+    "dataset": "hotpotqa",
+    "latency_total": 21.08951019999995,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae537e45542990ba0bbb235",
+    "dataset": "hotpotqa",
+    "latency_total": 14.80940819999978,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ac2546a554299636651997b",
+    "dataset": "hotpotqa",
+    "latency_total": 12.637552199999845,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae356045542990afbd1e10d",
+    "dataset": "hotpotqa",
+    "latency_total": 13.697884599999725,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae1e6d95542997283cd22c3",
+    "dataset": "hotpotqa",
+    "latency_total": 16.448536200000035,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8b8f5b55429949d91db5e1",
+    "dataset": "hotpotqa",
+    "latency_total": 12.838539800000035,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab3460055429976abd1bc80",
+    "dataset": "hotpotqa",
+    "latency_total": 15.538785400000052,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7d2afb554299452d57bb41",
+    "dataset": "hotpotqa",
+    "latency_total": 15.898658000000069,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5adea95055429939a52fe931",
+    "dataset": "hotpotqa",
+    "latency_total": 17.75233070000013,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab7d33d5542992aa3b8c859",
+    "dataset": "hotpotqa",
+    "latency_total": 16.315889999999854,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a893f305542993b751ca91e",
+    "dataset": "hotpotqa",
+    "latency_total": 16.19222170000012,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5adea83b55429975fa854f53",
+    "dataset": "hotpotqa",
+    "latency_total": 26.740872999999738,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae1d32a554299492dc91b9c",
+    "dataset": "hotpotqa",
+    "latency_total": 14.419807700000092,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a82accd55429966c78a6a78",
+    "dataset": "hotpotqa",
+    "latency_total": 13.371124100000088,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a90ba1b55429933b8a205c6",
+    "dataset": "hotpotqa",
+    "latency_total": 17.736551299999974,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5adcb6875542994ed6169bcb",
+    "dataset": "hotpotqa",
+    "latency_total": 13.95800169999984,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7f95685542995d8a8ddeaa",
+    "dataset": "hotpotqa",
+    "latency_total": 12.903375100000176,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a78b386554299148911f949",
+    "dataset": "hotpotqa",
+    "latency_total": 23.155638900000213,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8c781c554299653c1aa083",
+    "dataset": "hotpotqa",
+    "latency_total": 15.244022500000028,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a80ae105542992bc0c4a7a2",
+    "dataset": "hotpotqa",
+    "latency_total": 8.858239999999569,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a84992e5542992a431d1a6d",
+    "dataset": "hotpotqa",
+    "latency_total": 13.898720900000626,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8f2cc855429918e830d1be",
+    "dataset": "hotpotqa",
+    "latency_total": 11.685442099999818,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8841ee5542994846c1ce6b",
+    "dataset": "hotpotqa",
+    "latency_total": 16.07001560000026,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5adf85e05542993344016cba",
+    "dataset": "hotpotqa",
+    "latency_total": 11.861797900000056,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a77415b55429966f1a36cd2",
+    "dataset": "hotpotqa",
+    "latency_total": 16.68572369999947,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a72fc865542991f9a20c5e9",
+    "dataset": "hotpotqa",
+    "latency_total": 17.606747499999983,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ac4e13f554299076e296e2d",
+    "dataset": "hotpotqa",
+    "latency_total": 22.965289400000074,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7796e05542992a6e59df0f",
+    "dataset": "hotpotqa",
+    "latency_total": 12.389402700000574,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae3eabc5542995dadf2424f",
+    "dataset": "hotpotqa",
+    "latency_total": 12.862900499999341,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae3c71f5542991a06ce9a22",
+    "dataset": "hotpotqa",
+    "latency_total": 14.745236099999602,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae25d2b554299495565da46",
+    "dataset": "hotpotqa",
+    "latency_total": 7.4695612000004985,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab8179f5542990e739ec817",
+    "dataset": "hotpotqa",
+    "latency_total": 10.750255099999777,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5adc411f5542994650320cbc",
+    "dataset": "hotpotqa",
+    "latency_total": 13.235037099999317,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5aba6f3e55429955dce3ee21",
+    "dataset": "hotpotqa",
+    "latency_total": 16.14046629999939,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5add2dae5542992c1e3a2558",
+    "dataset": "hotpotqa",
+    "latency_total": 11.723688799999763,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ae14b0655429920d52343a6",
+    "dataset": "hotpotqa",
+    "latency_total": 18.82617730000038,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a730a6b5542992359bc3210",
+    "dataset": "hotpotqa",
+    "latency_total": 10.810540899999978,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a75fa14554299109176e5dc",
+    "dataset": "hotpotqa",
+    "latency_total": 15.704487599999993,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ac35a7e554299741d48a257",
+    "dataset": "hotpotqa",
+    "latency_total": 12.956012100000407,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8651185542994775f60752",
+    "dataset": "hotpotqa",
+    "latency_total": 19.35865460000059,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a79fe3b5542994f819ef119",
+    "dataset": "hotpotqa",
+    "latency_total": 12.062130700000125,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8268215542995ce29dccfb",
+    "dataset": "hotpotqa",
+    "latency_total": 11.918018300000767,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7605f85542994ccc91868d",
+    "dataset": "hotpotqa",
+    "latency_total": 14.163825800000268,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5adf74075542992d7e9f937c",
+    "dataset": "hotpotqa",
+    "latency_total": 13.289727200000016,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5abe2b0155429976d4830a83",
+    "dataset": "hotpotqa",
+    "latency_total": 20.708278099999916,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a849c1b5542997175ce1ef9",
+    "dataset": "hotpotqa",
+    "latency_total": 10.728431900000032,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a81108855429926c1cdace2",
+    "dataset": "hotpotqa",
+    "latency_total": 11.853287900000396,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8e06785542995085b37383",
+    "dataset": "hotpotqa",
+    "latency_total": 15.676989800000229,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5adbfa38554299438c868d00",
+    "dataset": "hotpotqa",
+    "latency_total": 9.963863500000116,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a73b1855542992d56e7e388",
+    "dataset": "hotpotqa",
+    "latency_total": 13.640253999999914,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab94fa25542996be2020474",
+    "dataset": "hotpotqa",
+    "latency_total": 23.009855100000095,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7e7d4655429934daa2fc2e",
+    "dataset": "hotpotqa",
+    "latency_total": 16.992839900000035,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a75d9c05542992db94736f6",
+    "dataset": "hotpotqa",
+    "latency_total": 17.388720300000386,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5adf33965542993344016c20",
+    "dataset": "hotpotqa",
+    "latency_total": 22.32578140000078,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8f979255429918e830d288",
+    "dataset": "hotpotqa",
+    "latency_total": 20.36540210000021,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8a17685542993b751ca9f3",
+    "dataset": "hotpotqa",
+    "latency_total": 24.206252299999505,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5abd56355542993062266c58",
+    "dataset": "hotpotqa",
+    "latency_total": 21.37192949999917,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab91f98554299753720f70d",
+    "dataset": "hotpotqa",
+    "latency_total": 14.562402500000644,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a811152554299260e20a22e",
+    "dataset": "hotpotqa",
+    "latency_total": 13.78335320000042,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7a1f795542996c55b2dd1b",
+    "dataset": "hotpotqa",
+    "latency_total": 15.890532000000348,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7324e055429901807daf8f",
+    "dataset": "hotpotqa",
+    "latency_total": 12.52747459999955,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab9618f554299743d22eb28",
+    "dataset": "hotpotqa",
+    "latency_total": 13.774970399999802,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5abffafe5542997d64295988",
+    "dataset": "hotpotqa",
+    "latency_total": 16.89428020000014,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8cee9b554299441c6b9f87",
+    "dataset": "hotpotqa",
+    "latency_total": 14.484638900000391,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7270395542992359bc30a8",
+    "dataset": "hotpotqa",
+    "latency_total": 15.517709200000354,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ac14d0c5542991316484ae2",
+    "dataset": "hotpotqa",
+    "latency_total": 17.829472899999928,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a75a76b5542992db9473697",
+    "dataset": "hotpotqa",
+    "latency_total": 16.45235749999938,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab55455554299488d4d993b",
+    "dataset": "hotpotqa",
+    "latency_total": 13.374851900000067,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7f48e15542992e7d278ce6",
+    "dataset": "hotpotqa",
+    "latency_total": 18.199998099999902,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab7f0995542995dae37e9fb",
+    "dataset": "hotpotqa",
+    "latency_total": 14.889426099999582,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5aba89fb5542994dbf019933",
+    "dataset": "hotpotqa",
+    "latency_total": 13.667754899999636,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7621bb554299109176e650",
+    "dataset": "hotpotqa",
+    "latency_total": 20.046443600000202,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a70f0e75542994082a3e408",
+    "dataset": "hotpotqa",
+    "latency_total": 17.116287300000295,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a773ec45542994aec3b7245",
+    "dataset": "hotpotqa",
+    "latency_total": 12.00805070000024,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a802b595542995d8a8ddf51",
+    "dataset": "hotpotqa",
+    "latency_total": 16.274370400000407,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a8de7c65542995085b37353",
+    "dataset": "hotpotqa",
+    "latency_total": 21.31935700000031,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab5b6c1554299637185c5e5",
+    "dataset": "hotpotqa",
+    "latency_total": 14.609593400000449,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5abb8e2d554299642a094aa4",
+    "dataset": "hotpotqa",
+    "latency_total": 15.476726599999893,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a7642f7554299109176e6e8",
+    "dataset": "hotpotqa",
+    "latency_total": 14.9268804000003,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a756b175542996c70cfaef7",
+    "dataset": "hotpotqa",
+    "latency_total": 20.602577099999507,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a83161555429940e5e1a958",
+    "dataset": "hotpotqa",
+    "latency_total": 13.809647600000062,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5ab3eac5554299753aec59ec",
+    "dataset": "hotpotqa",
+    "latency_total": 11.309038900000814,
+    "latency_breakdown": {}
+  },
+  {
+    "question_id": "5a73090455429901807daf6e",
+    "dataset": "hotpotqa",
+    "latency_total": 10.912438600000314,
+    "latency_breakdown": {}
+  }
+]

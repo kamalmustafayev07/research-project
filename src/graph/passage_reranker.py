@@ -12,6 +12,7 @@ import joblib
 import numpy as np
 from sklearn.linear_model import SGDClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, log_loss
+from sklearn.utils.class_weight import compute_class_weight
 
 from src.config import SETTINGS
 from src.utils.embeddings import EmbeddingEncoder
@@ -34,7 +35,7 @@ class RerankerTrainMetrics:
     test_confusion_matrix: list[list[int]] | None
     history: list[dict[str, float | int | None]]
     trained: bool
-    training_history: list[dict[str, float | int]]
+    training_history: list[dict[str, float | int | None]]
 
 
 class PassageReranker:
@@ -51,7 +52,6 @@ class PassageReranker:
     def _init_model() -> SGDClassifier:
         return SGDClassifier(
             loss="log_loss",
-            class_weight="balanced",
             random_state=SETTINGS.data.random_seed,
         )
 
@@ -185,6 +185,7 @@ class PassageReranker:
                 test_confusion_matrix=None,
                 history=[],
                 trained=False,
+                training_history=[],
             )
 
         x_val = np.zeros((0, x_train.shape[1]), dtype=np.float32)
@@ -211,6 +212,8 @@ class PassageReranker:
 
         rng = np.random.default_rng(SETTINGS.data.random_seed)
         classes = np.asarray([0, 1], dtype=np.int64)
+        class_weights = compute_class_weight(class_weight="balanced", classes=classes, y=y_train)
+        self.model.set_params(class_weight={int(c): float(w) for c, w in zip(classes, class_weights)})
 
         for epoch_idx in range(1, epochs + 1):
             order = rng.permutation(x_train.shape[0])
@@ -220,6 +223,13 @@ class PassageReranker:
 
             train_loss, train_accuracy = self._compute_metrics(x_train, y_train)
             val_loss, val_accuracy = self._compute_metrics(x_val, y_val)
+
+            train_acc_display = f"{train_accuracy:.4f}" if train_accuracy is not None else "n/a"
+            val_acc_display = f"{val_accuracy:.4f}" if val_accuracy is not None else "n/a"
+            print(
+                f"[RERANKER] epoch {epoch_idx}/{epochs} | train_accuracy={train_acc_display} | validation_accuracy={val_acc_display}",
+                flush=True,
+            )
 
             history.append(
                 {
@@ -253,6 +263,7 @@ class PassageReranker:
             test_confusion_matrix=test_cm,
             history=history,
             trained=True,
+            training_history=history,
         )
 
     def _compute_metrics(self, features: np.ndarray, labels: np.ndarray) -> tuple[float | None, float | None]:
