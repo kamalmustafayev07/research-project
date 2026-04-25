@@ -2,7 +2,7 @@
 
 ## 1) Project Goal and Research Framing
 
-Research question (from project README):
+Research question:
 To what extent does a multi-agent system integrated with GraphRAG improve accuracy, explainability, and automation in multi-hop QA compared with standard RAG?
 
 What the pipeline actually evaluates in each run:
@@ -17,7 +17,7 @@ Supported datasets:
 - musique
 - 2wikimultihopqa
 
-## 2) Configuration Files Analyzed
+## 2) Configuration Files
 
 Runtime/config files that control behavior:
 - .env (primary runtime switches: model backend, model name, retrieval loops, reranker settings, dataset defaults)
@@ -77,9 +77,9 @@ For reranker-enabled behavior (recommended default):
     RERANKER_MAX_TRAIN_EXAMPLES=1200
     RERANKER_EPOCHS=12
 
-Important: you do not need to edit src/config.py directly. It already reads these values from .env.
+Important: do not need to edit src/config.py directly. It already reads these values from .env.
 
-## 5) Exactly Three Experiment Run Commands
+## 5) Three Experiment Run Commands
 
 These are the only three experiment executions. Each uses all datasets.
 
@@ -233,7 +233,7 @@ Presentation conclusions to emphasize:
 
 ## 11) Efficiency and Reproducibility Notes
 
-- You are limited to exactly 3 total runs: this guide already uses that full budget optimally.
+- We are limited to exactly 3 total runs: this plan already uses that full budget optimally.
 - Run 1 prepares cached subset data for all datasets.
 - Run 2 reuses cached data for efficiency.
 - Run 3 uses disjoint splits and trains reranker with controlled size for meaningful extra signal.
