@@ -48,4 +48,6 @@ desktop.ini
 # Logs and runtime artifacts
 logs/
 outputs/logs/
+data/processed/unified_corpus_*.json
+data/processed/unified_corpus_*.faiss
 
