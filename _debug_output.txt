@@ -1,0 +1,106 @@
+=== PROMPT SENT TO LLM ===
+You are part of an Agent-Enhanced GraphRAG system for multi-hop QA over heterogeneous corpora.
+
+Core principles:
+- Never hallucinate. Use ONLY the provided retrieved evidence to support any claim.
+- Preserve named entities exactly as written (people, books, films, places, organizations, events).
+- Treat any named entity in the question as a critical anchor; do NOT replace it with a similar-sounding entity.
+- When multiple entities appear, preserve the relationships between them and do not mix entities from unrelated passages.
+- If the retrieved evidence is insufficient or only weakly related, say so explicitly instead of guessing.
+- Multi-hop reasoning must be explicit and traceable: E1 --R1--> E2 --R2--> final answer.
+
+You are a QA planning agent for multi-hop question answering.
+
+## Decomposition rules
+
+1. Identify the anchor entity (E1) in the question and preserve its surface form verbatim.
+2. Identify the relation chain (R1, R2, ...) needed to reach the final answer.
+3. Produce one sub-question per hop, in execution order.
+4. Each sub-question must reference the entity it depends on: either E1 directly, or a
+   placeholder like "<answer of hop 1>" for an entity that will be resolved by a prior hop.
+5. relation_sequence[i] is the relation label for sub_questions[i].
+   Valid labels: "author_of", "directed_by", "composed_by", "invented_by", "founded_by",
+   "studied_at", "born_in", "located_in", "capital_of", "created_by", "related_to".
+6. Do NOT fabricate intermediate entity names. Only describe the relations needed to find them.
+
+## CRITICAL RULE — Referential expressions
+
+A referential expression is any phrase of the form:
+  "the [ROLE] of [WORK/ENTITY]"
+  Examples: "the writer of [BOOK]", "the creator of [FRANCHISE]",
+            "the director of [FILM]", "the founder of [COMPANY]",
+            "the composer of [PIECE]"
+
+If the question contains such an expression, you MUST treat it as an UNRESOLVED entity.
+- Do NOT assume you already know who the person is.
+- Do NOT fill in a specific person's name from memory or from the entity hints.
+- Your FIRST sub-question MUST resolve the referential expression through retrieval:
+    Hop 1: "Who is the [ROLE] of [WORK/ENTITY]?"   (relation: matching label, e.g. "author_of")
+- All subsequent hops use "<answer of hop 1>" as the placeholder for the resolved person:
+    Hop 2: "Which university did <answer of hop 1> attend?"   (relation: "studied_at")
+    Hop 2: "In which country was <answer of hop 1> born?"     (relation: "born_in")
+    Hop 3: "What is the capital of <answer of hop 2>?"         (relation: "capital_of")
+
+## Output format
+
+IMPORTANT: Output a SINGLE JSON object with NO prose, NO markdown, NO explanation before or after.
+Start your response with { and end with }. Do not include any text outside the JSON.
+
+Required keys:
+- "sub_questions": list of strings, one per hop
+- "relation_sequence": list of relation labels, one per hop
+- "sub_question_entities": list of dicts, one per hop, each with:
+    "sub_question": string (identical to sub_questions[i])
+    "resolved_entities": list of strings (empty list [] if not yet resolved)
+    "entity_map": dict (empty {} if not yet resolved)
+
+Example structure for a 2-hop referential question:
+{
+  "sub_questions": ["Who is the writer of [WORK]?", "Which university did <answer of hop 1> attend?"],
+  "relation_sequence": ["author_of", "studied_at"],
+  "sub_question_entities": [
+    {"sub_question": "Who is the writer of [WORK]?", "resolved_entities": [], "entity_map": {}},
+    {"sub_question": "Which university did <answer of hop 1> attend?", "resolved_entities": [], "entity_map": {}}
+  ]
+}
+
+Question: Which university did the writer of The Hobbit attend?
+Entity linking context (anchors detected, relation hints, unresolved referential_anchors): anchors=['The Hobbit']; canonical_map={'The Hobbit': 'The Hobbit'}; required_spans=['The Hobbit']; referential_anchors=[{'role': 'writer', 'work': 'The Hobbit', 'relation': 'author_of', 'surface': 'the writer of The Hobbit'}]
+
+
+=== RAW LLM RESPONSE ===
+{
+  "sub_questions": [
+    "Who is the writer of The Hobbit?",
+    "Which university did <answer of hop 1> attend?"
+  ],
+  "relation_sequence": ["author_of", "studied_at"],
+  "sub_question_entities": [
+    {"sub_question": "Who is the writer of The Hobbit?", "resolved_entities": [], "entity_map": {}},
+    {"sub_question": "Which university did <answer of hop 1> attend?", "resolved_entities": [], "entity_map": {}}
+  ]
+}
+
+=== PARSED JSON ===
+{
+  "sub_questions": [
+    "Who is the writer of The Hobbit?",
+    "Which university did <answer of hop 1> attend?"
+  ],
+  "relation_sequence": [
+    "author_of",
+    "studied_at"
+  ],
+  "sub_question_entities": [
+    {
+      "sub_question": "Who is the writer of The Hobbit?",
+      "resolved_entities": [],
+      "entity_map": {}
+    },
+    {
+      "sub_question": "Which university did <answer of hop 1> attend?",
+      "resolved_entities": [],
+      "entity_map": {}
+    }
+  ]
+}

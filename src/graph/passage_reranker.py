@@ -15,6 +15,7 @@ from sklearn.metrics import accuracy_score, confusion_matrix, log_loss
 from sklearn.utils.class_weight import compute_class_weight
 
 from src.config import SETTINGS
+from src.graph.entity_scoring import demote_passages_without_entity_overlap, hybrid_recall_first_score
 from src.utils.embeddings import EmbeddingEncoder
 
 
@@ -285,26 +286,38 @@ class PassageReranker:
         matrix = confusion_matrix(labels, predictions, labels=[0, 1])
         return matrix.astype(int).tolist()
 
-    def rerank(self, query: str, passages: list[dict[str, Any]]) -> list[dict[str, Any]]:
-        if not passages or not self.is_trained:
+    def rerank(
+        self,
+        query: str,
+        passages: list[dict[str, Any]],
+        entity_context: dict[str, Any] | None = None,
+    ) -> list[dict[str, Any]]:
+        if not passages:
             return passages
+
+        if not self.is_trained:
+            return demote_passages_without_entity_overlap(
+                passages, list((entity_context or {}).get("match_strings") or [])
+            )
 
         features = self._pair_features(query, passages)
         if features.shape[0] == 0:
             return passages
 
         probs = self.model.predict_proba(features)[:, 1]
-        weight = SETTINGS.retrieval.reranker_weight
+        ml_w = float(SETTINGS.retrieval.reranker_weight)
 
         reranked: list[dict[str, Any]] = []
         for idx, passage in enumerate(passages):
             item = dict(passage)
             dense_score = float(item.get("score", 0.0))
-            dense_norm = max(0.0, min(1.0, (dense_score + 1.0) / 2.0))
             rerank_score = float(probs[idx])
-            combined = (1.0 - weight) * dense_norm + weight * rerank_score
+            fe = hybrid_recall_first_score(item, query, entity_context, dense_score)
+            ml_adj = ml_w * 0.25 * (rerank_score - 0.5)
+            combined = fe + ml_adj
             item["dense_score"] = dense_score
             item["rerank_score"] = rerank_score
+            item["entity_score"] = fe
             item["score"] = combined
             reranked.append(item)
 

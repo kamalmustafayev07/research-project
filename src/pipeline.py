@@ -10,6 +10,8 @@ from typing import Any, TypedDict
 from langgraph.graph import END, START, StateGraph
 
 from src.agents.critic import CriticAgent
+from src.agents.entity_linker import EntityLinker, build_retrieval_entity_context, entity_linking_result_from_dict
+from src.graph.retrieval_query_builder import build_retrieval_query_pack
 from src.agents.graph_retriever import GraphRetrieverAgent
 from src.agents.query_decomposer import QueryDecomposerAgent
 from src.agents.react_reasoner import ReActReasonerAgent
@@ -22,6 +24,8 @@ class GraphRAGState(TypedDict, total=False):
 
     question: str
     context_passages: list[dict[str, Any]]
+    entity_linking: dict[str, Any]
+    entity_context: dict[str, Any]
     decomposition: dict[str, Any]
     evidence_chain: list[dict[str, Any]]
     selected_passages: list[dict[str, Any]]
@@ -41,6 +45,7 @@ class AgentEnhancedGraphRAG:
 
     def __init__(self) -> None:
         self.llm = LLMClient()
+        self.entity_linker = EntityLinker()
         self.decomposer = QueryDecomposerAgent(self.llm)
         self.retriever = GraphRetrieverAgent()
         self.reasoner = ReActReasonerAgent(self.llm)
@@ -49,12 +54,14 @@ class AgentEnhancedGraphRAG:
 
     def _build_graph(self) -> Any:
         builder = StateGraph(GraphRAGState)
+        builder.add_node("entity_linker", self._entity_link)
         builder.add_node("decomposer", self._decompose)
         builder.add_node("retriever", self._retrieve)
         builder.add_node("reasoner", self._reason)
         builder.add_node("critic", self._critic)
 
-        builder.add_edge(START, "decomposer")
+        builder.add_edge(START, "entity_linker")
+        builder.add_edge("entity_linker", "decomposer")
         builder.add_edge("decomposer", "retriever")
         builder.add_edge("retriever", "reasoner")
         builder.add_edge("reasoner", "critic")
@@ -74,12 +81,26 @@ class AgentEnhancedGraphRAG:
         totals[key] = float(totals.get(key, 0.0)) + float(elapsed)
         return totals
 
+    def _entity_link(self, state: GraphRAGState) -> GraphRAGState:
+        start = perf_counter()
+        linked = self.entity_linker.link(state["question"])
+        elapsed = perf_counter() - start
+        return {
+            "entity_linking": linked.as_dict(),
+            "latency_breakdown": self._updated_latency(state, "entity_linker", elapsed),
+        }
+
     def _decompose(self, state: GraphRAGState) -> GraphRAGState:
         start = perf_counter()
-        result = self.decomposer.run(state["question"])
+        link = entity_linking_result_from_dict(state.get("entity_linking"))
+        result = self.decomposer.run(state["question"], entity_linking=link)
+        entity_context: dict[str, Any] = {}
+        if link is not None:
+            entity_context = build_retrieval_entity_context(link, result.sub_question_entities, result.relation_sequence)
         elapsed = perf_counter() - start
         return {
             "decomposition": asdict(result),
+            "entity_context": entity_context,
             "latency_breakdown": self._updated_latency(state, "decomposer", elapsed),
         }
 
@@ -88,9 +109,37 @@ class AgentEnhancedGraphRAG:
         query = state["question"]
         decomposition = state.get("decomposition", {})
         sub_questions = decomposition.get("sub_questions", [])
-        retrieval_query = " ; ".join([query] + sub_questions[:2]) if sub_questions else query
+        sub_plans = decomposition.get("sub_question_entities") or []
+        extra_bits: list[str] = []
+        for row in sub_plans[:3]:
+            for e in row.get("resolved_entities") or []:
+                if str(e).strip():
+                    extra_bits.append(str(e).strip())
+        head = [query, *sub_questions[:2], *extra_bits[:4]]
+        retrieval_query = " ; ".join([h for h in head if h])
 
-        output = self.retriever.run(retrieval_query, state["context_passages"])
+        raw_ec = state.get("entity_context") or {}
+        entity_context: dict[str, Any] | None = None
+        if raw_ec.get("match_strings"):
+            entity_context = dict(raw_ec)
+            is_retry = (state.get("retrieval_loops") or 0) >= 1
+            if is_retry:
+                entity_context["semantic_blend"] = SETTINGS.retrieval.retrieval_semantic_blend_retry
+                entity_context["relation_hints"] = []
+                entity_context["retrieval_fallback"] = (entity_context.get("retrieval_fallback") or "") + ";retry:drop_rel_hints"
+                cans = list(entity_context.get("canonical_entities") or [])
+                if cans:
+                    retrieval_query = " ; ".join(cans[:6]) + " ; " + (state["question"] or "")[:240]
+            variants, q_dbg = build_retrieval_query_pack(
+                state["question"],
+                decomposition,
+                entity_context,
+            )
+            entity_context["retrieval_queries"] = variants
+            entity_context["retrieval_query_debug"] = q_dbg
+        # If no match_strings, keep retrieval_query from head (question + sub-questions + entities); do not drop hops.
+
+        output = self.retriever.run(retrieval_query, state["context_passages"], entity_context=entity_context)
         loops = state.get("retrieval_loops", 0) + 1
         elapsed = perf_counter() - start
         return {
@@ -107,6 +156,8 @@ class AgentEnhancedGraphRAG:
             state["question"],
             state.get("evidence_chain", []),
             selected_passages=state.get("selected_passages", []),
+            entity_context=state.get("entity_context"),
+            decomposition=state.get("decomposition"),
         )
         elapsed = perf_counter() - start
         return {
@@ -118,11 +169,16 @@ class AgentEnhancedGraphRAG:
 
     def _critic(self, state: GraphRAGState) -> GraphRAGState:
         start = perf_counter()
+        chain = state.get("evidence_chain", [])
         output = self.critic.run(
             query=state["question"],
             answer=state.get("answer", ""),
             confidence=state.get("confidence", 0.0),
-            evidence_count=len(state.get("evidence_chain", [])),
+            evidence_count=len(chain),
+            evidence_chain=chain,
+            selected_passages=state.get("selected_passages", []),
+            entity_context=state.get("entity_context"),
+            decomposition=state.get("decomposition"),
         )
         elapsed = perf_counter() - start
         return {
@@ -150,6 +206,7 @@ class AgentEnhancedGraphRAG:
                 "retrieval_loops": 0,
                 "max_retrieval_loops": SETTINGS.retrieval.max_retrieval_loops,
                 "latency_breakdown": {
+                    "entity_linker": 0.0,
                     "decomposer": 0.0,
                     "retriever": 0.0,
                     "reasoner": 0.0,
@@ -160,6 +217,7 @@ class AgentEnhancedGraphRAG:
         total_latency = perf_counter() - start_total
         result_breakdown = dict(result.get("latency_breakdown", {}))
         latency_breakdown = {
+            "entity_linker": float(result_breakdown.get("entity_linker", 0.0)),
             "decomposer": float(result_breakdown.get("decomposer", 0.0)),
             "retriever": float(result_breakdown.get("retriever", 0.0)),
             "reasoner": float(result_breakdown.get("reasoner", 0.0)),

@@ -5,6 +5,16 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
+from src.agents.evidence_validation import (
+    answer_strings_supported_by_evidence,
+    chain_covers_resolved_entities,
+    evidence_blob,
+    resolved_entities_from_context,
+)
+from src.agents.prompts import (
+    INSUFFICIENT_EVIDENCE_ANSWER,
+    REASONER_PROMPT_TEMPLATE,
+)
 from src.utils.helpers import safe_float
 from src.utils.llm import LLMClient
 
@@ -30,12 +40,23 @@ class ReActReasonerAgent:
         query: str,
         evidence_chain: list[dict[str, Any]],
         selected_passages: list[dict[str, Any]] | None = None,
+        entity_context: dict[str, Any] | None = None,
+        decomposition: dict[str, Any] | None = None,  # reserved for hop-consistent prompts
     ) -> ReasonerOutput:
         """Generate iterative reasoning traces and final answer."""
         thoughts: list[str] = []
         answer = ""
         confidence = 0.0
         selected_passages = selected_passages or []
+
+        resolved = resolved_entities_from_context(entity_context)
+        full_blob = evidence_blob(evidence_chain, selected_passages)
+        if resolved and not chain_covers_resolved_entities(evidence_chain, selected_passages, resolved):
+            return ReasonerOutput(
+                thoughts=[INSUFFICIENT_EVIDENCE_ANSWER],
+                answer=INSUFFICIENT_EVIDENCE_ANSWER,
+                confidence=0.15,
+            )
 
         evidence_text = "\n".join(
             [
@@ -50,15 +71,24 @@ class ReActReasonerAgent:
             ]
         )
 
+        resolved_block = ""
+        if entity_context:
+            names = resolved_entities_from_context(entity_context)[:16]
+            if names:
+                resolved_block = (
+                    "Resolved entity chain (do NOT introduce different people, works, or places): "
+                    + ", ".join(names)
+                    + "\n"
+                )
+
         for step in range(1, self.max_steps + 1):
-            prompt = (
-                "You are a ReAct reasoner. Think step-by-step over the evidence and then output strict JSON with "
-                "keys: thought (str), answer (str), confidence (float from 0 to 1). "
-                "The answer must be a short span (1-8 words), not an explanation.\n"
-                f"Question: {query}\n"
-                f"Evidence:\n{evidence_text}\n"
-                f"Passages:\n{passage_text}\n"
-                f"Current step: {step}/{self.max_steps}"
+            prompt = REASONER_PROMPT_TEMPLATE.format(
+                question=query,
+                resolved_entity_block=resolved_block,
+                evidence_text=evidence_text,
+                passage_text=passage_text,
+                step=step,
+                max_steps=self.max_steps,
             )
             response = self.llm.generate(prompt)
             parsed = self.llm.extract_json(response.text)
@@ -78,6 +108,12 @@ class ReActReasonerAgent:
                 break
 
         if not answer:
-            answer = "I could not derive a reliable answer from the available evidence."
+            answer = INSUFFICIENT_EVIDENCE_ANSWER
+
+        if answer != INSUFFICIENT_EVIDENCE_ANSWER:
+            if not answer_strings_supported_by_evidence(answer, full_blob.lower()):
+                answer = INSUFFICIENT_EVIDENCE_ANSWER
+                confidence = min(confidence, 0.25)
+                thoughts.append("Unsupported answer span relative to resolved-entity evidence; abstaining.")
 
         return ReasonerOutput(thoughts=thoughts, answer=answer, confidence=min(confidence, 1.0))

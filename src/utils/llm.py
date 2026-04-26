@@ -116,12 +116,46 @@ class LLMClient:
 
     @staticmethod
     def extract_json(raw_text: str) -> dict[str, Any]:
-        """Extract and parse a JSON object from model output text."""
-        start = raw_text.find("{")
+        """Extract and parse a JSON object from model output text.
+
+        Handles:
+        - Clean JSON objects
+        - JSON wrapped in ```json ... ``` code fences
+        - JSON preceded by prose reasoning
+        Tries the last (outermost) JSON object first for completeness.
+        """
+        if not raw_text:
+            return {}
+
+        # Strip code fences and retry — model often wraps in ```json ... ```
+        stripped = raw_text
+        for fence in ("```json", "```"):
+            if fence in stripped:
+                parts = stripped.split(fence)
+                # Grab content between the first fence pair
+                for i in range(1, len(parts)):
+                    candidate = parts[i].split("```")[0].strip()
+                    if candidate.startswith("{"):
+                        try:
+                            return json.loads(candidate)
+                        except json.JSONDecodeError:
+                            pass
+
+        # Fall back: find the last complete { ... } block (outermost)
         end = raw_text.rfind("}")
-        if start == -1 or end == -1 or end <= start:
-            return {}
-        try:
-            return json.loads(raw_text[start : end + 1])
-        except json.JSONDecodeError:
-            return {}
+        start = raw_text.rfind("{", 0, end + 1)
+        if start != -1 and end != -1 and end > start:
+            try:
+                return json.loads(raw_text[start : end + 1])
+            except json.JSONDecodeError:
+                pass
+
+        # Last resort: find first { and last }
+        start = raw_text.find("{")
+        if start != -1 and end != -1 and end > start:
+            try:
+                return json.loads(raw_text[start : end + 1])
+            except json.JSONDecodeError:
+                pass
+
+        return {}

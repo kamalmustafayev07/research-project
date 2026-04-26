@@ -22,9 +22,12 @@ class EmbeddingEncoder:
         """Encode a list of strings into dense embeddings."""
         if not texts:
             return np.zeros((0, 384), dtype=np.float32)
+        # Use a larger batch size on GPU for much better throughput.
+        batch_size = 512 if self.device == "cuda" else 64
         vectors = self.model.encode(
             list(texts),
-            show_progress_bar=False,
+            batch_size=batch_size,
+            show_progress_bar=len(texts) > 1_000,
             convert_to_numpy=True,
             normalize_embeddings=normalize,
         )

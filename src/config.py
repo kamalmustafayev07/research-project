@@ -99,6 +99,14 @@ class RetrievalConfig:
     reranker_negatives_per_positive: int = 3
     reranker_max_train_examples: int = 1200
     reranker_epochs: int = 12
+    # Entity-first retrieval: blend for dense (legacy combine); stricter retrievals use retrieval_semantic_blend.
+    entity_combined_score_weight: float = 0.72
+    # Tiny tie-breaker from FAISS similarity after hard entity filter (must stay low vs entity terms).
+    retrieval_semantic_blend: float = 0.08
+    # On critic-driven retry, reduce semantic influence further.
+    retrieval_semantic_blend_retry: float = 0.03
+    # Initial FAISS candidate pool multiplier before hard entity filter.
+    retrieval_dense_pool_multiplier: int = 4
 
 
 @dataclass(slots=True)
@@ -165,6 +173,10 @@ class Settings:
             reranker_negatives_per_positive=int(os.getenv("RERANKER_NEGATIVES_PER_POSITIVE", "3")),
             reranker_max_train_examples=int(os.getenv("RERANKER_MAX_TRAIN_EXAMPLES", "1200")),
             reranker_epochs=int(os.getenv("RERANKER_EPOCHS", "12")),
+            entity_combined_score_weight=float(os.getenv("ENTITY_COMBINED_SCORE_WEIGHT", "0.72")),
+            retrieval_semantic_blend=float(os.getenv("RETRIEVAL_SEMANTIC_BLEND", "0.08")),
+            retrieval_semantic_blend_retry=float(os.getenv("RETRIEVAL_SEMANTIC_BLEND_RETRY", "0.03")),
+            retrieval_dense_pool_multiplier=int(os.getenv("RETRIEVAL_DENSE_POOL_MULTIPLIER", "4")),
         )
         data = DataConfig(
             dataset=dataset,
