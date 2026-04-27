@@ -40,6 +40,11 @@ class ProjectPaths:
         return self.root / "data" / "raw"
 
     @property
+    def hf_datasets_cache(self) -> Path:
+        """Where HuggingFace ``datasets`` stores downloaded Arrow shards (per project)."""
+        return self.data_raw / "huggingface_datasets"
+
+    @property
     def data_processed(self) -> Path:
         return self.root / "data" / "processed"
 
@@ -195,6 +200,7 @@ class Settings:
 
         for path in [
             settings.paths.data_raw,
+            settings.paths.hf_datasets_cache,
             settings.paths.data_processed,
             settings.paths.output_results,
             settings.paths.output_experiments,

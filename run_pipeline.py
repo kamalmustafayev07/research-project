@@ -30,6 +30,7 @@ from src.utils.evaluation import (
 from src.utils.experiment_paths import DatasetRunPaths, ExperimentPaths, create_experiment_paths
 from src.utils.helpers import save_json, setup_logger
 from src.utils.plotting import generate_benchmark_plots, generate_reranker_plots
+from app import run_pipeline as streamlit_run_pipeline
 
 
 def _resolve_datasets(value: str) -> list[str]:
@@ -288,6 +289,39 @@ def _evaluate_dataset(
                 reranker_metrics["plots"] = plot_paths
             save_json(dataset_paths.results_dir / "reranker_metrics.json", reranker_metrics)
 
+    def _ours_infer(item: dict[str, Any]) -> dict[str, Any]:
+        """Run the same inference logic as Streamlit and normalize keys.
+
+        Streamlit's ``app.run_pipeline`` returns UI-centric keys:
+        - ``chain`` / ``selected`` / ``latency`` / ``total``
+        Evaluation expects:
+        - ``evidence_chain`` / ``latency_breakdown`` / ``latency_total``
+        """
+        output = streamlit_run_pipeline(
+            pipeline=pipeline,
+            question=item["question"],
+            contexts=item["contexts"],
+        )
+
+        normalized = dict(output)
+        if "evidence_chain" not in normalized:
+            normalized["evidence_chain"] = list(normalized.get("chain") or [])
+
+        if "latency_total" not in normalized:
+            normalized["latency_total"] = float(normalized.get("total") or 0.0)
+
+        if "latency_breakdown" not in normalized:
+            lat = normalized.get("latency") if isinstance(normalized.get("latency"), dict) else {}
+            normalized["latency_breakdown"] = {
+                "decomposer": float(lat.get("decomposer", 0.0)),
+                # Streamlit names this bucket retriever+rereanker.
+                "retriever": float(lat.get("retriever+rereanker", lat.get("retriever", 0.0))),
+                "reasoner": float(lat.get("reasoner", 0.0)),
+                "critic": float(lat.get("critic", 0.0)),
+            }
+
+        return normalized
+
     b1 = run_method_on_dataset(
         "B1_Standard_Dense_RAG",
         data,
@@ -303,7 +337,7 @@ def _evaluate_dataset(
     ours = run_method_on_dataset(
         "Ours_Agent_Enhanced_GraphRAG",
         data,
-        lambda item: pipeline.invoke(item["question"], item["contexts"]),
+        _ours_infer,
         dataset_name=dataset,
     )
 

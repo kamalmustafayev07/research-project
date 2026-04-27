@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 from dataclasses import dataclass
 from typing import Any
 
@@ -11,6 +12,19 @@ from ollama import Client as OllamaClient
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from src.config import SETTINGS
+
+
+def ollama_healthcheck() -> tuple[bool, str]:
+    """Return whether the local (or ``OLLAMA_HOST``) Ollama server responds.
+
+    Uses a lightweight ``list()`` call; does not pull models.
+    """
+    try:
+        OllamaClient().list()
+    except Exception as exc:  # noqa: BLE001 — surface any connectivity failure
+        host = os.environ.get("OLLAMA_HOST", "http://127.0.0.1:11434")
+        return False, f"{type(exc).__name__}: {exc} (host: {host})"
+    return True, ""
 
 
 @dataclass(slots=True)
@@ -25,7 +39,6 @@ class LLMClient:
     """Unified LLM interface for generation calls."""
 
     def __init__(self) -> None:
-        self.backend = SETTINGS.model.llm_backend
         self._tokenizer = None
         self._model = None
         self._ollama = None
@@ -63,10 +76,11 @@ class LLMClient:
 
     def generate(self, prompt: str, max_new_tokens: int | None = None, temperature: float | None = None) -> LLMResponse:
         """Generate a text completion from the configured backend."""
-        if self.backend == "mock":
+        backend = SETTINGS.model.llm_backend
+        if backend == "mock":
             return self._mock_generate(prompt)
 
-        if self.backend == "ollama":
+        if backend == "ollama":
             self._init_ollama()
             response = self._ollama.chat(
                 model=SETTINGS.model.ollama_model,
@@ -98,7 +112,11 @@ class LLMClient:
     def _mock_generate(self, prompt: str) -> LLMResponse:
         """Return deterministic JSON-like responses for fast smoke tests."""
         low = prompt.lower()
-        if "sub_questions" in low or "qa planning agent" in low:
+        if "referential role expression" in low or "referential expression" in low:
+            # Anchor extraction prompt — return empty anchors; the regex fallback
+            # will handle any real extraction needed during tests.
+            text = '{"anchors": []}'
+        elif "sub_questions" in low or "qa planning agent" in low:
             text = (
                 '{"sub_questions": ["Identify the first entity in the question", '
                 '"Find the relationship needed to answer"], "relation_sequence": ["related_to", "related_to"]}'

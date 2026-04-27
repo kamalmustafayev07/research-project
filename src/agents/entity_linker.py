@@ -1,16 +1,22 @@
-"""Deterministic entity linking and referential span detection before retrieval.
+"""Entity linking and referential span detection before retrieval.
 
-Detects named-entity anchors and unresolved referential expressions (e.g.
-"the writer of X", "the creator of Y") without any hard-coded entity-to-entity
-mapping tables.  All actual entity resolution happens through retrieval; this
-module only annotates *what* needs to be resolved and *how*.
+Referential anchor extraction (the most fragile part of the old regex approach)
+is now delegated to a small, focused LLM call.  The LLM understands natural
+language and verb tenses universally, so it handles informal phrasings like
+"director of Dunkirk studied where?" without a static stop-word list.
+
+The regex implementation is retained as a silent fallback for the rare cases
+where the LLM is unavailable or returns malformed output.
 """
 
 from __future__ import annotations
 
+import logging
 import re
 from dataclasses import asdict, dataclass
 from typing import Any
+
+logger = logging.getLogger(__name__)
 
 
 def fold_for_overlap(s: str) -> str:
@@ -180,13 +186,87 @@ _REFERENTIAL_ROLE_PATTERN = re.compile(
 
 # Words that terminate a work title extracted after "of <TITLE> ..."
 _TITLE_STOP_WORDS = re.compile(
-    r"\s+(?:who|when|where|which|that|was|is|are|did|had|has|have|attend|live|"
-    r"born|go|graduate|study|work|get|become|come|do|make|see|know|use|find|"
-    r"give|tell|show|hear|try|ask|seem|feel|leave|call|keep|let|begin|appear|"
-    r"bring|speak|stand|lose|pay|meet|run|believe|hold|write|provide|sit|read|"
-    r"continue|set|learn|change|move|play|follow|stop|create|raise|pass|build|"
-    r"spend|cut|kill|win|fall|reach|catch|drive|serve|throw|stay|draw|open|"
-    r"send|put|remember|grow|add|look|care|carry|buy)\b",
+    r"\s+(?:who|when|where|which|that|was|is|are|did|had|has|have"
+    # infinitive + past-tense / past-participle / gerund forms so that
+    # questions like "director of Dunkirk studied where?" correctly stop
+    # the title at "studied" rather than rolling it into the work name.
+    r"|attend|attended|attending"
+    r"|live|lived|living"
+    r"|born"
+    r"|go|went|going"
+    r"|graduate|graduated|graduating"
+    r"|study|studied|studying"
+    r"|work|worked|working"
+    r"|get|got|gotten|getting"
+    r"|become|became|becoming"
+    r"|come|came|coming"
+    r"|do|done|doing"
+    r"|make|made|making"
+    r"|see|saw|seen|seeing"
+    r"|know|knew|known|knowing"
+    r"|use|used|using"
+    r"|find|found|finding"
+    r"|give|gave|given|giving"
+    r"|tell|told|telling"
+    r"|show|showed|shown|showing"
+    r"|hear|heard|hearing"
+    r"|try|tried|trying"
+    r"|ask|asked|asking"
+    r"|seem|seemed|seeming"
+    r"|feel|felt|feeling"
+    r"|leave|left|leaving"
+    r"|call|called|calling"
+    r"|keep|kept|keeping"
+    r"|let|letting"
+    r"|begin|began|begun|beginning"
+    r"|appear|appeared|appearing"
+    r"|bring|brought|bringing"
+    r"|speak|spoke|spoken|speaking"
+    r"|stand|stood|standing"
+    r"|lose|lost|losing"
+    r"|pay|paid|paying"
+    r"|meet|met|meeting"
+    r"|run|ran|running"
+    r"|believe|believed|believing"
+    r"|hold|held|holding"
+    r"|write|wrote|written|writing"
+    r"|provide|provided|providing"
+    r"|sit|sat|sitting"
+    r"|read|reading"
+    r"|continue|continued|continuing"
+    r"|set|setting"
+    r"|learn|learned|learnt|learning"
+    r"|change|changed|changing"
+    r"|move|moved|moving"
+    r"|play|played|playing"
+    r"|follow|followed|following"
+    r"|stop|stopped|stopping"
+    r"|create|created|creating"
+    r"|raise|raised|raising"
+    r"|pass|passed|passing"
+    r"|build|built|building"
+    r"|spend|spent|spending"
+    r"|cut|cutting"
+    r"|kill|killed|killing"
+    r"|win|won|winning"
+    r"|fall|fell|fallen|falling"
+    r"|reach|reached|reaching"
+    r"|catch|caught|catching"
+    r"|drive|drove|driven|driving"
+    r"|serve|served|serving"
+    r"|throw|threw|thrown|throwing"
+    r"|stay|stayed|staying"
+    r"|draw|drew|drawn|drawing"
+    r"|open|opened|opening"
+    r"|send|sent|sending"
+    r"|put|putting"
+    r"|remember|remembered|remembering"
+    r"|grow|grew|grown|growing"
+    r"|add|added|adding"
+    r"|look|looked|looking"
+    r"|care|cared|caring"
+    r"|carry|carried|carrying"
+    r"|buy|bought|buying)\b",
     re.IGNORECASE,
 )
 
@@ -303,15 +383,21 @@ def build_retrieval_entity_context(
 
 
 class EntityLinker:
-    """General-purpose entity linker with referential expression detection.
+    """Entity linker with LLM-based referential expression detection.
 
-    Does NOT use any hard-coded entity-to-entity mapping tables.
-    Detects referential expressions (e.g. "the writer of X") and annotates them
-    as unresolved anchors so the decomposer and retriever can resolve them via
-    retrieval rather than static lookup.
+    Referential anchor extraction is performed by a focused LLM prompt that
+    understands natural language universally (handles informal phrasing, any
+    verb tense, multi-word titles, etc.).  The legacy regex path is kept as a
+    silent fallback for cases where the LLM call fails.
     """
 
     def __init__(self) -> None:
+        # Lazy import to avoid circular dependency at module load time.
+        from src.utils.llm import LLMClient
+        from src.agents.prompts import ANCHOR_EXTRACTION_PROMPT
+
+        self._llm = LLMClient()
+        self._anchor_prompt_template = ANCHOR_EXTRACTION_PROMPT
         self._work_verb_pattern = re.compile(
             r"""\b(?:created|wrote|penned|composed|directed|founded|invented)\s+['"]?([^'"\n?]{2,64})['"]?""",
             re.I,
@@ -319,16 +405,55 @@ class EntityLinker:
         self._quoted = re.compile(r"""['"]([^'"\n]{2,64})['"]""")
 
     # ------------------------------------------------------------------
-    # Referential anchor extraction
+    # Referential anchor extraction — LLM primary, regex fallback
     # ------------------------------------------------------------------
 
     def _extract_referential_anchors(self, question: str) -> list[dict[str, str]]:
-        """Detect '[role] of [TITLE/ENTITY]' patterns and return structured records.
+        """Detect '[role] of [WORK]' patterns using an LLM call.
 
-        Each record: {"role": str, "work": str, "relation": str, "surface": str}
-        The 'work' field is the pivot entity (book, film, organization, etc.) that
-        must be retrieved to resolve the actual person.  No person name is inferred.
+        The LLM understands natural-language phrasing universally (any verb tense,
+        informal word order, multi-word titles) without needing a static stop-word
+        list.  If the LLM is unreachable or returns invalid output the call silently
+        falls back to the regex implementation.
+
+        Each returned record: {"role": str, "work": str, "relation": str, "surface": str}
         """
+        try:
+            return self._extract_anchors_llm(question)
+        except Exception as exc:
+            logger.debug("LLM anchor extraction failed (%s); using regex fallback.", exc)
+            return self._extract_anchors_regex(question)
+
+    def _extract_anchors_llm(self, question: str) -> list[dict[str, str]]:
+        """Ask the LLM to extract referential anchors from the question."""
+        prompt = self._anchor_prompt_template.replace("{question}", question)
+        response = self._llm.generate(prompt, max_new_tokens=256)
+        parsed = self._llm.extract_json(response.text)
+
+        raw_anchors = parsed.get("anchors") if isinstance(parsed, dict) else None
+        if not isinstance(raw_anchors, list):
+            raise ValueError(f"LLM returned unexpected structure: {parsed!r}")
+
+        valid: list[dict[str, str]] = []
+        seen_works: set[str] = set()
+        for item in raw_anchors:
+            if not isinstance(item, dict):
+                continue
+            role = str(item.get("role") or "").strip().lower()
+            work = str(item.get("work") or "").strip()
+            relation = str(item.get("relation") or "related_to").strip()
+            surface = str(item.get("surface") or "").strip()
+            if not role or not work or len(work) < 2:
+                continue
+            work_key = fold_for_overlap(work)
+            if work_key in seen_works:
+                continue
+            seen_works.add(work_key)
+            valid.append({"role": role, "work": work, "relation": relation, "surface": surface})
+        return valid
+
+    def _extract_anchors_regex(self, question: str) -> list[dict[str, str]]:
+        """Regex fallback: detect '[role] of [WORK]' via pattern matching."""
         anchors: list[dict[str, str]] = []
         seen_works: set[str] = set()
         for m in _REFERENTIAL_ROLE_PATTERN.finditer(question):
@@ -354,9 +479,8 @@ class EntityLinker:
 
     @staticmethod
     def _extract_title_from_tail(tail: str) -> str:
-        """Extract a work/entity title from the beginning of text that follows 'of '."""
+        """Regex fallback: extract work title from text following 'of '."""
         stripped = tail.lstrip()
-        # Prefer a capitalized sequence (proper-noun title)
         cap_match = re.match(
             r"([A-Z][^\s,?!.]*(?:\s+[A-Z][^\s,?!.]*){0,5})",
             stripped,

@@ -51,3 +51,6 @@ outputs/logs/
 data/processed/unified_corpus_*.json
 data/processed/unified_corpus_*.faiss
 
+# HuggingFace dataset files under project data/raw (can be very large)
+data/raw/huggingface_datasets/
+

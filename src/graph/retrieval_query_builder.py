@@ -230,9 +230,17 @@ def build_retrieval_query_pack(
 
     OR-logic: each variant is embedded separately; results are merged with max dense score.
 
-    Referential anchors (e.g. the writer of [WORK]) receive dedicated work→creator
-    queries so recall on the first hop is high even when the actual person's name is
-    unknown at query-build time.
+    First-pass behaviour (no ``retry_pivot`` in entity_context):
+        Referential anchors (e.g. ``{"role": "writer", "work": "The Hobbit"}``)
+        receive dedicated work→creator queries so recall on the first hop is high
+        even when the actual person's name is unknown at query-build time.
+
+    Retry-pass behaviour (``entity_context["retry_pivot"]`` is set):
+        The first hop has already been resolved (e.g. "J. R. R. Tolkien").  Work-
+        anchored queries ("the Hobbit education", "the Hobbit university", …) would
+        pull the same work-related passages back into the pool — so they are
+        skipped entirely.  Instead we generate pivot-entity × downstream-relation
+        queries that point directly at the second-hop evidence.
     """
     ec = entity_context or {}
     decomp = decomposition or {}
@@ -241,6 +249,7 @@ def build_retrieval_query_pack(
     rel_hints = list(ec.get("relation_hints") or [])
     mention_map = dict(ec.get("mention_to_canonical") or {})
     referential_anchors = list(ec.get("referential_anchors") or [])
+    retry_pivot: str = (ec.get("retry_pivot") or "").strip()
 
     # Resolve <answer of hop N> → "the [role] of [work]" so sub-questions become
     # grammatically correct, semantically rich retrieval queries.
@@ -252,92 +261,159 @@ def build_retrieval_query_pack(
 
     queries: list[str] = []
 
-    # ------------------------------------------------------------------
-    # 1. Referential anchor queries — work→creator first-hop resolution
-    #
-    # For "the writer of [WORK]" we generate targeted queries that will
-    # find the actual person in the corpus without knowing their name yet.
-    # ------------------------------------------------------------------
-    for anchor in referential_anchors:
-        work = (anchor.get("work") or "").strip()
-        role = (anchor.get("role") or "author").strip()
-        if not work:
-            continue
+    if retry_pivot:
+        # ------------------------------------------------------------------
+        # RETRY PASS: pivot entity is now known — build pivot-centric queries.
+        #
+        # We skip referential-anchor queries entirely (they are anchored on the
+        # original work and would pull the same passages back in).  Instead we
+        # saturate the query pack with pivot × every downstream relation phrase,
+        # plus direct question forms that mention the pivot by name.
+        # ------------------------------------------------------------------
+        rel_phrases_retry: list[str] = []
+        for r in rel_hints:
+            rel_phrases_retry.extend(_RELATION_PHRASES.get(r, ()))
+        rel_phrases_retry = list(dict.fromkeys(rel_phrases_retry))
 
-        # High-recall work title queries
-        queries.append(work)
-        queries.append(f"{work} {role}")
-        queries.append(f"{work} author")
-        queries.append(f"{work} written by")
-        queries.append(f"{work} creator")
-        queries.append(f"{work} biography")
+        # Pivot entity alone (highest recall for biography/article passages)
+        queries.append(retry_pivot)
 
-        # Question-form query (very high semantic similarity to relevant passages)
-        action_verb = _ROLE_TO_VERB.get(role, f"is the {role} of")
-        queries.append(f"who {action_verb} {work}")
+        # Pivot × every relation phrase
+        for kw in rel_phrases_retry:
+            queries.append(f"{retry_pivot} {kw}")
 
-        # Cross-queries: combine work with the downstream relation
-        # e.g. "The Hobbit author university" to pull author+education passages
-        for rh in rel_hints:
-            if rh in _RELATION_PHRASES:
-                phrases = _RELATION_PHRASES[rh]
-                if phrases:
-                    queries.append(f"{work} {role} {phrases[0]}")
-                    queries.append(f"{work} {phrases[0]}")
+        # Pivot × combined relation phrases (e.g. "Tolkien education university")
+        if rel_phrases_retry:
+            queries.append(f"{retry_pivot} {' '.join(rel_phrases_retry[:3])}")
 
-    # ------------------------------------------------------------------
-    # 2. Canonical entity queries
-    # ------------------------------------------------------------------
-    for c in canonical[:6]:
-        queries.append(c)
-    for m in match_strings[:10]:
-        if m and m not in queries:
-            queries.append(m)
+        # Rewrite the original question with the pivot substituted in
+        # e.g. "Which university did J. R. R. Tolkien attend?"
+        for anchor in referential_anchors:
+            surface = (anchor.get("surface") or "").strip()
+            if surface:
+                substituted = re.sub(re.escape(surface), retry_pivot, question, flags=re.I)
+                if substituted.lower() != question.lower():
+                    queries.append(substituted[:400])
+        # Also add a short question form with the pivot name
+        q_short_retry = re.sub(
+            r"^(what|which|who|where|when|how)\s+",
+            "",
+            question.strip(),
+            flags=re.I,
+        )
+        for anchor in referential_anchors:
+            surface = (anchor.get("surface") or "").strip()
+            if surface:
+                sq_sub = re.sub(re.escape(surface), retry_pivot, q_short_retry, flags=re.I)
+                if sq_sub.strip():
+                    queries.append(sq_sub[:320])
 
-    # ------------------------------------------------------------------
-    # 3. Relation-expanded queries (canonical × relation phrase)
-    # ------------------------------------------------------------------
-    rel_phrases: list[str] = []
-    for r in rel_hints:
-        rel_phrases.extend(_RELATION_PHRASES.get(r, ()))
-    rel_phrases = list(dict.fromkeys(rel_phrases))[:10]
+        # Sub-question for the downstream hop with pivot substituted
+        for sq in sub_questions[1:3]:
+            for anchor in referential_anchors:
+                surface = (anchor.get("surface") or "").strip()
+                if surface:
+                    sq_sub = re.sub(re.escape(surface), retry_pivot, sq, flags=re.I)
+                    if sq_sub.lower() != sq.lower() and len(sq_sub) > 5:
+                        queries.append(sq_sub[:320])
+                        break
+            else:
+                if len(sq) > 5:
+                    queries.append(sq[:320])
 
-    for c in canonical[:3]:
-        for kw in rel_phrases[:4]:
-            queries.append(f"{c} {kw}")
-    if canonical and rel_phrases:
-        queries.append(f"{canonical[0]} {' '.join(rel_phrases[:3])}")
+        # Full question as fallback
+        queries.append(question[:400])
 
-    # ------------------------------------------------------------------
-    # 4. Sub-question queries (from decomposer — include hop 1 as-is)
-    # ------------------------------------------------------------------
-    for sq in sub_questions[:5]:
-        if len(sq) > 5:
-            queries.append(sq[:320])
+    else:
+        # ------------------------------------------------------------------
+        # FIRST PASS: person name not yet known — referential-anchor queries.
+        #
+        # 1. Referential anchor queries — work→creator first-hop resolution
+        #
+        # For "the writer of [WORK]" we generate targeted queries that will
+        # find the actual person in the corpus without knowing their name yet.
+        # ------------------------------------------------------------------
+        for anchor in referential_anchors:
+            work = (anchor.get("work") or "").strip()
+            role = (anchor.get("role") or "author").strip()
+            if not work:
+                continue
 
-    # ------------------------------------------------------------------
-    # 5. Full and shortened question
-    # ------------------------------------------------------------------
-    q_short = re.sub(
-        r"^(what|which|who|where|when|how)\s+",
-        "",
-        (question or "").strip(),
-        flags=re.I,
-    )
-    if len(q_short) > 15:
-        queries.append(q_short[:400])
-    queries.append((question or "")[:400])
+            # High-recall work title queries
+            queries.append(work)
+            queries.append(f"{work} {role}")
+            queries.append(f"{work} author")
+            queries.append(f"{work} written by")
+            queries.append(f"{work} creator")
+            queries.append(f"{work} biography")
 
-    # ------------------------------------------------------------------
-    # 6. Mention → canonical alias cross-queries
-    # ------------------------------------------------------------------
-    for surf, canon in list(mention_map.items())[:6]:
-        if canon and surf.lower() != canon.lower():
-            queries.append(f"{canon} {surf}"[:200])
+            # Question-form query (very high semantic similarity to relevant passages)
+            action_verb = _ROLE_TO_VERB.get(role, f"is the {role} of")
+            queries.append(f"who {action_verb} {work}")
+
+            # Cross-queries: combine work with the downstream relation
+            # e.g. "The Hobbit author university" to pull author+education passages
+            for rh in rel_hints:
+                if rh in _RELATION_PHRASES:
+                    phrases = _RELATION_PHRASES[rh]
+                    if phrases:
+                        queries.append(f"{work} {role} {phrases[0]}")
+                        queries.append(f"{work} {phrases[0]}")
+
+        # ------------------------------------------------------------------
+        # 2. Canonical entity queries
+        # ------------------------------------------------------------------
+        for c in canonical[:6]:
+            queries.append(c)
+        for m in match_strings[:10]:
+            if m and m not in queries:
+                queries.append(m)
+
+        # ------------------------------------------------------------------
+        # 3. Relation-expanded queries (canonical × relation phrase)
+        # ------------------------------------------------------------------
+        rel_phrases: list[str] = []
+        for r in rel_hints:
+            rel_phrases.extend(_RELATION_PHRASES.get(r, ()))
+        rel_phrases = list(dict.fromkeys(rel_phrases))[:10]
+
+        for c in canonical[:3]:
+            for kw in rel_phrases[:4]:
+                queries.append(f"{c} {kw}")
+        if canonical and rel_phrases:
+            queries.append(f"{canonical[0]} {' '.join(rel_phrases[:3])}")
+
+        # ------------------------------------------------------------------
+        # 4. Sub-question queries (from decomposer — include hop 1 as-is)
+        # ------------------------------------------------------------------
+        for sq in sub_questions[:5]:
+            if len(sq) > 5:
+                queries.append(sq[:320])
+
+        # ------------------------------------------------------------------
+        # 5. Full and shortened question
+        # ------------------------------------------------------------------
+        q_short = re.sub(
+            r"^(what|which|who|where|when|how)\s+",
+            "",
+            (question or "").strip(),
+            flags=re.I,
+        )
+        if len(q_short) > 15:
+            queries.append(q_short[:400])
+        queries.append((question or "")[:400])
+
+        # ------------------------------------------------------------------
+        # 6. Mention → canonical alias cross-queries
+        # ------------------------------------------------------------------
+        for surf, canon in list(mention_map.items())[:6]:
+            if canon and surf.lower() != canon.lower():
+                queries.append(f"{canon} {surf}"[:200])
 
     queries = _dedupe_preserve_order(queries, max_items=28)
+    pivot_tag = f"; pivot={retry_pivot[:20]}" if retry_pivot else ""
     debug = (
         f"n_variants={len(queries)}; rel={rel_hints[:4]}; "
-        f"canon={canonical[:3]}; ref_anchors={len(referential_anchors)}"
+        f"canon={canonical[:3]}; ref_anchors={len(referential_anchors)}{pivot_tag}"
     )
     return queries, debug

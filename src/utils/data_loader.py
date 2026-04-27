@@ -48,10 +48,21 @@ class BaseDatasetLoader(ABC):
         self.hf_config_name = hf_config_name
 
     def load_raw_split(self, split: str) -> Dataset:
-        """Load a split from HuggingFace datasets."""
+        """Load a split from HuggingFace datasets.
+
+        Raw files are cached under ``data/raw/huggingface_datasets`` so they
+        live in the repo tree instead of the global HuggingFace home cache.
+        """
+        cache_dir = str(SETTINGS.paths.hf_datasets_cache)
+        SETTINGS.paths.hf_datasets_cache.mkdir(parents=True, exist_ok=True)
         if self.hf_config_name:
-            return load_dataset(self.hf_dataset_name, self.hf_config_name, split=split)
-        return load_dataset(self.hf_dataset_name, split=split)
+            return load_dataset(
+                self.hf_dataset_name,
+                self.hf_config_name,
+                split=split,
+                cache_dir=cache_dir,
+            )
+        return load_dataset(self.hf_dataset_name, split=split, cache_dir=cache_dir)
 
     def load_subset(self, split: str, subset_size: int, seed: int) -> list[MultiHopQAExample]:
         """Load and normalize a deterministic subset of records."""

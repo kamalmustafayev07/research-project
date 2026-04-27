@@ -45,6 +45,23 @@ class HybridGraphRetriever:
         self._cached_passages: list[dict[str, Any]] | None = None
         self._cached_index: faiss.IndexFlatIP | None = None
 
+    @staticmethod
+    def _passage_key(passage: dict[str, Any]) -> str:
+        """Stable identity for retry-time de-dup/exclusion.
+
+        Prefer explicit passage IDs when present; otherwise derive a compact
+        fingerprint from title + text head so retries can avoid reusing the
+        same evidence repeatedly.
+        """
+        pid = str(passage.get("passage_id") or "").strip()
+        if pid:
+            return f"id:{pid}"
+        title = str(passage.get("title") or "").strip().lower()
+        head = re.sub(r"\s+", " ", str(passage.get("text") or "")[:120]).strip().lower()
+        if title or head:
+            return f"th:{title}|{head}"
+        return ""
+
     def preload_corpus(
         self,
         passages: list[dict[str, Any]],
@@ -166,6 +183,13 @@ class HybridGraphRetriever:
         pool_k = min(max(SETTINGS.retrieval.top_k_passages * mult, SETTINGS.retrieval.top_k_passages), n)
         ec = dict(entity_context) if entity_context else {}
 
+        # Retry loops need wider recall to surface alternatives after excluding
+        # already-seen passages from earlier attempts on the same hop.
+        retry_depth = int(ec.get("retry_depth") or 0)
+        if retry_depth > 0:
+            expanded = SETTINGS.retrieval.top_k_passages * (mult + 2 * retry_depth)
+            pool_k = min(n, max(pool_k, expanded))
+
         query_texts = list(ec.get("retrieval_queries") or [])
         if not query_texts:
             query_texts = [q for q in (query or "").split(";") if q.strip()] or [query]
@@ -187,6 +211,25 @@ class HybridGraphRetriever:
         if not merged and n > 0:
             merged = {0: 1.0}
 
+        # Exclude passages already consumed on previous retries for this hop.
+        # If exclusion would empty the candidate set, fall back to the original
+        # merged pool so the retriever always returns at least some evidence.
+        exclude_keys = {
+            str(k).strip() for k in (ec.get("exclude_passage_keys") or []) if str(k).strip()
+        }
+        if exclude_keys:
+            filtered = {
+                i: s
+                for i, s in merged.items()
+                if self._passage_key(actual_passages[int(i)]) not in exclude_keys
+            }
+            if filtered:
+                merged = filtered
+            else:
+                ec["retrieval_fallback"] = (
+                    (ec.get("retrieval_fallback") or "") + ";exclude_empty→reuse"
+                )
+
         take_n = min(max(SETTINGS.retrieval.top_k_passages * 3, SETTINGS.retrieval.top_k_passages), n)
         ranked_idx = sorted(merged.keys(), key=lambda i: merged[i], reverse=True)[:take_n]
 
@@ -195,9 +238,17 @@ class HybridGraphRetriever:
             item = dict(actual_passages[int(idx)])
             item["score"] = float(merged[int(idx)])
             item["retrieval_or_merge"] = True
+            key = self._passage_key(item)
+            if key:
+                item["passage_key"] = key
             selected.append(item)
 
-        primary_q = query_texts[0] if query_texts else query
+        # Use the actual retrieval query (question or pivot ; question) as the
+        # primary string fed to the reranker, not query_texts[0].  query_texts[0]
+        # is the first FAISS expansion variant (e.g. "the Hobbit") which is too
+        # coarse — particularly on retry passes where the pivot has shifted to the
+        # intermediate entity (e.g. "J. R. R. Tolkien").
+        primary_q = query if query else (query_texts[0] if query_texts else "")
         if self.reranker is not None and self.reranker.is_trained:
             selected = self.reranker.rerank(
                 query=primary_q,

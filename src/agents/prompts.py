@@ -109,11 +109,55 @@ You are a ReAct reasoner. Think step-by-step over the retrieved evidence and act
 
 {resolved_entity_block}
 Reasoning rules:
-- Walk the multi-hop chain: locate E1 from the question -> apply R1 to reach E2 -> apply R2 to reach the final answer.
+- This task is ALWAYS a SINGLE-hop question for you: answer the active sub-question
+  named in the ACTIVE SUB-QUESTION LOCK above. Ignore the broader multi-hop framing
+  -- prior hops were resolved by previous retrieval rounds and their answers appear
+  in the forbidden-output list, not in your output.
 - Use only entities that explicitly appear in the Evidence or Passages below.
 - Do NOT introduce outside knowledge. Do NOT swap an entity for a similar-sounding one.
 - The answer must be a short span (1-8 words), not an explanation.
-- If the evidence does not support a confident answer, set answer to EXACTLY: "Not enough information in retrieved passages." and lower confidence accordingly.
+- ROLE SPECIFICITY (critical): When the question asks "Who is the [ROLE] of X?" (director,
+  author, founder, composer, inventor, etc.), search the passages for text that explicitly
+  assigns that EXACT ROLE to a person (e.g. "directed by", "written by", "founded by").
+  Do NOT return a person who holds a DIFFERENT role in the same work.
+  Example: "Who is the director of Dunkirk?" — the passage says "directed by Christopher
+  Nolan" and also mentions "Kenneth Branagh as Commander Bolton."
+  CORRECT answer: "Christopher Nolan"  (director)
+  WRONG answer:   "Kenneth Branagh"    (actor — a different role)
+- MOST-SPECIFIC-SPAN-WINS (critical): When several entities of the expected type
+  appear together in the evidence (e.g. a city and the country it belongs to, a
+  university and the country where it sits, a year and a decade), return the MOST
+  SPECIFIC one explicitly written in the passage. Do NOT generalise upward to a
+  coarser unit when a finer one is available; that is paraphrasing, not retrieval.
+- ANSWER GRANULARITY (critical): If the active-hop guard prompt above states a
+  "Required answer granularity" (e.g. City, Country, Year, University, Company),
+  the answer MUST be that *specific* unit, literally written in the passages.
+  Examples:
+    Granularity=City    -> return a city name from the passage; never a country.
+    Granularity=Country -> return a country name from the passage; never a city.
+    Granularity=Year    -> return a 4-digit year from the passage; never a decade.
+  When the evidence does not contain the required granularity (only a coarser or
+  finer unit is named), prefer to abstain over guessing.
+- PLACE NAME NORMALIZATION (narrow): Convert a nationality adjective ("British",
+  "American", "German", ...) to its country proper noun ONLY WHEN ALL the
+  following hold:
+    (1) the active-hop granularity is Country (or unspecified, type=Location),
+    (2) the evidence contains the nationality adjective,
+    (3) the evidence does NOT name a more specific place (city/state/region) for
+        the active subject.
+  If a more specific named place IS present in the evidence, return that named
+  place verbatim. Never derive a country from a nationality when the active
+  granularity is City/State/Region -- that is the wrong relation.
+- CAPITAL CITY (critical): When the question asks "What is the capital of [COUNTRY]?"
+  and the passages or context reveal which country is meant, you MAY state the capital
+  city even if no passage explicitly lists it as "capital". Capital cities are
+  universally known facts: United Kingdom/England → London; France → Paris;
+  Germany → Berlin; United States → Washington D.C.; Japan → Tokyo; Italy → Rome.
+- If the evidence does not support an answer to the active sub-question, set
+  answer to EXACTLY:
+  "Not enough information in retrieved passages." and lower confidence accordingly.
+  Do NOT fall back to an entity from a previous hop -- those entities are
+  enumerated in the forbidden-output list above and are not valid answers.
 - confidence is a float in [0, 1] reflecting how directly the evidence supports the answer.
 
 Output STRICT JSON only, no prose, with keys:
@@ -134,21 +178,35 @@ Current step: {step}/{max_steps}
 CRITIC_PROMPT_TEMPLATE = (
     CORE_SYSTEM_PROMPT
     + """
-You are a critic agent. Verify the proposed answer against the evidence chain.
+You are a critic agent. Verify the proposed answer against the evidence chain
+AND against the active-hop metadata supplied in the entity/hop check field.
 
 Verification checks:
-- Is the answer fully supported by the retrieved evidence (not by general knowledge)?
-- Are entities consistent across hops (E1 appears in the question; E2 appears in both hop 1 and hop 2; the final answer appears in the last hop)?
-- Is the multi-hop reasoning chain valid and complete (no missing or skipped hops)?
+- Is the answer directly supported by the MOST RECENTLY retrieved passages?
+  For multi-hop questions the pipeline resolves intermediate hops in earlier retrieval
+  loops (not shown here). Evaluate ONLY whether the active-hop answer is supported by
+  the current evidence — do NOT reject solely because the full entity chain is absent.
 - Is the answer a concrete entity span when the question asks for one (not a generic phrase)?
-- If retrieval is too thin or off-topic, mark approved=false and request better evidence in the critique.
+- Is the answer plausible given the active-hop relation and expected_answer_type
+  (Person / Location / Organization / Work / Event / Date / Number)?
+- DO NOT reject a short, valid entity span (single token, e.g. a city, university,
+  or country name) for being short. Length is not a defect when the answer is
+  concrete, type-consistent, and the reasoner's confidence already clears the
+  approval threshold.
+- DO reject if the answer matches one of the prior_hop_answers listed in the
+  entity/hop check field — that is a regression to a previous hop, not an answer
+  to the active hop.
+- If retrieval is genuinely off-topic or the answer contradicts the passages, mark
+  approved=false and request better evidence in the critique.
+- If the answer is clearly correct based on the evidence (even via a single hop
+  rather than the full chain), mark approved=true.
 
 Output STRICT JSON only, no prose, with keys:
 - approved: bool
 - critique: str  (1-2 short sentences; what is missing or what to retrieve next if not approved)
 - confidence: float
 
-Question: {query}
+Question (active sub-question, already resolved for the current hop): {query}
 Answer: {answer}
 Reasoner confidence: {reasoner_confidence}
 Evidence count: {evidence_count}
@@ -179,6 +237,63 @@ Penalize passages when:
 - They are unrelated biographies or accidental keyword hits.
 
 Reject passages that contribute only weak semantic overlap and no entity grounding.
+"""
+
+
+# ---------------------------------------------------------------------------
+# Entity-linker anchor extraction prompt
+# ---------------------------------------------------------------------------
+
+ANCHOR_EXTRACTION_PROMPT = """\
+Extract referential role expressions from the question.
+
+A referential expression: "[ROLE] of [WORK]" or "the [ROLE] of [WORK]" where
+- ROLE: a person's function (writer, director, founder, composer, inventor, author,
+  creator, producer, designer, developer, etc.)
+- WORK: a named title or entity — this includes films, books, albums, companies,
+  inventions, TV shows, video games, fictional universes, character franchises,
+  product lines, and ANY named creation or brand.
+  NOTE: Even if WORK shares a name with a character (e.g. "Harry Potter") or a
+  device (e.g. "iPhone"), it still counts as the WORK when preceded by a ROLE.
+  IMPORTANT — WORK must NOT include question predicates or trailing verbs.
+  Stop WORK immediately before the first predicate verb after the title
+  (e.g. "studied", "lived", "attended", "born", "died", "worked", "graduated").
+
+relation must be exactly one of:
+  author_of | directed_by | composed_by | invented_by | founded_by |
+  created_by | produced_by | designed_by | related_to
+
+Return STRICT JSON only (no prose, no markdown):
+{"anchors": [{"role": str, "work": str, "relation": str, "surface": str}]}
+
+If no referential expression is present, return: {"anchors": []}
+
+Examples:
+Q: "Which university did the writer of the Hobbit attend?"
+{"anchors": [{"role": "writer", "work": "the Hobbit", "relation": "author_of", "surface": "the writer of the Hobbit"}]}
+
+Q: "director of Dunkirk studied where?"
+{"anchors": [{"role": "director", "work": "Dunkirk", "relation": "directed_by", "surface": "director of Dunkirk"}]}
+
+Q: "What is the capital of the country where the creator of Harry Potter was born?"
+{"anchors": [{"role": "creator", "work": "Harry Potter", "relation": "created_by", "surface": "the creator of Harry Potter"}]}
+
+Q: "In which city was the founder of Apple born?"
+{"anchors": [{"role": "founder", "work": "Apple", "relation": "founded_by", "surface": "the founder of Apple"}]}
+
+Q: "What is the nationality of the composer of the Inception soundtrack?"
+{"anchors": [{"role": "composer", "work": "the Inception soundtrack", "relation": "composed_by", "surface": "the composer of the Inception soundtrack"}]}
+
+Q: "Where was the founder of Tesla born?"
+{"anchors": [{"role": "founder", "work": "Tesla", "relation": "founded_by", "surface": "the founder of Tesla"}]}
+
+Q: "When was Einstein born?"
+{"anchors": []}
+
+Q: "Who directed Inception?"
+{"anchors": []}
+
+Question: {question}\
 """
 
 
