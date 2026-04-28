@@ -81,9 +81,15 @@ class ProjectPaths:
 class ModelConfig:
     """Model and inference backend configuration."""
 
-    llm_backend: Literal["transformers", "ollama", "mock"] = "transformers"
+    llm_backend: Literal["transformers", "ollama", "mock", "azure"] = "transformers"
     hf_model_name: str = "meta-llama/Llama-3.2-3B-Instruct"
     ollama_model: str = "llama3.2:3b"
+    azure_chat_deployment: str = "gpt-5.4"
+    azure_endpoint: str = ""
+    azure_api_key: str = ""
+    azure_api_version: str | None = None
+    timeout_sec: int = 60
+    max_retries: int = 2
     embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
     use_4bit: bool = True
     temperature: float = 0.1
@@ -166,6 +172,18 @@ class Settings:
             llm_backend=os.getenv("LLM_BACKEND", "transformers"),
             hf_model_name=os.getenv("HF_MODEL_NAME", "meta-llama/Llama-3.2-3B-Instruct"),
             ollama_model=os.getenv("OLLAMA_MODEL", "llama3.2:3b"),
+            azure_chat_deployment=os.getenv(
+                "AZURE_OPENAI_DEPLOYMENT",
+                os.getenv("AZURE_DEPLOYMENT_NAME", os.getenv("AZURE_CHAT_DEPLOYMENT", "gpt-5.4")),
+            ),
+            azure_endpoint=os.getenv(
+                "AZURE_OPENAI_ENDPOINT",
+                os.getenv("AZURE_ENDPOINT", os.getenv("AZURE_EXISTING_AIPROJECT_ENDPOINT", "")),
+            ),
+            azure_api_key=os.getenv("AZURE_OPENAI_API_KEY", os.getenv("AZURE_API_KEY", os.getenv("OPENAI_API_KEY", ""))),
+            azure_api_version=os.getenv("AZURE_OPENAI_API_VERSION", os.getenv("AZURE_API_VERSION")) or None,
+            timeout_sec=int(os.getenv("AZURE_TIMEOUT_SEC", os.getenv("TIMEOUT_SEC", "60"))),
+            max_retries=int(os.getenv("AZURE_MAX_RETRIES", os.getenv("MAX_RETRIES", "2"))),
             embedding_model=os.getenv("EMBEDDING_MODEL", "sentence-transformers/all-MiniLM-L6-v2"),
             use_4bit=_to_bool(os.getenv("USE_4BIT"), True),
             temperature=float(os.getenv("TEMPERATURE", "0.1")),

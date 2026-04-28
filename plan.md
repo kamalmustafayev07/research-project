@@ -98,6 +98,31 @@ Why: demonstrates retrieval-learning contribution with strict train/validation/t
 
     $env:LLM_BACKEND="ollama"; $env:OLLAMA_MODEL="qwen2.5:7b"; $env:USE_RERANKER="true"; $env:RERANKER_MAX_TRAIN_EXAMPLES="1200"; $env:RERANKER_EPOCHS="12"; python run_pipeline.py --datasets all --prepare-data --use-disjoint-splits --source-split validation --test-size 200 --val-size 1000 --train-size 1200 --train-reranker --run-name run3_qwen_disjoint_reranker
 
+## Azure Experiment Run Commands
+
+For running with Azure OpenAI instead of Ollama, set the following environment variables and use the commands below. Replace the placeholder values with your actual Azure credentials.
+
+Required Azure environment variables:
+- AZURE_OPENAI_ENDPOINT: Your Azure OpenAI endpoint URL
+- AZURE_OPENAI_API_KEY: Your Azure OpenAI API key
+- AZURE_OPENAI_DEPLOYMENT: Your Azure OpenAI deployment name
+- AZURE_OPENAI_API_VERSION: API version (e.g., 2024-12-01)
+
+### Run 1 Azure (Azure main run)
+Why: strongest-quality model run for primary paper numbers across all datasets using Azure OpenAI.
+
+    $env:LLM_BACKEND="azure"; $env:AZURE_OPENAI_ENDPOINT="https://your-resource.openai.azure.com/openai/v1"; $env:AZURE_OPENAI_API_KEY="your-api-key"; $env:AZURE_OPENAI_DEPLOYMENT="your-deployment"; $env:AZURE_OPENAI_API_VERSION="2024-12-01"; $env:USE_RERANKER="true"; $env:MAX_RETRIEVAL_LOOPS="2"; python run_pipeline.py --datasets all --prepare-data --subset-size 200 --split validation --run-name run1_azure_all
+
+### Run 2 Azure (Azure model comparison)
+Why: model sensitivity check under same pipeline/settings for fair comparison using Azure OpenAI.
+
+    $env:LLM_BACKEND="azure"; $env:AZURE_OPENAI_ENDPOINT="https://your-resource.openai.azure.com/openai/v1"; $env:AZURE_OPENAI_API_KEY="your-api-key"; $env:AZURE_OPENAI_DEPLOYMENT="your-deployment"; $env:AZURE_OPENAI_API_VERSION="2024-12-01"; $env:USE_RERANKER="true"; $env:MAX_RETRIEVAL_LOOPS="2"; python run_pipeline.py --datasets all --subset-size 200 --split validation --run-name run2_azure_all
+
+### Run 3 Azure (Methodological variation: disjoint split + reranker training)
+Why: demonstrates retrieval-learning contribution with strict train/validation/test separation, and generates high-impact training/confusion visuals using Azure OpenAI.
+
+    $env:LLM_BACKEND="azure"; $env:AZURE_OPENAI_ENDPOINT="https://your-resource.openai.azure.com/openai/v1"; $env:AZURE_OPENAI_API_KEY="your-api-key"; $env:AZURE_OPENAI_DEPLOYMENT="your-deployment"; $env:AZURE_OPENAI_API_VERSION="2024-12-01"; $env:USE_RERANKER="true"; $env:RERANKER_MAX_TRAIN_EXAMPLES="1200"; $env:RERANKER_EPOCHS="12"; python run_pipeline.py --datasets all --prepare-data --use-disjoint-splits --source-split validation --test-size 200 --val-size 1000 --train-size 1200 --train-reranker --run-name run3_azure_disjoint_reranker
+
 ## 6) Why These 3 Runs Are the Most Impactful
 
 - Run 1 isolates your best practical model choice (Qwen) with full benchmark coverage and delivers primary headline results.
