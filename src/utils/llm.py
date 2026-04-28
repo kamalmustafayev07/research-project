@@ -8,8 +8,6 @@ from dataclasses import dataclass
 from typing import Any
 
 import torch
-from ollama import Client as OllamaClient
-from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from src.config import SETTINGS
 
@@ -42,10 +40,13 @@ class LLMClient:
         self._tokenizer = None
         self._model = None
         self._ollama = None
+        self._azure_client = None
 
     def _init_transformers(self) -> None:
         if self._model is not None and self._tokenizer is not None:
             return
+
+        from transformers import AutoModelForCausalLM, AutoTokenizer
 
         kwargs: dict[str, Any] = {
             "torch_dtype": SETTINGS.torch_dtype,
@@ -72,7 +73,25 @@ class LLMClient:
 
     def _init_ollama(self) -> None:
         if self._ollama is None:
+            from ollama import Client as OllamaClient
+
             self._ollama = OllamaClient()
+
+    def _init_azure_openai(self) -> None:
+        if self._azure_client is None:
+            try:
+                from openai import OpenAI
+            except ImportError as exc:
+                raise RuntimeError(
+                    "Azure OpenAI backend requires the openai Python package. Install it with `pip install openai`."
+                ) from exc
+
+            kwargs: dict[str, str] = {}
+            if SETTINGS.model.azure_api_key:
+                kwargs["api_key"] = SETTINGS.model.azure_api_key
+            if SETTINGS.model.azure_endpoint:
+                kwargs["base_url"] = SETTINGS.model.azure_endpoint
+            self._azure_client = OpenAI(**kwargs)
 
     def generate(self, prompt: str, max_new_tokens: int | None = None, temperature: float | None = None) -> LLMResponse:
         """Generate a text completion from the configured backend."""
@@ -91,6 +110,22 @@ class LLMClient:
                 },
             )
             return LLMResponse(text=response["message"]["content"], metadata={"backend": "ollama"})
+
+        if backend == "azure":
+            self._init_azure_openai()
+            response = self._azure_client.chat.completions.create(
+                model=SETTINGS.model.azure_chat_deployment,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=SETTINGS.model.temperature if temperature is None else temperature,
+                max_completion_tokens=SETTINGS.model.max_new_tokens if max_new_tokens is None else max_new_tokens,
+            )
+            choice = response.choices[0]
+            message = getattr(choice, "message", {})
+            if isinstance(message, dict):
+                text = message.get("content", "")
+            else:
+                text = getattr(message, "content", "")
+            return LLMResponse(text=text, metadata={"backend": "azure"})
 
         self._init_transformers()
         assert self._tokenizer is not None and self._model is not None
