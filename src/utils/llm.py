@@ -19,7 +19,7 @@ def ollama_healthcheck() -> tuple[bool, str]:
     """
     try:
         OllamaClient().list()
-    except Exception as exc:  # noqa: BLE001 — surface any connectivity failure
+    except Exception as exc:  # noqa: BLE001 - surface any connectivity failure
         host = os.environ.get("OLLAMA_HOST", "http://127.0.0.1:11434")
         return False, f"{type(exc).__name__}: {exc} (host: {host})"
     return True, ""

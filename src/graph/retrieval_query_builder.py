@@ -188,7 +188,7 @@ def resolve_placeholders(
     """Replace <answer of hop N> with a descriptive phrase from referential anchors.
 
     Transforms "Which university did <answer of hop 1> attend?" into
-    "Which university did the writer of The Hobbit attend?" — a meaningful,
+    "Which university did the writer of The Hobbit attend?" - a meaningful,
     grammatically correct retrieval query that has high semantic similarity to
     passages about the author's education.
 
@@ -228,7 +228,7 @@ def build_retrieval_query_pack(
     Retry-pass behaviour (``entity_context["retry_pivot"]`` is set):
         The first hop has already been resolved (e.g. "J. R. R. Tolkien").  Work-
         anchored queries ("the Hobbit education", "the Hobbit university", …) would
-        pull the same work-related passages back into the pool — so they are
+        pull the same work-related passages back into the pool - so they are
         skipped entirely.  Instead we generate pivot-entity × downstream-relation
         queries that point directly at the second-hop evidence.
     """
@@ -250,7 +250,7 @@ def build_retrieval_query_pack(
     queries: list[str] = []
 
     if retry_pivot:
-        # retry: pivot known — skip referential-anchor variants (still work-locked)
+        # retry: pivot known - skip referential-anchor variants (still work-locked)
         rel_phrases_retry: list[str] = []
         for r in rel_hints:
             rel_phrases_retry.extend(_RELATION_PHRASES.get(r, ()))

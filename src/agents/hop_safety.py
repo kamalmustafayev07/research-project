@@ -243,12 +243,12 @@ def verify_hop_answer(
 ) -> VerificationResult:
     """Validate whether a proposed answer fits the current hop.
 
-    Checks performed (all generic — no entity- or example-specific logic):
+    Checks performed (all generic - no entity- or example-specific logic):
 
     1. Non-empty, non-abstain marker.
     2. Not a regression to the current hop's locked subject anchor.
     3. Not a regression to any *prior* hop's resolved answer or subject
-       (loop-regression prevention — the central fix for hop drift).
+       (loop-regression prevention - the central fix for hop drift).
     4. Type compatibility between the inferred answer type and the expected
        answer type derived from the relation and sub-question wording.
        The check is conservative: when either side is ``Unknown`` it is
@@ -259,7 +259,7 @@ def verify_hop_answer(
     The previous "drift-risk" heuristic (rejecting single-token Unknown-typed
     answers on education relations) was intentionally removed: it produced
     false positives for valid short organisation answers. Regression now goes
-    through (3) — explicit comparison with prior-hop state — which is exact,
+    through (3) - explicit comparison with prior-hop state - which is exact,
     not heuristic.
     """
     hop = hop_memory.find_hop_by_subquestion(current_subquestion)
@@ -737,7 +737,7 @@ def build_reasoner_guard_prompt(
       what stops "born in which city?" from being answered with a country.
     - Enumerates prior-hop subjects and answers as forbidden outputs to make
       regression to an earlier hop impossible-by-instruction. (The verifier
-      enforces this independently — the prompt is a soft preventative.)
+      enforces this independently - the prompt is a soft preventative.)
     """
     expected_type = _expected_answer_type(current_hop.relation, current_hop.subquestion_text)
     granularity = _expected_answer_granularity(

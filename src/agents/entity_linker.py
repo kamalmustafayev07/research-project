@@ -304,7 +304,7 @@ def entity_linking_result_from_dict(payload: dict[str, Any] | None) -> EntityLin
     )
 
 
-# Matches <answer of hop N> and <hop N> placeholder strings — must never enter match_strings.
+# Matches <answer of hop N> and <hop N> placeholder strings - must never enter match_strings.
 _PLACEHOLDER_RE = re.compile(r"<\s*(?:answer\s+of\s+hop|hop)\s*\d+\s*>", re.I)
 
 
@@ -391,7 +391,7 @@ class EntityLinker:
         self._quoted = re.compile(r"""['"]([^'"\n]{2,64})['"]""")
 
     # ------------------------------------------------------------------
-    # Referential anchor extraction — LLM primary, regex fallback
+    # Referential anchor extraction - LLM primary, regex fallback
     # ------------------------------------------------------------------
 
     def _extract_referential_anchors(self, question: str) -> list[dict[str, str]]:

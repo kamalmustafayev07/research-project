@@ -221,7 +221,7 @@ class HybridGraphRetriever:
         # Use the actual retrieval query (question or pivot ; question) as the
         # primary string fed to the reranker, not query_texts[0].  query_texts[0]
         # is the first FAISS expansion variant (e.g. "the Hobbit") which is too
-        # coarse — particularly on retry passes where the pivot has shifted to the
+        # coarse - particularly on retry passes where the pivot has shifted to the
         # intermediate entity (e.g. "J. R. R. Tolkien").
         primary_q = query if query else (query_texts[0] if query_texts else "")
         if self.reranker is not None and self.reranker.is_trained:

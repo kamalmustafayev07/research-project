@@ -1,4 +1,4 @@
-"""Per-hop LLM relation prototype (cues + focus query) — contextual alternative to static relation keyword tables. Cached per hop_index."""
+"""Per-hop LLM relation prototype (cues + focus query) - contextual alternative to static relation keyword tables. Cached per hop_index."""
 
 from __future__ import annotations
 

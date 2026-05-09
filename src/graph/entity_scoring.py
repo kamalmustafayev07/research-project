@@ -113,7 +113,7 @@ def _relation_answer_pattern_score(passage: dict[str, Any], relation_hints: list
 
     Higher score = the passage exposes a Title-Cased proper-noun candidate
     in the exact syntactic slot expected by the relation (e.g. "born in
-    Seattle"). This is a soft signal — a value of 0 never zeroes the
+    Seattle"). This is a soft signal - a value of 0 never zeroes the
     overall passage score, it just removes a small bonus.
     """
     if not relation_hints:
@@ -271,7 +271,7 @@ def hybrid_recall_first_score(
 
     The "answer-shape" boost rewards passages that contain a Title-Cased
     proper-noun span in the exact syntactic slot that the active relation
-    expects (e.g. "born in <City>" for ``born_in``). It is a small bonus —
+    expects (e.g. "born in <City>" for ``born_in``). It is a small bonus -
     weighted to break ties between passages that all match the entity, in
     favour of the one that *literally answers* the active sub-question.
     """

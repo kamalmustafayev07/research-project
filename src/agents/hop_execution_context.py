@@ -1,4 +1,4 @@
-"""``entity_context["hop_execution_context"]`` — one shared hop snapshot for retriever/reasoner/critic (from HopMemory + active HopRecord)."""
+"""``entity_context["hop_execution_context"]`` - one shared hop snapshot for retriever/reasoner/critic (from HopMemory + active HopRecord)."""
 
 from __future__ import annotations
 

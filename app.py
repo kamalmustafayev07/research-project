@@ -1,4 +1,4 @@
-# app.py — Streamlit UI (same agents as run_pipeline)
+# app.py - Streamlit UI (same agents as run_pipeline)
 
 from __future__ import annotations
 
@@ -131,7 +131,7 @@ def _extract_hop1_pivot(
 
 
 def _pivot_match(answer: str, pivot: str) -> bool:
-    """True if answer is the same entity as pivot (normalised) — catches bogus 'final' = intermediate."""
+    """True if answer is the same entity as pivot (normalised) - catches bogus 'final' = intermediate."""
     norm = lambda s: re.sub(r"[^a-z0-9 ]", "", (s or "").lower().strip())
     a, p = norm(answer), norm(pivot)
     return bool(a and p and (a == p or (len(p) > 4 and p in a) or (len(a) > 4 and a in p)))
@@ -337,7 +337,7 @@ def run_pipeline(
         guarded_query = build_safe_retrieval_query(active_hop, hop_memory)
 
         ec: dict[str, Any] = dict(base_entity_context)
-        # one relation hint — mixing prior hops pulls wrong passage type on retry
+        # one relation hint - mixing prior hops pulls wrong passage type on retry
         ec["relation_hints"] = [active_relation] if active_relation else []
 
         active_hop_idx = int(active_hop.hop_index)
@@ -544,7 +544,7 @@ def run_pipeline(
                 answer="Not enough information in retrieved passages.",
                 confidence=0.15,
             )
-        # capital in corpus often missing — one-shot world-knowledge ask when chain has capital_of
+        # capital in corpus often missing - one-shot world-knowledge ask when chain has capital_of
         _rel_seq = decomp_dict.get("relation_sequence") or []
         _capital_fallback_used = False
         if (
@@ -592,7 +592,7 @@ def run_pipeline(
                 )
         t3 = perf_counter()
         if _capital_fallback_used:
-            # capital fallback isn't in passages — skip critic
+            # capital fallback isn't in passages - skip critic
             from types import SimpleNamespace as _NS
             judged = _NS(
                 approved=True,

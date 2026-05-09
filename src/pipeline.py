@@ -257,7 +257,7 @@ class AgentEnhancedGraphRAG:
             active_resolve = self._resolve_active_hop_subject(state)
             if active_resolve is not None:
                 mem_r, hop_r = active_resolve
-                # active hop's relation only — stale hints skew passage type
+                # active hop's relation only - stale hints skew passage type
                 entity_context["relation_hints"] = [hop_r.relation] if hop_r.relation else []
                 rsq = self._resolved_subquestion(mem_r, hop_r)
                 resolved_hop_question = rsq

@@ -1,6 +1,6 @@
-"""Agent prompts (decomposer, reasoner, critic). RETRIEVAL_GUIDANCE is doc-only — graph retriever is non-LLM.
+"""Agent prompts (decomposer, reasoner, critic). RETRIEVAL_GUIDANCE is doc-only - graph retriever is non-LLM.
 
-Keep the literal substrings "qa planning agent", "react reasoner", "critic agent" in templates — mock backend keys off them.
+Keep the literal substrings "qa planning agent", "react reasoner", "critic agent" in templates - mock backend keys off them.
 """
 
 from __future__ import annotations
@@ -214,7 +214,7 @@ Entity / hop check:
 )
 
 
-# doc-only — retriever code implements this spirit
+# doc-only - retriever code implements this spirit
 RETRIEVAL_GUIDANCE = """\
 Retriever scoring intent (non-LLM implementation):
 

@@ -87,14 +87,14 @@ def answer_evidence_alignment_score(answer: str, blob_lower: str) -> float:
 
     Combines:
     - **Folded phrase**: the full answer (punctuation-stripped) appears as a
-      substring of the folded evidence blob — strong signal for multi-token
+      substring of the folded evidence blob - strong signal for multi-token
       spans (e.g. city + state).
     - **Token recall**: fraction of significant answer tokens that appear as
-      substrings in the lowercased blob — supports paraphrases that keep
+      substrings in the lowercased blob - supports paraphrases that keep
       content words (e.g. ``discovered`` / ``discovery`` share no token but
       ``penicillin`` still matches).
     - **Jaccard** on significant-token sets between answer and a bag of words
-      from the blob — smooth signal when wording diverges but entities overlap.
+      from the blob - smooth signal when wording diverges but entities overlap.
 
     Abstention phrases return ``1.0`` so downstream logic can treat them
     separately (they are not "supported" answers in the factual sense).
@@ -138,7 +138,7 @@ def answer_grounded_in_evidence(
 ) -> bool:
     """True if the answer is supported by substring rules OR alignment score.
 
-    ``min_alignment`` is intentionally low — the alignment score is one signal
+    ``min_alignment`` is intentionally low - the alignment score is one signal
     among several; combined with :func:`answer_strings_supported_by_evidence`
     we avoid false abstentions on correct paraphrases.
     """
@@ -215,7 +215,7 @@ def chain_covers_resolved_entities(
         return True
     for ent in long_req:
         if _fold(ent) in blob_f:
-            return True  # At least one entity found — sufficient
+            return True  # At least one entity found - sufficient
     return False
 
 
