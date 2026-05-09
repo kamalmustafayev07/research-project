@@ -1,0 +1,39 @@
+{
+  "hotpotqa": {
+    "B1": {
+      "exact_match": 0.5,
+      "f1": 0.5487455197132616,
+      "explainability": 0.9133333333333333,
+      "latency_mean": 4.83420511665754,
+      "latency_p95": 9.011062184980254,
+      "latency_min": 1.57473629998276,
+      "latency_max": 10.454425899952184,
+      "agent_latency_mean": {}
+    },
+    "B2": {
+      "exact_match": 0.4666666666666667,
+      "f1": 0.5920788530465949,
+      "explainability": 0.8835555555555555,
+      "latency_mean": 4.881928796662638,
+      "latency_p95": 9.892414775007634,
+      "latency_min": 1.7199017000384629,
+      "latency_max": 10.515688499959651,
+      "agent_latency_mean": {}
+    },
+    "OURS": {
+      "exact_match": 0.3333333333333333,
+      "f1": 0.3842293906810036,
+      "explainability": 0.8666666666666667,
+      "latency_mean": 24.196541056673354,
+      "latency_p95": 37.18820639000332,
+      "latency_min": 13.654903000046033,
+      "latency_max": 53.38840250001522,
+      "agent_latency_mean": {
+        "critic": 2.1190196966655397,
+        "decomposer": 2.7632773166697007,
+        "reasoner": 9.091204379997604,
+        "retriever": 7.3985938333324155
+      }
+    }
+  }
+}

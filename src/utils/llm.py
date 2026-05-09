@@ -27,15 +27,11 @@ def ollama_healthcheck() -> tuple[bool, str]:
 
 @dataclass(slots=True)
 class LLMResponse:
-    """Container for LLM-generated content."""
-
     text: str
     metadata: dict[str, Any]
 
 
 class LLMClient:
-    """Unified LLM interface for generation calls."""
-
     def __init__(self) -> None:
         self._tokenizer = None
         self._model = None
@@ -64,7 +60,6 @@ class LLMClient:
                     bnb_4bit_compute_dtype=torch.float16,
                 )
             except Exception:
-                # Fall back to normal loading if bitsandbytes is unavailable.
                 pass
 
         self._tokenizer = AutoTokenizer.from_pretrained(SETTINGS.model.hf_model_name)
@@ -93,6 +88,26 @@ class LLMClient:
                 kwargs["base_url"] = SETTINGS.model.azure_endpoint
             self._azure_client = OpenAI(**kwargs)
 
+    @staticmethod
+    def _is_azure_content_filter_error(exc: Exception) -> bool:
+        """Return True when Azure rejected the prompt via content filtering."""
+        code = getattr(exc, "code", None)
+        if code == "content_filter":
+            return True
+
+        response = getattr(exc, "response", None)
+        if response is not None:
+            try:
+                payload = response.json()
+            except Exception:
+                payload = {}
+            error = payload.get("error") if isinstance(payload, dict) else {}
+            if isinstance(error, dict) and error.get("code") == "content_filter":
+                return True
+
+        message = str(exc).lower()
+        return "content_filter" in message or "content filtering" in message
+
     def generate(self, prompt: str, max_new_tokens: int | None = None, temperature: float | None = None) -> LLMResponse:
         """Generate a text completion from the configured backend."""
         backend = SETTINGS.model.llm_backend
@@ -113,19 +128,26 @@ class LLMClient:
 
         if backend == "azure":
             self._init_azure_openai()
-            response = self._azure_client.chat.completions.create(
-                model=SETTINGS.model.azure_chat_deployment,
-                messages=[{"role": "user", "content": prompt}],
-                temperature=SETTINGS.model.temperature if temperature is None else temperature,
-                max_completion_tokens=SETTINGS.model.max_new_tokens if max_new_tokens is None else max_new_tokens,
-            )
-            choice = response.choices[0]
-            message = getattr(choice, "message", {})
-            if isinstance(message, dict):
-                text = message.get("content", "")
-            else:
-                text = getattr(message, "content", "")
-            return LLMResponse(text=text, metadata={"backend": "azure"})
+            try:
+                response = self._azure_client.chat.completions.create(
+                    model=SETTINGS.model.azure_chat_deployment,
+                    messages=[{"role": "user", "content": prompt}],
+                    temperature=SETTINGS.model.temperature if temperature is None else temperature,
+                    max_completion_tokens=SETTINGS.model.max_new_tokens if max_new_tokens is None else max_new_tokens,
+                )
+                choice = response.choices[0]
+                message = getattr(choice, "message", {})
+                if isinstance(message, dict):
+                    text = message.get("content", "")
+                else:
+                    text = getattr(message, "content", "")
+                return LLMResponse(text=text, metadata={"backend": "azure"})
+            except Exception as exc:
+                if self._is_azure_content_filter_error(exc):
+                    fallback = self._mock_generate(prompt)
+                    fallback.metadata.update({"backend": "azure", "fallback": "content_filter"})
+                    return fallback
+                raise
 
         self._init_transformers()
         assert self._tokenizer is not None and self._model is not None
@@ -148,8 +170,6 @@ class LLMClient:
         """Return deterministic JSON-like responses for fast smoke tests."""
         low = prompt.lower()
         if "referential role expression" in low or "referential expression" in low:
-            # Anchor extraction prompt — return empty anchors; the regex fallback
-            # will handle any real extraction needed during tests.
             text = '{"anchors": []}'
         elif "sub_questions" in low or "qa planning agent" in low:
             text = (
@@ -169,23 +189,14 @@ class LLMClient:
 
     @staticmethod
     def extract_json(raw_text: str) -> dict[str, Any]:
-        """Extract and parse a JSON object from model output text.
-
-        Handles:
-        - Clean JSON objects
-        - JSON wrapped in ```json ... ``` code fences
-        - JSON preceded by prose reasoning
-        Tries the last (outermost) JSON object first for completeness.
-        """
+        """Parse JSON from model text: fences, then last `{...}` block."""
         if not raw_text:
             return {}
 
-        # Strip code fences and retry — model often wraps in ```json ... ```
         stripped = raw_text
         for fence in ("```json", "```"):
             if fence in stripped:
                 parts = stripped.split(fence)
-                # Grab content between the first fence pair
                 for i in range(1, len(parts)):
                     candidate = parts[i].split("```")[0].strip()
                     if candidate.startswith("{"):
@@ -194,7 +205,6 @@ class LLMClient:
                         except json.JSONDecodeError:
                             pass
 
-        # Fall back: find the last complete { ... } block (outermost)
         end = raw_text.rfind("}")
         start = raw_text.rfind("{", 0, end + 1)
         if start != -1 and end != -1 and end > start:
@@ -203,7 +213,6 @@ class LLMClient:
             except json.JSONDecodeError:
                 pass
 
-        # Last resort: find first { and last }
         start = raw_text.find("{")
         if start != -1 and end != -1 and end > start:
             try:

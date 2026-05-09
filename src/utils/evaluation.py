@@ -14,6 +14,7 @@ import pandas as pd
 from tqdm import tqdm
 
 from src.evaluation.hotpotqa_eval import aggregate_metrics, exact_match_score, f1_score, heuristic_explainability_score
+from src.utils.helpers import save_json
 
 
 def score_predictions(predictions: list[dict[str, Any]]) -> dict[str, float]:
@@ -116,13 +117,53 @@ def run_method_on_dataset(
     data: list[dict[str, Any]],
     infer_fn: Any,
     dataset_name: str = "unknown",
+    checkpoint_dir: Path | None = None,
 ) -> dict[str, Any]:
     """Run a given inference function over dataset and return metrics and outputs."""
     predictions: list[dict[str, Any]] = []
+    errors: list[dict[str, Any]] = []
+    checkpoint_dir = Path(checkpoint_dir) if checkpoint_dir is not None else None
+
+    def _flush_checkpoint() -> None:
+        if checkpoint_dir is None:
+            return
+        checkpoint_dir.mkdir(parents=True, exist_ok=True)
+        save_json(checkpoint_dir / f"{method_name}_predictions_checkpoint.json", predictions)
+        save_json(checkpoint_dir / f"{method_name}_latency_records_checkpoint.json", [
+            {
+                "question_id": row.get("id"),
+                "dataset": row.get("dataset", dataset_name),
+                "latency_total": row.get("latency_total", 0.0),
+                "latency_breakdown": row.get("latency_breakdown", {}),
+            }
+            for row in predictions
+        ])
+        if errors:
+            save_json(checkpoint_dir / f"{method_name}_errors_checkpoint.json", errors)
+
     for item in tqdm(data, desc=f"Evaluating {method_name}"):
         started = perf_counter()
-        output = infer_fn(item)
-        elapsed = perf_counter() - started
+        try:
+            output = infer_fn(item)
+        except Exception as exc:
+            elapsed = perf_counter() - started
+            errors.append(
+                {
+                    "id": item.get("qid") or item.get("id"),
+                    "dataset": item.get("dataset", dataset_name),
+                    "question": item.get("question"),
+                    "error": f"{type(exc).__name__}: {exc}",
+                }
+            )
+            output = {
+                "answer": "",
+                "evidence_chain": [],
+                "confidence": 0.0,
+                "latency_total": elapsed,
+                "latency_breakdown": {},
+            }
+        else:
+            elapsed = perf_counter() - started
         latency_total = float(output.get("latency_total", elapsed))
         latency_breakdown = output.get("latency_breakdown", {})
         if not isinstance(latency_breakdown, dict):
@@ -142,6 +183,7 @@ def run_method_on_dataset(
                 "latency_breakdown": latency_breakdown,
             }
         )
+        _flush_checkpoint()
 
     latency_records = [
         {
@@ -162,6 +204,7 @@ def run_method_on_dataset(
         "metrics": metrics,
         "latency_records": latency_records,
         "predictions": predictions,
+        "errors": errors,
     }
 
 

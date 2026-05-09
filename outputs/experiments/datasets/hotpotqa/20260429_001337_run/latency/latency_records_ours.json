@@ -1,0 +1,332 @@
+[
+  {
+    "question_id": "5add1d575542992c1e3a2540",
+    "dataset": "hotpotqa",
+    "latency_total": 36.88668220001273,
+    "latency_breakdown": {
+      "decomposer": 3.877312099968549,
+      "retriever": 8.116938000021037,
+      "reasoner": 10.350112599960994,
+      "critic": 1.5498480999958701
+    }
+  },
+  {
+    "question_id": "5ac55ea55542993e66e82377",
+    "dataset": "hotpotqa",
+    "latency_total": 32.78624129999662,
+    "latency_breakdown": {
+      "decomposer": 2.218217699963134,
+      "retriever": 15.776454200036824,
+      "reasoner": 9.933407999982592,
+      "critic": 1.743324399983976
+    }
+  },
+  {
+    "question_id": "5ac3a76e554299741d48a2be",
+    "dataset": "hotpotqa",
+    "latency_total": 14.823379800014663,
+    "latency_breakdown": {
+      "decomposer": 2.951737300027162,
+      "retriever": 1.741204799967818,
+      "reasoner": 6.834778200020082,
+      "critic": 1.8503400000045076
+    }
+  },
+  {
+    "question_id": "5a7133565542994082a3e65c",
+    "dataset": "hotpotqa",
+    "latency_total": 19.21234640001785,
+    "latency_breakdown": {
+      "decomposer": 2.645113400008995,
+      "retriever": 7.935684199968819,
+      "reasoner": 3.1036563999950886,
+      "critic": 1.7726841000257991
+    }
+  },
+  {
+    "question_id": "5ac1a4745542991316484b82",
+    "dataset": "hotpotqa",
+    "latency_total": 33.8777261999785,
+    "latency_breakdown": {
+      "decomposer": 1.9725208000163548,
+      "retriever": 9.728014699998312,
+      "reasoner": 16.157820900029037,
+      "critic": 2.085090600012336
+    }
+  },
+  {
+    "question_id": "5adc597d55429947ff17392f",
+    "dataset": "hotpotqa",
+    "latency_total": 21.069548700004816,
+    "latency_breakdown": {
+      "decomposer": 2.129008600022644,
+      "retriever": 7.248816899955273,
+      "reasoner": 7.696235099982005,
+      "critic": 1.8822258000145666
+    }
+  },
+  {
+    "question_id": "5ac55e835542993e66e82375",
+    "dataset": "hotpotqa",
+    "latency_total": 25.036450500017963,
+    "latency_breakdown": {
+      "decomposer": 3.152849000005517,
+      "retriever": 12.38258220005082,
+      "reasoner": 5.910797199991066,
+      "critic": 1.9308281000121497
+    }
+  },
+  {
+    "question_id": "5a8d9e0f554299441c6ba015",
+    "dataset": "hotpotqa",
+    "latency_total": 24.518143699970096,
+    "latency_breakdown": {
+      "decomposer": 2.56896250002319,
+      "retriever": 9.9180165999569,
+      "reasoner": 8.270731500000693,
+      "critic": 1.936677800025791
+    }
+  },
+  {
+    "question_id": "5ae70ed7554299572ea546a1",
+    "dataset": "hotpotqa",
+    "latency_total": 21.662973100028466,
+    "latency_breakdown": {
+      "decomposer": 2.5269649000256322,
+      "retriever": 7.7721677999943495,
+      "reasoner": 7.777244299999438,
+      "critic": 2.178598999977112
+    }
+  },
+  {
+    "question_id": "5a74a8fa55429929fddd8497",
+    "dataset": "hotpotqa",
+    "latency_total": 16.827673799998593,
+    "latency_breakdown": {
+      "decomposer": 3.9876087000011466,
+      "retriever": 5.053909599955659,
+      "reasoner": 3.8851676000049338,
+      "critic": 2.262497899995651
+    }
+  },
+  {
+    "question_id": "5a7cb94f554299683c1c6353",
+    "dataset": "hotpotqa",
+    "latency_total": 29.182446799997706,
+    "latency_breakdown": {
+      "decomposer": 3.4504417999996804,
+      "retriever": 3.587698499963153,
+      "reasoner": 17.398097899975255,
+      "critic": 1.7910912000224926
+    }
+  },
+  {
+    "question_id": "5ab874ba5542990e739ec904",
+    "dataset": "hotpotqa",
+    "latency_total": 37.43490799999563,
+    "latency_breakdown": {
+      "decomposer": 3.7523809000267647,
+      "retriever": 16.227415600034874,
+      "reasoner": 12.844107199984137,
+      "critic": 2.070916899945587
+    }
+  },
+  {
+    "question_id": "5ae3a8985542992f92d82329",
+    "dataset": "hotpotqa",
+    "latency_total": 15.396832200000063,
+    "latency_breakdown": {
+      "decomposer": 2.4546693000011146,
+      "retriever": 4.102141500043217,
+      "reasoner": 3.3042051999946125,
+      "critic": 1.816987500002142
+    }
+  },
+  {
+    "question_id": "5ac39f7b554299218029dbe7",
+    "dataset": "hotpotqa",
+    "latency_total": 19.559713799972087,
+    "latency_breakdown": {
+      "decomposer": 1.9824030000017956,
+      "retriever": 3.303420499956701,
+      "reasoner": 11.027705800021067,
+      "critic": 1.5997540999669582
+    }
+  },
+  {
+    "question_id": "5ae27b535542996483e649b6",
+    "dataset": "hotpotqa",
+    "latency_total": 14.696900900045875,
+    "latency_breakdown": {
+      "decomposer": 2.0871222999994643,
+      "retriever": 4.798494999995455,
+      "reasoner": 2.813352900033351,
+      "critic": 1.9869356999988668
+    }
+  },
+  {
+    "question_id": "5a7331de5542994cef4bc4a8",
+    "dataset": "hotpotqa",
+    "latency_total": 16.517187100020237,
+    "latency_breakdown": {
+      "decomposer": 4.32741020002868,
+      "retriever": 3.2306308999541216,
+      "reasoner": 3.600574099982623,
+      "critic": 2.155737199995201
+    }
+  },
+  {
+    "question_id": "5ac15de55542991316484afb",
+    "dataset": "hotpotqa",
+    "latency_total": 34.29517189995386,
+    "latency_breakdown": {
+      "decomposer": 2.120223600009922,
+      "retriever": 7.866360000043642,
+      "reasoner": 19.728379800042603,
+      "critic": 2.0208472999511287
+    }
+  },
+  {
+    "question_id": "5a7c6c9d554299683c1c6302",
+    "dataset": "hotpotqa",
+    "latency_total": 29.29511830001138,
+    "latency_breakdown": {
+      "decomposer": 1.5342952000210062,
+      "retriever": 5.217581000062637,
+      "reasoner": 16.273000699991826,
+      "critic": 3.735501400020439
+    }
+  },
+  {
+    "question_id": "5ae6363b55429929b0807af0",
+    "dataset": "hotpotqa",
+    "latency_total": 22.171619099972304,
+    "latency_breakdown": {
+      "decomposer": 3.4802772999973968,
+      "retriever": 1.693402899953071,
+      "reasoner": 12.06512099999236,
+      "critic": 1.6349975999910384
+    }
+  },
+  {
+    "question_id": "5a8cea40554299441c6b9f76",
+    "dataset": "hotpotqa",
+    "latency_total": 20.320998800045345,
+    "latency_breakdown": {
+      "decomposer": 2.275631800002884,
+      "retriever": 9.299490200006403,
+      "reasoner": 5.233741000003647,
+      "critic": 1.7253672000369988
+    }
+  },
+  {
+    "question_id": "5ab5ecd75542992aa134a3e6",
+    "dataset": "hotpotqa",
+    "latency_total": 24.73882130003767,
+    "latency_breakdown": {
+      "decomposer": 2.0464984999853186,
+      "retriever": 2.7626040000468493,
+      "reasoner": 12.472081399988383,
+      "critic": 5.008715600008145
+    }
+  },
+  {
+    "question_id": "5a84c5545542991dd0999dee",
+    "dataset": "hotpotqa",
+    "latency_total": 16.319092500023544,
+    "latency_breakdown": {
+      "decomposer": 1.9964799999725074,
+      "retriever": 2.4413180999690667,
+      "reasoner": 7.214531700010411,
+      "critic": 1.7232811999856494
+    }
+  },
+  {
+    "question_id": "5adeacf955429975fa854f66",
+    "dataset": "hotpotqa",
+    "latency_total": 16.66967899998417,
+    "latency_breakdown": {
+      "decomposer": 2.97212039999431,
+      "retriever": 1.9033474000170827,
+      "reasoner": 7.1968247999902815,
+      "critic": 2.0347566999844275
+    }
+  },
+  {
+    "question_id": "5a8ce15d554299653c1aa12f",
+    "dataset": "hotpotqa",
+    "latency_total": 26.3210861000116,
+    "latency_breakdown": {
+      "decomposer": 2.8414977999636903,
+      "retriever": 6.6675146000343375,
+      "reasoner": 12.410526200081222,
+      "critic": 1.764865400036797
+    }
+  },
+  {
+    "question_id": "5ade4da055429939a52fe878",
+    "dataset": "hotpotqa",
+    "latency_total": 18.085760100046173,
+    "latency_breakdown": {
+      "decomposer": 1.9000679000164382,
+      "retriever": 8.646731499989983,
+      "reasoner": 2.836427999951411,
+      "critic": 1.7300079999840818
+    }
+  },
+  {
+    "question_id": "5ab2a186554299295394677b",
+    "dataset": "hotpotqa",
+    "latency_total": 13.654903000046033,
+    "latency_breakdown": {
+      "decomposer": 2.488564300001599,
+      "retriever": 3.247685400012415,
+      "reasoner": 3.226872299972456,
+      "critic": 2.0938731000060216
+    }
+  },
+  {
+    "question_id": "5ade66e1554299728e26c713",
+    "dataset": "hotpotqa",
+    "latency_total": 53.38840250001522,
+    "latency_breakdown": {
+      "decomposer": 3.1324517999892123,
+      "retriever": 27.521445099962875,
+      "reasoner": 15.600133300002199,
+      "critic": 4.339986000035424
+    }
+  },
+  {
+    "question_id": "5a7c634c55429907fabeef79",
+    "dataset": "hotpotqa",
+    "latency_total": 30.79211330000544,
+    "latency_breakdown": {
+      "decomposer": 2.111367900040932,
+      "retriever": 10.73217030003434,
+      "reasoner": 14.691026300017256,
+      "critic": 1.60760869999649
+    }
+  },
+  {
+    "question_id": "5ae13f3c5542997b2ef7d168",
+    "dataset": "hotpotqa",
+    "latency_total": 23.664698900014628,
+    "latency_breakdown": {
+      "decomposer": 3.5975881000049412,
+      "retriever": 11.705825899960473,
+      "reasoner": 5.231402699952014,
+      "critic": 1.7109529000008479
+    }
+  },
+  {
+    "question_id": "5ae17cd055429901ffe4aea3",
+    "dataset": "hotpotqa",
+    "latency_total": 16.689612399961334,
+    "latency_breakdown": {
+      "decomposer": 4.316532399971038,
+      "retriever": 1.328747600025963,
+      "reasoner": 7.648067299975082,
+      "critic": 1.826291399949696
+    }
+  }
+]

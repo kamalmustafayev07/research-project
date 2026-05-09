@@ -1,0 +1,14 @@
+{
+  "run_id": "20260429_001337_run",
+  "datasets": [
+    "hotpotqa"
+  ],
+  "summary_files": {
+    "benchmark_summary_all_datasets_json": "C:\\Users\\Kamal Mustafayev\\Downloads\\mahabbat-gpt\\research-project\\outputs\\experiments\\runs\\20260429_001337_run\\summaries\\benchmark_summary_all_datasets.json",
+    "benchmark_summary_all_datasets_csv": "C:\\Users\\Kamal Mustafayev\\Downloads\\mahabbat-gpt\\research-project\\outputs\\experiments\\runs\\20260429_001337_run\\summaries\\benchmark_summary_all_datasets.csv",
+    "latency_comparison_all_datasets_json": "C:\\Users\\Kamal Mustafayev\\Downloads\\mahabbat-gpt\\research-project\\outputs\\experiments\\runs\\20260429_001337_run\\summaries\\latency_comparison_all_datasets.json"
+  },
+  "dataset_roots": {
+    "hotpotqa": "C:\\Users\\Kamal Mustafayev\\Downloads\\mahabbat-gpt\\research-project\\outputs\\experiments\\datasets\\hotpotqa\\20260429_001337_run"
+  }
+}

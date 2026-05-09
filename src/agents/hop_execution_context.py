@@ -1,13 +1,4 @@
-"""Shared hop execution contract for multi-hop QA (module coordination).
-
-All agents that touch a hop (retriever, reasoner, critic, evidence checks) read
-the same structured snapshot from ``entity_context["hop_execution_context"]``.
-This reduces *state drift*: no module silently assumes a different active
-subject, relation, or plan than the HopMemory state machine.
-
-The contract is built only from ``HopMemory`` + the active ``HopRecord`` — no
-dataset names, no benchmark entities, no answer-specific rules.
-"""
+"""``entity_context["hop_execution_context"]`` — one shared hop snapshot for retriever/reasoner/critic (from HopMemory + active HopRecord)."""
 
 from __future__ import annotations
 

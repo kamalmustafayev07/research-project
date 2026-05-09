@@ -16,6 +16,7 @@ from src.graph.entity_scoring import (
     edge_entity_score,
     hybrid_recall_first_score,
     passage_entity_overlap_score,
+    relation_priority,
 )
 from src.graph.knowledge_graph import DynamicKnowledgeGraph
 from src.graph.passage_reranker import PassageReranker
@@ -24,8 +25,6 @@ from src.utils.embeddings import EmbeddingEncoder
 
 @dataclass(slots=True)
 class RetrievalOutput:
-    """Retriever output for downstream reasoning."""
-
     evidence_chain: list[dict[str, Any]]
     selected_passages: list[dict[str, Any]]
     graph_stats: dict[str, int]
@@ -35,24 +34,16 @@ logger = logging.getLogger(__name__)
 
 
 class HybridGraphRetriever:
-    """Dense retrieval + dynamic KG + embedding-guided BFS."""
-
     def __init__(self, encoder: EmbeddingEncoder | None = None) -> None:
         self.encoder = encoder or EmbeddingEncoder()
         self.kg_builder = DynamicKnowledgeGraph(encoder=self.encoder)
         self.reranker = PassageReranker(self.encoder) if SETTINGS.retrieval.use_reranker else None
-        # Pre-built index populated by preload_corpus() for fast per-query search.
         self._cached_passages: list[dict[str, Any]] | None = None
         self._cached_index: faiss.IndexFlatIP | None = None
 
     @staticmethod
     def _passage_key(passage: dict[str, Any]) -> str:
-        """Stable identity for retry-time de-dup/exclusion.
-
-        Prefer explicit passage IDs when present; otherwise derive a compact
-        fingerprint from title + text head so retries can avoid reusing the
-        same evidence repeatedly.
-        """
+        """id if present else title+text head fingerprint."""
         pid = str(passage.get("passage_id") or "").strip()
         if pid:
             return f"id:{pid}"
@@ -67,22 +58,7 @@ class HybridGraphRetriever:
         passages: list[dict[str, Any]],
         index_path: "Path | str | None" = None,
     ) -> None:
-        """Pre-build (or load from disk) a FAISS index for the full corpus.
-
-        Call this once at startup with the entire passage pool.  Subsequent
-        calls to ``retrieve()`` reuse the index instead of re-encoding all
-        passages on every query, reducing per-query latency from O(corpus)
-        to O(queries).
-
-        Parameters
-        ----------
-        passages:
-            The full list of passage dicts that form the search corpus.
-        index_path:
-            Optional path to a ``.faiss`` file.  If the file exists the index
-            is loaded from disk (fast).  Otherwise the index is built from
-            ``passages`` and saved there for future restarts.
-        """
+        """Build or load FAISS for ``passages``; persist at ``index_path`` when set."""
         if not passages:
             return
 
@@ -90,7 +66,6 @@ class HybridGraphRetriever:
 
         idx_path = _Path(index_path) if index_path else None
 
-        # Fast path: load pre-built index from disk.
         if idx_path and idx_path.exists():
             logger.info("Loading FAISS index from %s …", idx_path)
             self._cached_index = faiss.read_index(str(idx_path))
@@ -359,12 +334,18 @@ class HybridGraphRetriever:
                     "text": edge_data.get("text", ""),
                     "score": sem,
                 }
+                rel_prior = relation_priority(relation)
+                edge_row["relation_priority"] = rel_prior
                 ent_w = float(SETTINGS.retrieval.entity_combined_score_weight)
                 e_ent = edge_entity_score(edge_row, entity_context)
                 if entity_context and match_strings:
-                    edge_row["score"] = (1.0 - ent_w) * sem + ent_w * (e_ent * 2.0 - 1.0)
+                    edge_row["score"] = (
+                        (1.0 - ent_w) * sem
+                        + ent_w * (e_ent * 2.0 - 1.0)
+                        + 0.18 * (rel_prior - 0.5)
+                    )
                 else:
-                    edge_row["score"] = sem
+                    edge_row["score"] = sem + 0.12 * (rel_prior - 0.5)
                 evidence.append(edge_row)
                 if nbr not in seen and depth + 1 <= SETTINGS.retrieval.max_hops:
                     node_queue.append((nbr, depth + 1))
@@ -375,7 +356,22 @@ class HybridGraphRetriever:
             key=lambda x: float(x["score"]) + 0.12 * float(x.get("entity_edge_match", 0.0)),
             reverse=True,
         )
-        return evidence[: SETTINGS.retrieval.top_k_edges]
+
+        # cap edges per source so co-occur spam doesn't drown the chain
+        selected: list[dict[str, Any]] = []
+        source_counts: dict[str, int] = {}
+        for edge in evidence:
+            source = str(edge.get("source", "")).strip()
+            relation = str(edge.get("relation", "")).strip().lower()
+            current_source_count = source_counts.get(source, 0)
+            max_per_source = 2 if relation in {"co_occurs_with", "related_to"} else 3
+            if current_source_count >= max_per_source:
+                continue
+            selected.append(edge)
+            source_counts[source] = current_source_count + 1
+            if len(selected) >= SETTINGS.retrieval.top_k_edges:
+                break
+        return selected
 
     def retrieve(
         self,

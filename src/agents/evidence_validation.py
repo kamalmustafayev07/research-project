@@ -1,10 +1,4 @@
-"""Programmatic evidence grounding checks (non-LLM).
-
-Surface substring checks are complemented by a token-overlap alignment score
-so answers grounded in *paraphrased* evidence (different wording, same
-content words) are not incorrectly abstained. No entity lists or dataset
-patterns — only generic tokenisation and set overlap.
-"""
+"""Non-LLM grounding: substring checks + token overlap for paraphrased evidence."""
 
 from __future__ import annotations
 
@@ -16,7 +10,6 @@ def _fold(s: str) -> str:
     return re.sub(r"[^a-z0-9]", "", (s or "").lower())
 
 
-# General English function words — not domain keywords.
 _STOPWORDS: frozenset[str] = frozenset(
     {
         "the",

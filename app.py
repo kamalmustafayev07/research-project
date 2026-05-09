@@ -1,22 +1,4 @@
-# app.py
-"""
-Streamlit UI for Agent-Enhanced GraphRAG
-Uses same pipeline logic as run_pipeline.py
-
-Features:
-- User asks short natural question
-- Query goes through:
-    1. Decomposer
-    2. Retriever
-    3. Passage Reranker (outputs/models/)
-    4. Reasoner
-    5. Critic
-- Final answer shown
-- Evidence chain visualization
-- Retrieved passages
-- Agent traces
-- Performance metrics
-"""
+# app.py — Streamlit UI (same agents as run_pipeline)
 
 from __future__ import annotations
 
@@ -47,23 +29,11 @@ from src.utils.corpus_builder import build_unified_corpus, corpus_paths, DEFAULT
 from src.evaluation.hotpotqa_eval import heuristic_explainability_score
 from src.utils.llm import ollama_healthcheck
 
-# ==========================================================
-# CONFIG
-# ==========================================================
-
 DEFAULT_MODEL = "qwen2.5:7b"
 
-# Load the complete train + validation splits of all three datasets.
-# None = no cap (download everything available).
-# The passages JSON and FAISS index are cached to disk so this only
-# happens once; subsequent restarts load from cache in seconds.
+# full train+val unless capped; corpus + FAISS cached on disk after first build
 CORPUS_MAX_PER_SPLIT: int | None = None
-CORPUS_SPLITS = DEFAULT_SPLITS  # ["train", "validation"]
-
-
-# ==========================================================
-# SETTINGS
-# ==========================================================
+CORPUS_SPLITS = DEFAULT_SPLITS
 
 def apply_settings(
     model_name: str,
@@ -86,11 +56,6 @@ def apply_settings(
     SETTINGS.paths.output_models.mkdir(parents=True, exist_ok=True)
 
 
-# ==========================================================
-# LOAD PIPELINE + CORPUS (cached together so the FAISS index
-# is built once per session and reused across queries)
-# ==========================================================
-
 @st.cache_resource(show_spinner=False)
 def get_pipeline_and_corpus(
     model_name: str,
@@ -98,37 +63,22 @@ def get_pipeline_and_corpus(
     loops: int,
     llm_backend: str,
 ):
-    """Initialise pipeline and pre-load the FAISS index over the full corpus.
-
-    Both objects are cached by ``@st.cache_resource`` so re-runs of the
-    Streamlit script reuse the same pipeline and index without re-encoding
-    passages on every user interaction.
-
-    On first run the three datasets are downloaded from HuggingFace and saved
-    to disk; the FAISS index is built from the GPU-encoded embeddings and also
-    persisted to disk.  Subsequent restarts skip both steps and are fast.
-    """
+    """Build/load pipeline + unified corpus + FAISS once per Streamlit session."""
     apply_settings(model_name, temperature, loops, llm_backend)
     pipeline = AgentEnhancedGraphRAG()
 
-    # Build (or load from disk) the unified passage corpus.
     corpus = build_unified_corpus(
         max_per_split=CORPUS_MAX_PER_SPLIT,
         splits=CORPUS_SPLITS,
     )
 
-    # Resolve the persistent FAISS index path that matches this corpus version.
+    # index path tied to corpus fingerprint
     _, faiss_path = corpus_paths(CORPUS_MAX_PER_SPLIT, CORPUS_SPLITS)
 
-    # Load or build the FAISS index; save it to disk for future restarts.
     pipeline.retriever.retriever.preload_corpus(corpus, index_path=faiss_path)
 
     return pipeline, corpus
 
-
-# ==========================================================
-# RUN WITH TRACES
-# ==========================================================
 
 _BAD_PIVOT_MARKERS = (
     "insufficient", "not enough", "cannot", "unable", "no evidence", "i don",
@@ -140,12 +90,7 @@ def _extract_hop1_pivot(
     sub_questions: list[str],
     passages: list[dict[str, Any]],
 ) -> str | None:
-    """Ask the LLM to answer the first sub-question using only the retrieved passages.
-
-    Uses structured JSON output so the answer is parsed reliably regardless of
-    how verbose the LLM's preamble is.  Returns a clean entity string suitable
-    as a retry pivot, or None if the answer cannot be found.
-    """
+    """First sub-q answer from passages via strict JSON; None if not found."""
     if not sub_questions or not passages:
         return None
     hop1_q = sub_questions[0]
@@ -186,24 +131,14 @@ def _extract_hop1_pivot(
 
 
 def _pivot_match(answer: str, pivot: str) -> bool:
-    """Return True when the answer is effectively the same string as the pivot.
-
-    Used to detect when the MULTI-HOP PARTIAL ANSWER rule in the reasoner prompt
-    incorrectly returns the already-known intermediate entity instead of the final
-    answer.  We compare normalised forms (lowercase, punctuation stripped).
-    """
+    """True if answer is the same entity as pivot (normalised) — catches bogus 'final' = intermediate."""
     norm = lambda s: re.sub(r"[^a-z0-9 ]", "", (s or "").lower().strip())
     a, p = norm(answer), norm(pivot)
     return bool(a and p and (a == p or (len(p) > 4 and p in a) or (len(a) > 4 and a in p)))
 
 
 def _resolve_hop_placeholders(sub_question: str, prev_answer: str) -> str:
-    """Replace ALL <answer of hop k> placeholders with the most recent known answer.
-
-    In a chain of N hops, each loop resolves one sub-question.  The answer from
-    the previous loop is substituted into the current sub-question so the LLM
-    receives a concrete, answerable question rather than an abstract placeholder.
-    """
+    """Swap <answer of hop k> placeholders for the latest resolved span."""
     return re.sub(
         r"<answer of hop \d+>",
         prev_answer,
@@ -312,17 +247,11 @@ def run_pipeline(
 
     total_start = perf_counter()
 
-    # --------------------------------------------------
-    # 1. ENTITY LINKING  (once per question)
-    # --------------------------------------------------
     t_link = perf_counter()
     linked = pipeline.entity_linker.link(question)
     latency["entity_linker"] = perf_counter() - t_link
     traces.append({"agent": "entity_linker", "output": linked.as_dict()})
 
-    # --------------------------------------------------
-    # 2. DECOMPOSER  (once per question)
-    # --------------------------------------------------
     t0 = perf_counter()
     decomposition = pipeline.decomposer.run(question, entity_linking=linked)
     latency["decomposer"] = perf_counter() - t0
@@ -334,15 +263,7 @@ def run_pipeline(
     ref_anchors = linked.as_dict().get("referential_anchors", [])
     decomp_dict = asdict(decomposition)
 
-    # --------------------------------------------------
-    # 3-5. RETRIEVE → REASON → CRITIC with retry loop
-    #
-    # On the first pass the pivot entity is whatever the entity linker
-    # found (e.g. "the Hobbit").  If the critic rejects and the reasoner
-    # produced a short named-entity answer (e.g. "J. R. R. Tolkien"), that
-    # answer becomes the new pivot for the next retrieval pass so that
-    # hop-2 queries (e.g. "Tolkien university") can now be generated.
-    # --------------------------------------------------
+    # retrieve → reason → critic; rejected short entities become next loop's retrieval pivot
     max_loops = SETTINGS.retrieval.max_retrieval_loops
     n_sub = len(decomposition.sub_questions)
 
@@ -350,18 +271,9 @@ def run_pipeline(
     chain: list[dict[str, Any]] = []
     reasoned = None
     judged = None
-    # prefound_pivot: entity resolved in the current intermediate hop, to be used
-    # as the retrieval pivot for the NEXT loop.
-    prefound_pivot: str | None = None
-    # current_pivot: the most recently confirmed intermediate entity, used to
-    # substitute <answer of hop k> placeholders into subsequent sub-questions.
-    current_pivot: str | None = None
-    # _pivot_from_intermediate: True when current_pivot was set from a genuine
-    # intermediate hop result (via intermediate_hop_mode).  The PIVOT MATCH GUARD
-    # only fires in this case.  When the pivot was set from a REJECTED final loop
-    # answer (to re-use as retrieval seed), the guard must NOT fire — that
-    # rejected answer might actually be the correct final answer (e.g. "Thomas
-    # Keneally" correctly returned twice but critic-rejected on the first pass).
+    prefound_pivot: str | None = None  # verified intermediate, seeds next loop retrieval
+    current_pivot: str | None = None  # for placeholder fill in later subqs
+    # pivot-match guard only if pivot came from intermediate hop, not from failed final + retry seed
     _pivot_from_intermediate: bool = False
     t_ret = t_rsn = t_crt = 0.0
     hop_memory = HopMemory(original_question=question)
@@ -371,7 +283,6 @@ def run_pipeline(
     for loop_idx in range(max_loops):
         is_retry = loop_idx >= 1
 
-        # Determine the active hop semantics for this loop before retrieval.
         intermediate_hop_mode = (
             loop_idx < n_sub - 1
             and loop_idx < max_loops - 1
@@ -425,11 +336,8 @@ def run_pipeline(
         )
         guarded_query = build_safe_retrieval_query(active_hop, hop_memory)
 
-        # ---- build entity context for this loop ----
         ec: dict[str, Any] = dict(base_entity_context)
-        # Critical: retrieval hints must track the ACTIVE hop relation only.
-        # Carrying prior-hop relations (e.g. author_of into studied_at) causes
-        # retries to keep pulling work-centric passages and miss education facts.
+        # one relation hint — mixing prior hops pulls wrong passage type on retry
         ec["relation_hints"] = [active_relation] if active_relation else []
 
         active_hop_idx = int(active_hop.hop_index)
@@ -441,15 +349,12 @@ def run_pipeline(
             ec["retry_depth"] = attempt_no
 
         if is_retry:
-            # Determine the intermediate pivot for this retry pass.
-            # Priority: (1) verified prefound_pivot from intermediate mode,
-            # (2) already-verified current_pivot,
-            # (3) extractor fallback that passes hop verification.
+            # pivot: prefound → current_pivot → verified hop1 extract
             if prefound_pivot is not None:
                 intermediate = prefound_pivot
                 is_valid_pivot = True
-                current_pivot = prefound_pivot   # remember for sub-question resolution
-                _pivot_from_intermediate = True  # genuine intermediate hop result
+                current_pivot = prefound_pivot
+                _pivot_from_intermediate = True
                 prefound_pivot = None
             elif current_pivot:
                 intermediate = current_pivot
@@ -509,10 +414,8 @@ def run_pipeline(
         else:
             query = _build_retrieval_query(question, decomposition, ref_anchors)
 
-        # Anchor retrieval to full hop memory to prevent subject drift.
         query = f"{guarded_query}\n\n{query}" if query else guarded_query
 
-        # ---- build query variants pack ----
         ec_arg: dict[str, Any] | None = None
         if ec.get("match_strings"):
             ec_arg = ec
@@ -522,7 +425,6 @@ def run_pipeline(
             ec_arg["retrieval_queries"] = variants
             ec_arg["retrieval_query_debug"] = q_dbg
 
-        # ---- RETRIEVER ----
         t1 = perf_counter()
         retrieval = pipeline.retriever.run(query, contexts, entity_context=ec_arg)
         t_ret += perf_counter() - t1
@@ -580,18 +482,11 @@ def run_pipeline(
                 and not any(w in intermediate.lower() for w in _BAD_PIVOT_MARKERS)
             )
 
-            # Determine whether this hop expects a place-name answer.
-            # For place-type relations the LLM often returns a nationality adjective
-            # ("British") instead of a proper country name ("United Kingdom") because
-            # the passage only contains the adjective form.  Running the focused JSON
-            # extractor — which carries an explicit nationality-normalization instruction —
-            # reliably fixes this for any nationality in any language.
+            # place hops: LLM often returns nationality adjective; JSON extractor normalises to country
             hop_relation = active_relation
             place_type_hop = hop_relation in {"born_in", "located_in", "capital_of"}
 
             if place_type_hop or not is_valid_hop:
-                # For place-type hops: always normalize via the JSON extractor.
-                # For other hops: only fall back when the reasoner answer is invalid.
                 hop_fb = _extract_hop1_pivot(pipeline.llm, [hop_q], selected)
                 if hop_fb:
                     intermediate = hop_fb
@@ -611,18 +506,11 @@ def run_pipeline(
             if is_valid_hop and hop_check.approved:
                 prefound_pivot = intermediate
                 current_pivot = intermediate
-                _pivot_from_intermediate = True  # will be the intermediate pivot next loop
+                _pivot_from_intermediate = True
                 hop_memory.record_answer(active_hop.hop_index, intermediate, float(reasoned.confidence))
 
-            continue  # ALWAYS proceed to the next loop in intermediate mode
-        # --------------------------------------------------------------------------
-
-        # ---- REASONER (final or non-multi-hop) ----
-        # The REASONER always receives the ORIGINAL question in the final loop.
-        # This ensures retrieval query and reasoning question stay aligned, and
-        # avoids pivot-substituted forms confusing the MULTI-HOP PARTIAL ANSWER
-        # rule (e.g. "Bill Gates was born in which city?" might misfire because
-        # "Bill Gates" is recognised as an intermediate entity by the LLM).
+            continue  # intermediate mode: always next loop
+        # final loop: reason on original question (not pivot-substituted text) so partial-answer heuristics don't misfire
         guard_prompt = get_safe_reasoner_prompt(active_hop.subquestion_text, hop_memory)
         t2 = perf_counter()
         reasoned = pipeline.reasoner.run(
@@ -642,20 +530,7 @@ def run_pipeline(
             "confidence": reasoned.confidence,
         })
 
-        # ---- PIVOT MATCH GUARD -----------------------------------------------
-        # Detect when the MULTI-HOP PARTIAL ANSWER rule fires incorrectly in the
-        # final loop: the reasoner returns the already-known intermediate entity
-        # (current_pivot) instead of the final answer.  In that case, force
-        # "Not enough information" — the final answer is genuinely absent.
-        # Example: pivot="Christopher Nolan", question="...studied where?",
-        #          bad answer="Christopher Nolan" → override to "Not enough information"
-        #
-        # CRITICAL: the guard fires ONLY when current_pivot came from a genuine
-        # intermediate hop (_pivot_from_intermediate=True).  If the pivot was
-        # set from a REJECTED final-loop answer (e.g. "Thomas Keneally" was
-        # returned correctly but the critic rejected it, then it became the
-        # retrieval seed for the next loop), we must NOT override — that answer
-        # may be the correct final answer returned again.
+        # if final answer == intermediate pivot (and pivot was from a real intermediate hop), abstain
         if (
             current_pivot
             and _pivot_from_intermediate
@@ -669,14 +544,7 @@ def run_pipeline(
                 answer="Not enough information in retrieved passages.",
                 confidence=0.15,
             )
-        # -----------------------------------------------------------------------
-
-        # ---- CAPITAL CITY FALLBACK -----------------------------------------------
-        # When the reasoner returns "Not enough information" but we know the country
-        # (current_pivot) and the relation chain includes capital_of, ask the LLM
-        # a direct single-fact question to get the capital city from world knowledge.
-        # This is universal: it works for any country, not just specific ones.
-        # -------------------------------------------------------------------------
+        # capital in corpus often missing — one-shot world-knowledge ask when chain has capital_of
         _rel_seq = decomp_dict.get("relation_sequence") or []
         _capital_fallback_used = False
         if (
@@ -702,9 +570,6 @@ def run_pipeline(
                     _capital_fallback_used = True
             except Exception:
                 pass
-        # -------------------------------------------------------------------------
-
-        # ---- HOP VERIFIER (final answer gate) -----------------------------------
         if not _capital_fallback_used and not (reasoned.answer or "").lower().startswith("not enough"):
             final_hop_check = verify_hop_answer(reasoned.answer, active_hop.subquestion_text, hop_memory)
             traces.append({
@@ -725,14 +590,9 @@ def run_pipeline(
                     answer="Not enough information in retrieved passages.",
                     confidence=min(float(reasoned.confidence), 0.2),
                 )
-        # -------------------------------------------------------------------------
-
-        # ---- CRITIC ----
         t3 = perf_counter()
         if _capital_fallback_used:
-            # The answer was resolved from world knowledge (capital city lookup).
-            # The critic cannot verify it against retrieved passages, so we
-            # accept it directly rather than having the critic incorrectly reject it.
+            # capital fallback isn't in passages — skip critic
             from types import SimpleNamespace as _NS
             judged = _NS(
                 approved=True,
@@ -750,11 +610,7 @@ def run_pipeline(
                 "confidence": judged.confidence,
             })
             break
-        # The CRITIC receives a simpler, directly verifiable question.
-        # Substituting the resolved pivot into the original question via the
-        # referential-anchor surface (e.g. "the founder of Microsoft" → "Bill
-        # Gates") gives the critic a single-hop question it can evaluate against
-        # the current-loop passages WITHOUT demanding the full multi-hop chain.
+        # critic: substitute referential surface with pivot so check is single-hop vs current passages
         critic_query = question
         if current_pivot and ref_anchors and n_sub >= 2:
             for anchor in ref_anchors:
@@ -792,9 +648,6 @@ def run_pipeline(
     latency["reasoner"] = t_rsn
     latency["critic"] = t_crt
 
-    # --------------------------------------------------
-    # FINALIZE
-    # --------------------------------------------------
     answer = pipeline._finalize_answer(
         question=question,
         raw_answer=reasoned.answer,  # type: ignore[union-attr]
@@ -824,12 +677,8 @@ def run_pipeline(
     }
 
 
-# ==========================================================
-# UI helpers
-# ==========================================================
-
 def _format_latency(seconds: float) -> str:
-    """Human-readable latency: always show milliseconds; show seconds when >= 1 s."""
+    """ms always; add seconds if >= 1s."""
     ms = float(seconds) * 1000.0
     if seconds >= 1.0:
         return f"{ms:.1f} ms ({seconds:.3f} s)"
@@ -846,9 +695,6 @@ def main():
     st.title("🧠 Agent-Enhanced GraphRAG")
     st.caption("4 Agents + Passage Reranker + Evidence Chain")
 
-    # ------------------------------------------------------
-    # SIDEBAR
-    # ------------------------------------------------------
     st.sidebar.header("Settings")
 
     model_name = st.sidebar.selectbox(
@@ -885,9 +731,6 @@ def main():
                 "Remote server: set environment variable `OLLAMA_HOST` (see https://ollama.com/download )."
             )
 
-    # ------------------------------------------------------
-    # LOAD
-    # ------------------------------------------------------
     with st.spinner(
         "Loading corpus + models … "
         "(first run: downloads all 3 datasets + builds FAISS index — takes a few minutes)"
@@ -898,9 +741,6 @@ def main():
 
     st.success(f"Loaded {len(contexts):,} passages from 3 datasets (train + validation)")
 
-    # ------------------------------------------------------
-    # INPUT
-    # ------------------------------------------------------
     question = st.text_input(
         "Ask short question",
         placeholder="director of dunkirk studied where?"
@@ -923,9 +763,6 @@ def main():
                 st.caption(str(exc))
                 st.stop()
 
-        # --------------------------------------------------
-        # TABS
-        # --------------------------------------------------
         tab1, tab2, tab3, tab4 = st.tabs([
             "Answer",
             "Evidence Chain",
@@ -933,9 +770,6 @@ def main():
             "Agents / Metrics"
         ])
 
-        # ==================================================
-        # ANSWER
-        # ==================================================
         with tab1:
             st.subheader("Final Answer")
             st.markdown(f"## {result['answer']}")
@@ -958,9 +792,6 @@ def main():
                 for i, q in enumerate(result["sub_questions"], 1):
                     st.markdown(f"- Hop {i}: {q}")
 
-        # ==================================================
-        # EVIDENCE CHAIN
-        # ==================================================
         with tab2:
             st.subheader("Evidence Chain")
 
@@ -973,9 +804,6 @@ def main():
                     st.write("Score:", round(float(hop.get("score", 0)), 3))
                     st.write(hop.get("text", ""))
 
-        # ==================================================
-        # PASSAGES
-        # ==================================================
         with tab3:
             st.subheader("Top Retrieved Passages")
 
@@ -998,9 +826,6 @@ def main():
 
                     st.write(p.get("text", ""))
 
-        # ==================================================
-        # TRACES / METRICS
-        # ==================================================
         with tab4:
             st.subheader("Agent Traces")
 

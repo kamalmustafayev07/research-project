@@ -1,8 +1,4 @@
-"""Entity-aware scoring utilities for passages and graph edges.
-
-Final ranking is entity-first: dense similarity is at most a small tie-breaker
-after hard overlap filtering.
-"""
+"""Passage/edge scoring: entity overlap first, dense similarity as weak tie-break."""
 
 from __future__ import annotations
 
@@ -51,13 +47,7 @@ _RELATION_KEYWORDS: dict[str, tuple[str, ...]] = {
 }
 
 
-# Answer-shape patterns: when a passage contains an *explicit answer slot*
-# for a relation (e.g. "born in <ProperNoun>"), it almost certainly answers
-# the active hop and should rank above passages that merely mention the
-# entity. The patterns are anchored on Title-Cased spans so they only fire
-# on passages with an obvious answer shape — they do not trigger on generic
-# prose without a proper-noun candidate. All patterns are case-sensitive on
-# the answer span so "born in 1955" does not falsely match.
+# regexes favour explicit answer-shaped phrases (TitleCase slot); avoids "born in 1955" false positives
 _RELATION_ANSWER_PATTERNS: dict[str, tuple[str, ...]] = {
     "born_in": (
         r"\bborn(?:\s+and\s+raised)?\s+in\s+([A-Z][a-zA-Z\.\-']+(?:[,\s]+[A-Z][a-zA-Z\.\-']+){0,3})",
@@ -96,6 +86,25 @@ _GENERIC_BIO_SIGNALS = (
     "mayor",
     "campaign",
 )
+
+_RELATION_PRIOR: dict[str, float] = {
+    "author_of": 0.95,
+    "studied_at": 0.95,
+    "born_in": 0.95,
+    "directed_by": 0.95,
+    "located_in": 0.90,
+    "founded_by": 0.90,
+    "invented_by": 0.90,
+    "composed_by": 0.90,
+    "produced_by": 0.85,
+    "designed_by": 0.85,
+    "created_by": 0.85,
+    "capital_of": 0.90,
+    "semantic_similar": 0.45,
+    "supports": 0.50,
+    "co_occurs_with": 0.10,
+    "related_to": 0.20,
+}
 
 
 def _relation_answer_pattern_score(passage: dict[str, Any], relation_hints: list[str]) -> float:
@@ -164,6 +173,14 @@ def _prototype_relation_score(
 
 def _blob(passage: dict[str, Any]) -> str:
     return f"{passage.get('title', '')} {passage.get('text', '')}"
+
+
+def relation_priority(relation: str) -> float:
+    """Return a structural prior for how informative a relation is."""
+    rel = (relation or "").strip().lower()
+    if not rel:
+        return 0.25
+    return float(_RELATION_PRIOR.get(rel, 0.65))
 
 
 def _tokenize(text: str) -> set[str]:

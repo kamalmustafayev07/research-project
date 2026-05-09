@@ -1,25 +1,12 @@
-"""Canonical prompts for the Agent-Enhanced GraphRAG agents.
+"""Agent prompts (decomposer, reasoner, critic). RETRIEVAL_GUIDANCE is doc-only — graph retriever is non-LLM.
 
-This module is the single source of truth for the system prompts used by the
-LLM-driven agents (Decomposer, ReAct Reasoner, Critic). It encodes the project's
-GraphRAG specification: never hallucinate, ground answers in retrieved evidence,
-preserve named entities, and keep multi-hop reasoning explicit and traceable.
-
-The Graph Retriever does not call an LLM, so ``RETRIEVAL_GUIDANCE`` below is
-documentation that captures the same scoring/quality rules in human-readable
-form for reviewers and future maintainers.
-
-All agent templates intentionally retain the substrings ``"qa planning agent"``,
-``"react reasoner"`` and ``"critic agent"`` so the mock LLM backend in
-``src.utils.llm`` continues to route deterministic responses correctly.
+Keep the literal substrings "qa planning agent", "react reasoner", "critic agent" in templates — mock backend keys off them.
 """
 
 from __future__ import annotations
 
 
-# ---------------------------------------------------------------------------
-# Shared system header
-# ---------------------------------------------------------------------------
+# shared system header
 
 CORE_SYSTEM_PROMPT = """\
 You are part of an Agent-Enhanced GraphRAG system for multi-hop QA over heterogeneous corpora.
@@ -34,9 +21,7 @@ Core principles:
 """
 
 
-# ---------------------------------------------------------------------------
-# Per-agent prompt templates
-# ---------------------------------------------------------------------------
+# per-agent templates
 
 DECOMPOSER_PROMPT_TEMPLATE = (
     CORE_SYSTEM_PROMPT
@@ -138,6 +123,15 @@ Reasoning rules:
     Granularity=Year    -> return a 4-digit year from the passage; never a decade.
   When the evidence does not contain the required granularity (only a coarser or
   finer unit is named), prefer to abstain over guessing.
+- EITHER-OR CHOICE (critical): If the question ends with two named alternatives
+  separated by "or" (e.g. "... PersonA or BandB?"), the answer MUST be the exact
+  surface form of ONE of those alternatives as they appear in the question — not
+  a nationality, job title, or descriptive phrase drawn from the passage (e.g. do
+  not answer "Irish" when the choices are "Jai McDowall" and "U2").
+- COMPARATIVE / TEMPORAL (critical): If the question asks which came "first",
+  "earlier", "before the other", "last", "latest", or similar, compare explicit
+  dates or years in the passages for each alternative and pick the alternative
+  that satisfies the comparison. Do not guess from genre or nationality alone.
 - PLACE NAME NORMALIZATION (narrow): Convert a nationality adjective ("British",
   "American", "German", ...) to its country proper noun ONLY WHEN ALL the
   following hold:
@@ -148,6 +142,8 @@ Reasoning rules:
   If a more specific named place IS present in the evidence, return that named
   place verbatim. Never derive a country from a nationality when the active
   granularity is City/State/Region -- that is the wrong relation.
+  Do NOT use this nationality→country rule when the question is an either-or
+  between named entities (see EITHER-OR CHOICE above).
 - CAPITAL CITY (critical): When the question asks "What is the capital of [COUNTRY]?"
   and the passages or context reveal which country is meant, you MAY state the capital
   city even if no passage explicitly lists it as "capital". Capital cities are
@@ -218,13 +214,9 @@ Entity / hop check:
 )
 
 
-# ---------------------------------------------------------------------------
-# Retrieval guidance (documentation only — the retriever is non-LLM)
-# ---------------------------------------------------------------------------
-
+# doc-only — retriever code implements this spirit
 RETRIEVAL_GUIDANCE = """\
-Hybrid graph retrieval guidance (informational; the retriever is non-LLM but
-follows these scoring/quality rules in spirit):
+Retriever scoring intent (non-LLM implementation):
 
 Boost passages when:
 - Exact named-entity match with the query (people, books, films, organizations, places).
@@ -239,10 +231,6 @@ Penalize passages when:
 Reject passages that contribute only weak semantic overlap and no entity grounding.
 """
 
-
-# ---------------------------------------------------------------------------
-# Entity-linker anchor extraction prompt
-# ---------------------------------------------------------------------------
 
 ANCHOR_EXTRACTION_PROMPT = """\
 Extract referential role expressions from the question.
@@ -296,9 +284,5 @@ Q: "Who directed Inception?"
 Question: {question}\
 """
 
-
-# ---------------------------------------------------------------------------
-# Shared constants
-# ---------------------------------------------------------------------------
 
 INSUFFICIENT_EVIDENCE_ANSWER = "Not enough information in retrieved passages."

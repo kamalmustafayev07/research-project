@@ -1,13 +1,4 @@
-"""Entity linking and referential span detection before retrieval.
-
-Referential anchor extraction (the most fragile part of the old regex approach)
-is now delegated to a small, focused LLM call.  The LLM understands natural
-language and verb tenses universally, so it handles informal phrasings like
-"director of Dunkirk studied where?" without a static stop-word list.
-
-The regex implementation is retained as a silent fallback for the rare cases
-where the LLM is unavailable or returns malformed output.
-"""
+"""Entity linking + referential spans. LLM for anchors; regex fallback if LLM missing/bad."""
 
 from __future__ import annotations
 
@@ -75,12 +66,7 @@ def _dedupe_canonical_entities(
     return out
 
 
-# ---------------------------------------------------------------------------
-# Referential expression detection — no hard-coded entity KB
-# ---------------------------------------------------------------------------
-
-# Role words that signal a referential expression like "the writer of X".
-# Ordered longest-first so the regex alternation matches the most specific form.
+# longest-first role alternation for "the [role] of [work]"
 _REFERENTIAL_ROLES: tuple[str, ...] = (
     "screenwriter",
     "screenwriters",

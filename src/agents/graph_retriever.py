@@ -1,17 +1,4 @@
-"""Graph retriever agent wrapping dynamic KG + hybrid retrieval.
-
-The retriever itself is non-LLM (NetworkX BFS + FAISS + sentence-transformers
-+ optional learned passage reranker), so it has no system prompt. The scoring
-and quality rules it should follow in spirit are documented in
-``src.agents.prompts.RETRIEVAL_GUIDANCE`` and summarized here:
-
-- Boost passages with exact named-entity match, matching relation context, or a
-  direct answer-shaped span (proper noun, year, location).
-- Penalize passages that share only generic words, describe a different entity
-  with a similar pattern, or are unrelated biographies.
-- Reject passages that contribute only weak semantic overlap and no entity
-  grounding.
-"""
+"""Thin wrapper around ``HybridGraphRetriever`` (FAISS + KG BFS + optional reranker). See RETRIEVAL_GUIDANCE in prompts for intent."""
 
 from __future__ import annotations
 
@@ -23,21 +10,12 @@ from src.graph.retriever import HybridGraphRetriever
 
 @dataclass(slots=True)
 class GraphRetrieverOutput:
-    """Graph retrieval output passed to reasoner."""
-
     evidence_chain: list[dict[str, Any]]
     selected_passages: list[dict[str, Any]]
     graph_stats: dict[str, int]
 
 
 class GraphRetrieverAgent:
-    """Retrieve evidence chain from context passages.
-
-    Retrieval is **entity-first** (implemented in ``HybridGraphRetriever``): candidate
-    passages must overlap resolved query entities or they are discarded before scoring;
-    final ordering uses entity-grounded scores, not dense similarity alone.
-    """
-
     def __init__(self, retriever: HybridGraphRetriever | None = None) -> None:
         self.retriever = retriever or HybridGraphRetriever()
 

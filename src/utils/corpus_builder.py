@@ -1,13 +1,4 @@
-"""Utilities for building and caching a large unified passage corpus.
-
-Pools supporting passages from all three benchmark datasets
-(HotpotQA, MuSiQue, 2WikiMultiHopQA) and stores the result on disk so
-subsequent Streamlit restarts are fast.
-
-With a GPU the FAISS index can be built from hundreds of thousands of
-passages in a few seconds; the index is also persisted to disk so it only
-needs to be built once per corpus version.
-"""
+"""Merge HotpotQA / MuSiQue / 2Wiki passages, cache on disk for fast reload."""
 
 from __future__ import annotations
 
@@ -24,10 +15,7 @@ logger = logging.getLogger(__name__)
 
 _DATASETS = ["hotpotqa", "musique", "2wikimultihopqa"]
 
-# Use a very large cap so the entire validation split of every dataset is
-# loaded (HotpotQA ~7 405, MuSiQue ~2 417, 2Wiki ~12 576 examples).
-# Set to None for truly unlimited (loads the entire split with no sampling).
-DEFAULT_MAX_PER_SPLIT = 100_000
+DEFAULT_MAX_PER_SPLIT = 100_000  # high cap ≈ full splits; None = no sampling
 
 # Splits to load.  Adding "train" gives much more passage coverage at the
 # cost of a longer first-run download.

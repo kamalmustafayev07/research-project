@@ -327,19 +327,26 @@ def _evaluate_dataset(
         data,
         lambda item: pipeline.dense_rag_baseline(item["question"], item["contexts"]),
         dataset_name=dataset,
+        checkpoint_dir=dataset_paths.results_dir / "checkpoints",
     )
     b2 = run_method_on_dataset(
         "B2_Basic_GraphRAG",
         data,
         lambda item: pipeline.basic_graphrag_baseline(item["question"], item["contexts"]),
         dataset_name=dataset,
+        checkpoint_dir=dataset_paths.results_dir / "checkpoints",
     )
     ours = run_method_on_dataset(
         "Ours_Agent_Enhanced_GraphRAG",
         data,
         _ours_infer,
         dataset_name=dataset,
+        checkpoint_dir=dataset_paths.results_dir / "checkpoints",
     )
+
+    evaluation_errors = b1.get("errors", []) + b2.get("errors", []) + ours.get("errors", [])
+    if evaluation_errors:
+        save_json(dataset_paths.results_dir / "benchmark_errors.json", evaluation_errors)
 
     summary = {"B1": b1["metrics"], "B2": b2["metrics"], "OURS": ours["metrics"]}
     evidence_analysis = analyze_evidence_chains(ours["predictions"])
@@ -459,13 +466,28 @@ def main() -> None:
     all_rows: list[dict[str, Any]] = []
 
     for dataset in datasets:
-        result = _evaluate_dataset(
-            dataset=dataset,
-            args=args,
-            pipeline=pipeline,
-            logger=logger,
-            dataset_paths=experiment_paths.for_dataset(dataset),
-        )
+        try:
+            result = _evaluate_dataset(
+                dataset=dataset,
+                args=args,
+                pipeline=pipeline,
+                logger=logger,
+                dataset_paths=experiment_paths.for_dataset(dataset),
+            )
+        except Exception as exc:
+            logger.exception("Dataset run failed | dataset=%s err=%s", dataset, exc)
+            result = {
+                "dataset": dataset,
+                "summary": {
+                    "B1": {},
+                    "B2": {},
+                    "OURS": {},
+                },
+                "summary_rows": [],
+                "methods": {},
+                "evidence_analysis": {},
+                "error": f"{type(exc).__name__}: {exc}",
+            }
         all_results.append(result)
         all_rows.extend(result["summary_rows"])
 

@@ -13,16 +13,12 @@ from src.utils.llm import LLMClient
 
 @dataclass(slots=True)
 class DecompositionOutput:
-    """Decomposition result schema."""
-
     sub_questions: list[str]
     relation_sequence: list[str]
     sub_question_entities: list[dict[str, Any]]
 
 
 class QueryDecomposerAgent:
-    """Create a structured decomposition from a natural-language question."""
-
     def __init__(self, llm: LLMClient | None = None) -> None:
         self.llm = llm or LLMClient()
 
@@ -127,7 +123,6 @@ class QueryDecomposerAgent:
                 f"referential_anchors={ref_anchors}"
             )
         prompt = DECOMPOSER_PROMPT_TEMPLATE.format(question=question, entity_hints=hints or "(none)")
-        # Decomposer needs more tokens: 2-3 hops × ~80 tokens each + JSON framing.
         response = self.llm.generate(prompt, max_new_tokens=1024)
         parsed = self.llm.extract_json(response.text)
 
@@ -140,10 +135,6 @@ class QueryDecomposerAgent:
             if len(chunks) <= 1:
                 chunks = [question.strip()]
             sub_questions = chunks
-
-        # Do NOT strip hop placeholders here — <answer of hop N> is structurally
-        # important for the reasoner and must be preserved in the state.
-        # The query builder resolves placeholders to descriptive text before embedding.
 
         if not relation_sequence:
             relation_sequence = ["related_to" for _ in sub_questions]

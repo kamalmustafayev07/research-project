@@ -110,13 +110,9 @@ class RetrievalConfig:
     reranker_negatives_per_positive: int = 3
     reranker_max_train_examples: int = 1200
     reranker_epochs: int = 12
-    # Entity-first retrieval: blend for dense (legacy combine); stricter retrievals use retrieval_semantic_blend.
     entity_combined_score_weight: float = 0.72
-    # Tiny tie-breaker from FAISS similarity after hard entity filter (must stay low vs entity terms).
-    retrieval_semantic_blend: float = 0.08
-    # On critic-driven retry, reduce semantic influence further.
+    retrieval_semantic_blend: float = 0.08  # weak dense tie-break after entity filter
     retrieval_semantic_blend_retry: float = 0.03
-    # Initial FAISS candidate pool multiplier before hard entity filter.
     retrieval_dense_pool_multiplier: int = 4
 
 

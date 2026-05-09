@@ -1,27 +1,6 @@
-"""Hop-level safety utilities for multi-hop question answering.
+"""Hop memory, retrieval query shaping, reasoner guard text, and hop answer verification.
 
-This module provides the core state machine and verification primitives the
-pipeline uses to keep multi-hop reasoning consistent across stages:
-
-1. ``HopMemory`` / ``HopRecord`` — persistent, immutable-subject state for each
-   hop. ``main_entity`` is set when the hop is created and never rewritten by
-   later answer attempts; this is what stops the reasoner from regressing from
-   hop ``k`` back to hop ``k-1``.
-2. ``build_retrieval_query`` — chain-anchored retrieval query construction.
-3. ``get_reasoner_prompt`` — structured prompt that names the active sub-
-   question, subject and relation and enumerates the prior-hop answers the
-   reasoner is forbidden to repeat.
-4. ``verify_hop_answer`` — relation-conditioned, type-checked verifier with
-   explicit regression detection against prior-hop subjects and answers.
-
-Plus serialisation helpers (``hop_memory_to_dict`` / ``hop_memory_from_dict``)
-so the LangGraph state can carry the structure across nodes.
-
-The implementation is intentionally general and contains no domain-specific
-entities, benchmark patterns, or hard-coded examples. Type inference and
-relation classification both fall back to ``Unknown`` rather than guessing,
-so the verifier accepts valid short answers (``"Oxford"``, ``"France"``)
-instead of rejecting them as ambiguous.
+Hop subjects stay fixed after creation (stops regressing to earlier hops). Includes dict serde for LangGraph state.
 """
 
 from __future__ import annotations
@@ -491,11 +470,9 @@ def _expected_answer_type(relation: str, subquestion_text: str) -> EntityType:
     return "Unknown"
 
 
-# Linguistic cues for fine-grained answer granularity. The lists are intentionally
-# small, language-only patterns -- they describe how a question phrases a finer
-# subtype, not which entities qualify. No entity database, no benchmark patterns.
+# question phrasing -> answer granularity (no entity lists)
 _GRANULARITY_QUESTION_CUES: tuple[tuple[str, tuple[str, ...]], ...] = (
-    # (granularity_label, sub-question phrases that imply this granularity)
+    # (label, subq phrases)
     ("City",       ("which city", "what city", "in which city", "in what city",
                     "name of the city", "city was", "city is", "city in which")),
     ("Country",    ("which country", "what country", "in which country",
@@ -634,18 +611,11 @@ def _infer_entity_type(surface: str) -> EntityType:
     if _looks_like_country(text):
         return "Location"
 
-    # Multi-token title-cased spans are usually entities; this fallback keeps the
-    # verifier permissive while still catching explicit location/org markers above.
     tokens = [t for t in text.split() if t]
     if len(tokens) >= 2 and all(t[:1].isupper() for t in tokens if t[0].isalpha()):
         return "Person"
 
     return "Unknown"
-
-
-# ---------------------------------------------------------------------------
-# Public helpers used by the LangGraph pipeline
-# ---------------------------------------------------------------------------
 
 
 _VALID_ENTITY_TYPES: frozenset[str] = frozenset(
@@ -664,11 +634,7 @@ _VALID_ENTITY_TYPES: frozenset[str] = frozenset(
 
 
 def expected_answer_type(relation: str, subquestion_text: str) -> EntityType:
-    """Public wrapper around the relation/wording-based type inference.
-
-    Exposed so the critic and reasoner can derive the expected hop output type
-    without depending on an internal helper.
-    """
+    """Expected entity type for this hop (relation + subq wording)."""
     return _expected_answer_type(relation, subquestion_text)
 
 

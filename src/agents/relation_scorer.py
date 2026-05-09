@@ -1,42 +1,4 @@
-"""LLM-driven relation prototype scorer for hop-aware passage ranking.
-
-This module replaces the static relation-keyword tables (formerly in
-``src.graph.entity_scoring`` and ``src.graph.retrieval_query_builder``) with a
-dynamic, LLM-generated *relation prototype* for each active hop.
-
-Why?
-----
-The previous approach scored passage relevance to a hop using a hand-curated
-``{relation_label: keywords}`` dictionary -- e.g. ``"born_in" ->
-("born", "birthplace", "native", ...)``. That design has two structural
-problems:
-
-1. It cannot adapt to new relations or to nuances introduced by *prior hops*.
-   A "born_in" hop where the prior hop established a *founder* should be
-   scored differently from a "born_in" hop where the prior hop established a
-   *composer*: the surrounding cues differ (entrepreneur biographies vs
-   musician biographies).
-
-2. The keyword table is not universal. It only covers the relation labels we
-   thought of in advance. A new pipeline running over a domain we did not
-   anticipate (medical, legal, ecological, ...) gets *zero* relation signal.
-
-The relation-prototype design solves both problems generically:
-
-- One LLM call per (hop, prior-hop chain) tuple produces, with prior-hop
-  context, a short structured prototype: a one-sentence description of an
-  ideal answer-bearing passage, a list of cue phrases likely to appear in
-  such a passage, and an "answer pattern" describing the answer's surface
-  form. The LLM is the only knowledge source -- no static tables.
-
-- Per-passage scoring uses the dynamic cues (substring/regex match) so it
-  remains cheap. The signal is fully contextualised because the cues come
-  from the LLM and are conditioned on the active subject, relation, and the
-  full hop history.
-
-The LLM call is cached on the pipeline state per hop_index, so retries
-of the same hop reuse the prototype rather than regenerating it.
-"""
+"""Per-hop LLM relation prototype (cues + focus query) — contextual alternative to static relation keyword tables. Cached per hop_index."""
 
 from __future__ import annotations
 
